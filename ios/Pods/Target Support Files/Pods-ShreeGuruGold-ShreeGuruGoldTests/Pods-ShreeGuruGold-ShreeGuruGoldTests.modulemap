@@ -1,0 +1,6 @@
+module Pods_ShreeGuruGold_ShreeGuruGoldTests {
+  umbrella header "Pods-ShreeGuruGold-ShreeGuruGoldTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

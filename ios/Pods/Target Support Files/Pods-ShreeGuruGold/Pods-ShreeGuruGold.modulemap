@@ -1,0 +1,6 @@
+module Pods_ShreeGuruGold {
+  umbrella header "Pods-ShreeGuruGold-umbrella.h"
+
+  export *
+  module * { export * }
+}
