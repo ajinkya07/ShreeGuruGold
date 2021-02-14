@@ -1,5 +1,5 @@
 export const strings = {
-  appName: 'Jewel Mart',
+  appName: 'Shree Guru Gold',
   login: 'Log In',
   forgotPassText: 'Forgot Login Details?',
   forgotPassLink: 'Get Help',

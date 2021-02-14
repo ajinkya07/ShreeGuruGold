@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, { useState, Component } from 'react';
 import {
   View,
   Text,
@@ -24,9 +24,9 @@ import {
   Toast,
 } from 'native-base';
 import IconPack from '@login/IconPack';
-import {color} from '@values/colors';
-import {OTPregisterRequest} from '@register/RegisterAction';
-import {connect} from 'react-redux';
+import { color } from '@values/colors';
+import { OTPregisterRequest } from '@register/RegisterAction';
+import { connect } from 'react-redux';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -39,8 +39,10 @@ import {
   validatePassword,
   validateUserName,
 } from '@values/validate';
+import { strings } from '@values/strings'
 
-const {width, height} = Dimensions.get('window');
+
+const { width, height } = Dimensions.get('window');
 
 class Register extends React.Component {
   constructor(props) {
@@ -56,6 +58,8 @@ class Register extends React.Component {
       isPassword: false,
       mobileNo: '',
       isMobile: false,
+      gst_name: '',
+      isGst_Name: false,
       successRegisterVersion: 0,
       errorRegisterVersion: 0,
     };
@@ -63,11 +67,12 @@ class Register extends React.Component {
     this.mobileRef = React.createRef();
     this.emailRef = React.createRef();
     this.organisationRef = React.createRef();
+    this.gst_nameRef = React.createRef();
     this.passwordRef = React.createRef();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {successRegisterVersion, errorRegisterVersion} = nextProps;
+    const { successRegisterVersion, errorRegisterVersion } = nextProps;
     let newState = null;
 
     if (successRegisterVersion > prevState.successRegisterVersion) {
@@ -86,7 +91,7 @@ class Register extends React.Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const {OTPregisterData} = this.props;
+    const { OTPregisterData } = this.props;
 
     if (this.state.successRegisterVersion > prevState.successRegisterVersion) {
       if (OTPregisterData.otp != '') {
@@ -98,6 +103,7 @@ class Register extends React.Component {
           emailId: this.state.emailId,
           organisation: this.state.organisation,
           fullName: this.state.fullName,
+          gst_name: this.state.gst_name
         });
       } else {
         this.showToast('Please contact admin', 'danger');
@@ -108,7 +114,7 @@ class Register extends React.Component {
     }
   }
 
-  onInputChanged = ({inputKey, isValid, value}) => {
+  onInputChanged = ({ inputKey, isValid, value }) => {
     let validationKey = '';
     switch (inputKey) {
       case 'fullName':
@@ -125,6 +131,10 @@ class Register extends React.Component {
 
       case 'organisation':
         validationKey = 'isOrganisation';
+        break;
+
+      case 'gst_name':
+        validationKey = 'isGst_Name';
         break;
 
       case 'password':
@@ -153,6 +163,8 @@ class Register extends React.Component {
       isOrganisation,
       emailId,
       isEmail,
+      gst_name,
+      isGst_Name
     } = this.state;
 
     let error = '';
@@ -179,6 +191,10 @@ class Register extends React.Component {
       }
       if (organisation === '') {
         error = 'Please enter organisation name';
+        throw new Error();
+      }
+      if (gst_name === '') {
+        error = 'Please enter GST number';
         throw new Error();
       }
       if (password == '') {
@@ -216,7 +232,7 @@ class Register extends React.Component {
   };
 
   render() {
-    const {fullName, emailId, organisation, mobileNo, password} = this.state;
+    const { fullName, emailId, organisation, gst_name, mobileNo, password } = this.state;
 
     return (
       <Container>
@@ -228,7 +244,7 @@ class Register extends React.Component {
                 ios: -100,
                 android: 500,
               })}
-              style={{flex: 1}}>
+              style={{ flex: 1 }}>
               <Header style={styles.headerStyle}>
                 <Left>
                   <TouchableOpacity
@@ -250,7 +266,7 @@ class Register extends React.Component {
                     style={{
                       alignItems: 'center',
                       marginTop: hp(4),
-                      height: hp(15),
+                      height: hp(10),
                     }}>
                     <Text
                       style={{
@@ -260,7 +276,7 @@ class Register extends React.Component {
                         fontSize: 22,
                         color: '#fff',
                       }}>
-                      SHREE GURU GOLD
+                      {strings.appName}
                     </Text>
                   </View>
                   <LoginFields
@@ -317,6 +333,20 @@ class Register extends React.Component {
                     placeholderTextColor="#ffffff"
                     Icon={IconPack.ORGANISATION}
                     textInputRef={this.organisationRef}
+                    onSubmitEditing={() => this.gst_nameRef.current.focus()}
+                  />
+                  <LoginFields
+                    value={gst_name ? gst_name : null}
+                    type="gst_name"
+                    inputKey="gst_name"
+                    placeholder="GST number"
+                    maxLength={15}
+                    minLength={15}
+                    onChangeText={this.onInputChanged}
+                    returnKeyType="next"
+                    placeholderTextColor="#ffffff"
+                    Icon={IconPack.ORGANISATION}
+                    textInputRef={this.gst_nameRef}
                     onSubmitEditing={() => this.passwordRef.current.focus()}
                   />
                   <LoginFields
@@ -360,7 +390,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
-  flex: {flex: 1},
+  flex: { flex: 1 },
   buttonStyle: {
     marginTop: 30,
     marginBottom: 50,
@@ -397,7 +427,7 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {OTPregisterRequest},
+  { OTPregisterRequest },
 )(Register);
 
 class LoginFields extends Component {
@@ -448,8 +478,8 @@ class LoginFields extends Component {
           break;
       }
     }
-    this.setState({isValid, text});
-    onChangeText && onChangeText({inputKey, isValid, value: text, inputId});
+    this.setState({ isValid, text });
+    onChangeText && onChangeText({ inputKey, isValid, value: text, inputId });
   };
 
   setSecureInput = secureInput => {
@@ -475,7 +505,7 @@ class LoginFields extends Component {
       textInputRef,
       onSubmitEditing,
     } = this.props;
-    const {isPasswordField, secureInput} = this.state;
+    const { isPasswordField, secureInput } = this.state;
 
     return (
       <View
@@ -575,7 +605,7 @@ const loginFieldsStyles = StyleSheet.create({
 });
 
 //-------------ActionButtonCommon-----------//
-const ActionButtonRounded = ({title, onButonPress, containerStyle}) => {
+const ActionButtonRounded = ({ title, onButonPress, containerStyle }) => {
   return (
     <TouchableOpacity
       onPress={() => {

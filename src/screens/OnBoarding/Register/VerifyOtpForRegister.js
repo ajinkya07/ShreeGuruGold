@@ -32,7 +32,9 @@ class VerifyOtpForRegister extends React.Component {
     const email = this.props.route.params.emailId;
     const org = this.props.route.params.organisation;
     const fullName = this.props.route.params.fullName;
+    const gst_name = this.props.route.params.gst_name;
 
+    console.log("gst_name", gst_name);
 
     this.state = {
       finalCode: '',
@@ -43,6 +45,7 @@ class VerifyOtpForRegister extends React.Component {
       receivedFullName: fullName,
       receivedEmail: email,
       receivedOrg: org,
+      receivedGST: gst_name,
       successOTPRegisterVersion: 0,
       errorOTPRegisterVersion: 0,
       successRegisterVersion: 0,
@@ -120,14 +123,10 @@ class VerifyOtpForRegister extends React.Component {
   }
 
   saveCode = (code) => {
-    console.log("code", code);
-
     this.setState({ code: code })
   }
 
   finalEnteredOtp = (finalCode) => {
-    console.log("finalCode", finalCode);
-
     this.setState({ finalCode: finalCode })
   }
 
@@ -151,11 +150,12 @@ class VerifyOtpForRegister extends React.Component {
   verifyOtpForRegister = () => {
     const {
       finalCode, receivedMobile, receivedOtp, receivedPassword,
-      receivedFullName, receivedOrg, receivedEmail
+      receivedFullName, receivedOrg, receivedEmail,
+      receivedGST
     } = this.state;
 
     console.log("this.state", this.state);
-
+    console.log("receivedGST", receivedGST);
 
     let error = "";
     try {
@@ -178,6 +178,8 @@ class VerifyOtpForRegister extends React.Component {
         data.append('organization', receivedOrg);
         data.append('password', receivedPassword);
         data.append('reg_source', reg_source);
+        data.append('gst_name', receivedGST);
+
 
         this.props.registerAfterOtpRequest(data)
       }

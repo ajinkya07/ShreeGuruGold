@@ -72,7 +72,6 @@ export function getProductDetails(data) {
 
 
 export function addToCartFromDetails(data) {
-
   return dispatch => {
     dispatch(showLoadingIndicator(ADD_TO_CART_FROM_DETAILS_DATA));
 

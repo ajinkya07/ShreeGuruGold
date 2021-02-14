@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
-import {color} from '@values/colors';
-import {View, Image, Platform, Text} from 'react-native';
+import React, { Component } from 'react';
+import { color } from '@values/colors';
+import { View, Image, Platform, Text } from 'react-native';
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Header, Left, Body, Right, Button, Title} from 'native-base';
+import { Header, Left, Body, Right, Button, Title } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Theme} from '@values/Theme';
+import { Theme } from '@values/Theme';
+import { strings } from '@values/strings'
 
 class _Header extends Component {
   constructor(props) {
@@ -41,37 +42,36 @@ class _Header extends Component {
           <Button transparent>
             {showBack ? (
               <Image
-                style={{height: hp(2.5), width: hp(2.5)}}
+                style={{ height: hp(2.5), width: hp(2.5) }}
                 source={require('../../assets/image/Account/back_button.png')}
               />
             ) : (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 2,
-                  marginBottom: 2,
-                  width: 155,
-                }}>
-                <Image
-                  source={require('../../assets/Home-Icon.png')}
-                  style={{height: 38, width: 38}}
-                  resizeMode={'contain'}
-                />
-
-                <Text
+                <View
                   style={{
-                    fontSize: 20,
-                    fontFamily: 'Roboto',
-                    fontWeight: 'bold',
-                    left: 5,
-                    color: '#fff',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginVertical: 2,
+                    width: 155,
                   }}>
-                  ShreeGuruGold
-                </Text>
-              </View>
-            )}
+                  <Image
+                    source={require('../../assets/Home-Icon.png')}
+                    style={{ height: 35, width: 35 }}
+                    resizeMode={'contain'}
+                  />
+
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontFamily: 'Roboto',
+                      fontWeight: 'bold',
+                      left: 5,
+                      color: '#fff',
+                    }}>
+                    {strings.appName}
+                  </Text>
+                </View>
+              )}
           </Button>
         </Left>
 
@@ -81,7 +81,7 @@ class _Header extends Component {
           {showSearch ? (
             <Button transparent onPress={onSearchPress}>
               <Image
-                style={{height: hp(3.2), width: hp(3.2)}}
+                style={{ height: hp(3.2), width: hp(3.2) }}
                 source={require('../../assets/image/BlueIcons/Search-White.png')}
               />
             </Button>
@@ -90,7 +90,7 @@ class _Header extends Component {
           {showCalling ? (
             <Button transparent onPress={onCallingPress}>
               <Image
-                style={{height: hp(3.5), width: hp(3.5)}}
+                style={{ height: hp(3.5), width: hp(3.5) }}
                 source={require('../../assets/image/BlueIcons/Mobile.png')}
               />
             </Button>
@@ -100,7 +100,7 @@ class _Header extends Component {
             <Button transparent onPress={onNotificationPress}>
               <Image
                 resizeMode={'cover'}
-                style={{height: hp(3.6), width: hp(3.6), marginRight: wp(0)}}
+                style={{ height: hp(3.6), width: hp(3.6), marginRight: wp(0) }}
                 source={require('../../assets/image/BlueIcons/Notification-White.png')}
               />
             </Button>

@@ -36,6 +36,10 @@ import _CustomHeader from '@customHeader/_CustomHeader';
 import { parseInt } from 'lodash';
 import { getTotalCartCount } from '@homepage/HomePageAction';
 import Theme from '../../values/Theme';
+import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
+
+
+
 const qs = require('query-string');
 
 var userId = '';
@@ -483,6 +487,9 @@ class ProductDetails extends React.Component {
 
     let addCartData = new FormData();
 
+    console.log("length", length);
+    console.log("weight", weight);
+
     let adData = JSON.stringify([
       {
         user_id: userId.toString(),
@@ -496,8 +503,8 @@ class ProductDetails extends React.Component {
         device_type: Platform.OS === 'ios' ? 'ios' : 'android',
         remarks: remark,
         size: d.key_value[2],
-        weight: weight ? parseInt(weight) : '',
-        length: length ? parseInt(length) : '',
+        weight: weight ? weight : '',
+        length: length ? length : '',
       },
     ]);
 
@@ -509,6 +516,8 @@ class ProductDetails extends React.Component {
     const { length, count, remark, weight, karatValue } = this.state;
 
     const addWishData = new FormData();
+    console.log("length", length);
+    console.log("weight", weight);
 
     let wshData = JSON.stringify([
       {
@@ -523,13 +532,24 @@ class ProductDetails extends React.Component {
         device_type: Platform.OS === 'ios' ? 'ios' : 'android',
         remarks: remark,
         size: d.key_value[2],
-        weight: parseInt(weight),
-        length: parseInt(length),
+        weight: weight,
+        length: length,
       },
     ]);
     addWishData.append('Add_To_Cart', wshData);
     this.props.addToCartFromDetails(addWishData);
   };
+
+
+  handleWeightChange = newText =>
+    this.setState({
+      weight: newText,
+    });
+
+  handleLengthChange = newText =>
+    this.setState({
+      length: newText,
+    });
 
 
   render() {
@@ -733,6 +753,7 @@ class ProductDetails extends React.Component {
                                   },
                                 )}
                               </View>
+
                             </View>
                           </View>
                         </>
@@ -750,6 +771,28 @@ class ProductDetails extends React.Component {
                         Customizable Detail
                       </Text>
 
+
+                      <View style={{ width: wp(90), marginVertical: 20, marginRight: 10, alignSelf: 'center' }}>
+                        <FloatingLabelTextInput
+                          label="Weight (gm)"
+                          value={this.state.weight}
+                          onChangeText={(value) => this.handleWeightChange(value)}
+                          width="100%"
+                          keyboardType="numeric"
+                          returnKeyType="done"
+                        />
+
+                        <FloatingLabelTextInput
+                          label="Length (Inches)"
+                          value={this.state.length}
+                          onChangeText={(value) => this.handleLengthChange(value)}
+                          width="100%"
+                          keyboardType="numeric"
+                          returnKeyType="done"
+                        />
+                      </View>
+
+
                       {/* Melting */}
                       <View
                         style={{
@@ -760,62 +803,14 @@ class ProductDetails extends React.Component {
                         <View style={styles.customizableContainer}>
                           <Text
                             style={{
-                              ...Theme.ffLatoRegular15,
+                              ...Theme.ffLatoRegular14,
                               color: '#000000',
                             }}>
                             Melting
                           </Text>
                         </View>
                         {this.PickerDropDown()}
-
-                        {/* <PickerDropDown /> */}
                       </View>
-
-                      {/* WEIGHT */}
-
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginLeft: hp(3),
-                          justifyContent: 'space-between',
-                        }}>
-                        <View style={styles.customizableContainer}>
-                          <Text
-                            style={{
-                              ...Theme.ffLatoRegular15,
-                              color: '#000000',
-                            }}>
-                            Weight
-                          </Text>
-                        </View>
-                        <View>
-                          {this.PickerWeightDropDown(weightArray)}
-                        </View>
-                      </View>
-
-                      {/* LENGTH */}
-
-                      {this.state.length !== '' &&
-                        <View
-                          style={{
-                            flexDirection: 'row',
-                            marginLeft: hp(3),
-                            justifyContent: 'space-between',
-                          }}>
-                          <View style={styles.customizableContainer}>
-                            <Text
-                              style={{
-                                ...Theme.ffLatoRegular15,
-                                color: '#000000',
-                              }}>
-                              Length
-                          </Text>
-                          </View>
-                          <View>
-                            {this.PickerLengthDropDown(lengthArray)}
-                          </View>
-                        </View>
-                      }
 
 
                       <View style={styles.bottomTextContainer}>
@@ -829,8 +824,8 @@ class ProductDetails extends React.Component {
                           weight.{' '}
                         </Text>
                       </View>
-                      {/* Footer buttons */}
 
+                      {/* Footer buttons */}
                       <View
                         style={{
                           backgroundColor: headerTheme ? '#' + headerTheme : '#303030',

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 import {
   Text,
   View,
@@ -28,12 +28,12 @@ import IconPack from '@login/IconPack';
 import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import ImagePicker from 'react-native-image-crop-picker';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
-import {color} from '@values/colors';
-import {submitCustomOrder} from '@customOrder/CustomOrderAction';
+import { color } from '@values/colors';
+import { submitCustomOrder } from '@customOrder/CustomOrderAction';
 import Theme from '../../values/Theme';
-import {Picker} from '@react-native-community/picker';
+import { Picker } from '@react-native-community/picker';
 
 var BUTTONS = ['Take Photo', 'Choose from Library', 'Cancel'];
 var DESTRUCTIVE_INDEX = 2;
@@ -42,7 +42,7 @@ var CANCEL_INDEX = 2;
 var userId = '';
 var karatIds = [];
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class Customizable extends Component {
   constructor(props) {
@@ -84,7 +84,7 @@ class Customizable extends Component {
   }
 
   componentDidMount = async () => {
-    const {allParameterData} = this.props;
+    const { allParameterData } = this.props;
 
     if (allParameterData && allParameterData.melting) {
       this.setState({
@@ -133,7 +133,7 @@ class Customizable extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const {customOrderData, allParameterData} = this.props;
+    const { customOrderData, allParameterData } = this.props;
 
     if (
       this.state.successCustomOrderVersion > prevState.successCustomOrderVersion
@@ -273,7 +273,7 @@ class Customizable extends Component {
       includeBase64: true,
       hideBottomControls: true,
     }).then(image => {
-      this.setState({imageUrl: image.path, imageData: image});
+      this.setState({ imageUrl: image.path, imageData: image });
     });
   };
 
@@ -285,7 +285,7 @@ class Customizable extends Component {
       cropping: false,
       hideBottomControls: true,
     }).then(image => {
-      this.setState({imageUrl: image.path, imageData: image});
+      this.setState({ imageUrl: image.path, imageData: image });
     });
   };
 
@@ -331,12 +331,14 @@ class Customizable extends Component {
       this.showToast('Please enter length', 'danger');
     } else if (!quantity) {
       this.showToast('Please enter quantity', 'danger');
-    } else if (!date) {
-      this.showToast('Please select delivery date', 'danger');
-    } else if (date != '' && date1 > date2) {
-      // here showing alert hence > , in cart hitting api hence <
-      alert('Date must be 10 days greater');
-    } else if (!imageUrl) {
+    }
+    //  else if (!date) {
+    //   this.showToast('Please select delivery date', 'danger');
+    // } else if (date != '' && date1 > date2) {
+    //   // here showing alert hence > , in cart hitting api hence <
+    //   alert('Date must be 10 days greater');
+    // }
+    else if (!imageUrl) {
       this.showToast('Please add image', 'danger');
     } else {
       const data = new FormData();
@@ -371,8 +373,8 @@ class Customizable extends Component {
   };
 
   PickerDropDown = () => {
-    const {karatValue} = this.state;
-    const {allParameterData} = this.props;
+    const { karatValue } = this.state;
+    const { allParameterData } = this.props;
 
     let list = allParameterData && allParameterData.melting;
 
@@ -383,22 +385,22 @@ class Customizable extends Component {
             <Icon
               type="FontAwesome"
               name="chevron-circle-down"
-              style={{fontSize: 20}}
+              style={{ fontSize: 20 }}
             />
           }
           mode="dropdown"
-          style={{height: 40, width: wp(55)}}
+          style={{ height: 40, width: wp(55) }}
           selectedValue={karatValue}
           onValueChange={(itemValue, itemIndex) =>
             this.setSelectedValue(itemValue)
           }>
           {list && list.length > 0
             ? list.map((listItem, index) => (
-                <Picker.Item
-                  label={listItem.melting_name.toString()}
-                  value={parseInt(`${listItem.id}`)}
-                />
-              ))
+              <Picker.Item
+                label={listItem.melting_name.toString()}
+                value={parseInt(`${listItem.id}`)}
+              />
+            ))
             : null}
         </Picker>
       </View>
@@ -421,19 +423,19 @@ class Customizable extends Component {
   };
 
   render() {
-    const {isDateTimePickerVisible} = this.state;
-    const {allParameterData} = this.props;
+    const { isDateTimePickerVisible } = this.state;
+    const { allParameterData } = this.props;
 
     let headerTheme = allParameterData.theme_color
       ? allParameterData.theme_color
       : '';
 
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.select({ios: 110, android: -140})}
-          style={{flex: 1}}>
+          keyboardVerticalOffset={Platform.select({ ios: 110, android: -140 })}
+          style={{ flex: 1 }}>
           <ScrollView showsVerticalScrollIndicator={true}>
             <View
               style={{
@@ -459,7 +461,7 @@ class Customizable extends Component {
                     height: hp(30),
                     resizeMode: 'contain',
                   }}
-                  source={{uri: this.state.imageUrl}}
+                  source={{ uri: this.state.imageUrl }}
                 />
               )}
             </View>
@@ -475,7 +477,7 @@ class Customizable extends Component {
                   borderTopRightRadius: 20,
                   backgroundColor: '#ffffff',
                 }}>
-                <View style={{marginHorizontal: 16, marginTop: 20}}>
+                <View style={{ marginHorizontal: 16, marginTop: 20 }}>
                   <FloatingLabelTextInput
                     label="Gross Weight (gm)"
                     value={this.state.grossWeight}
@@ -577,7 +579,7 @@ class Customizable extends Component {
                       marginTop: 10,
                     }}>
                     <View
-                      style={{alignItems: 'center', justifyContent: 'center'}}>
+                      style={{ alignItems: 'center', justifyContent: 'center' }}>
                       <Text
                         style={{
                           ...Theme.ffLatoRegular16,
@@ -632,7 +634,7 @@ class Customizable extends Component {
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={{position: 'absolute', top: height / 3.8, right: wp(6)}}>
+        <View style={{ position: 'absolute', top: height / 3.8, right: wp(6) }}>
           <TouchableOpacity onPress={() => this.showActionSheet()}>
             <Image
               style={{
@@ -655,7 +657,7 @@ class Customizable extends Component {
               borderTopLeftRadius: 16,
               borderTopRightRadius: 16,
             }}>
-            <Text style={{fontSize: 16, color: 'white'}}>SUBMIT ORDER</Text>
+            <Text style={{ fontSize: 16, color: 'white' }}>SUBMIT ORDER</Text>
           </View>
         </TouchableOpacity>
 
@@ -666,7 +668,7 @@ class Customizable extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
+  container: { flex: 1 },
   textWrapper: {
     height: hp('90%'),
     width: wp('80%'),
@@ -696,5 +698,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {submitCustomOrder},
+  { submitCustomOrder },
 )(Customizable);
