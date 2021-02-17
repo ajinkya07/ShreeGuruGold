@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
 MERGED from [:react-native-gesture-handler] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-community_async-storage] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_checkbox] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-community/checkbox/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-9:12
@@ -106,25 +106,25 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/
 MERGED from [androidx.print:print:1.0.0] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/55404569faf62b94c59297bb7027e8ce/print-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.fresco:fbcore:2.0.0] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/8f5e9c03412f94dfe41f2900a55ef82a/jetified-fbcore-2.0.0/AndroidManifest.xml:2:1-9:12
 MERGED from [me.leolin:ShortcutBadger:1.1.22] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/b7cd27410d3ac709f38b7b5effa49e97/ShortcutBadger-1.1.22/AndroidManifest.xml:2:1-52:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
-INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
+INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
 	package
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:2:3-30
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:70-97
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-34:12
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:1-21:12
 		INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:1:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:4:5-67
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:3:3-65
 MERGED from [:react-native-firebase_messaging] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:11:5-67
 MERGED from [:react-native-firebase_messaging] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:11:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/b5b75613990a2d3028f4ebe73e04a62b/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:26:5-67
@@ -144,33 +144,33 @@ MERGED from [com.google.android.gms:play-services-measurement-impl:17.6.0] /User
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.6.0] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/72e0b1e872f6e3e6b8aa0974b1051dc7/play-services-measurement-sdk-api-17.6.0/AndroidManifest.xml:23:5-67
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.6.0] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/72e0b1e872f6e3e6b8aa0974b1051dc7/play-services-measurement-sdk-api-17.6.0/AndroidManifest.xml:23:5-67
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:4:22-64
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:3:20-62
 uses-permission#android.permission.CAMERA
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:5:5-64
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:4:3-62
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:5:22-62
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:4:20-60
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:6:5-81
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:5:3-79
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:6:22-78
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:5:20-76
 uses-permission#android.permission.VIBRATE
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:7:5-66
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:6:3-64
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:7:22-63
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:6:20-61
 uses-feature#android.hardware.camera
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:3-83
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:8:3-83
 	android:required
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:56-80
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:8:56-80
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:17-55
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:8:17-55
 uses-feature#android.hardware.camera.front
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:10:3-89
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:3-89
 	android:required
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:10:62-86
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:62-86
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:10:17-61
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:9:17-61
 application
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:5-32:19
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:3-19:17
 MERGED from [:react-native-community_datetimepicker] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-community/datetimepicker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:11:5-20
 MERGED from [:react-native-community_datetimepicker] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-community/datetimepicker/android/build/intermediates/library_manifest/release/AndroidManifest.xml:11:5-20
 MERGED from [:react-native-firebase_messaging] /Users/ajinkya/Desktop/ShreeGuruGold/node_modules/@react-native-firebase/messaging/android/build/intermediates/library_manifest/release/AndroidManifest.xml:15:5-43:19
@@ -246,43 +246,45 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/ajin
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.1.0] /Users/ajinkya/.gradle/caches/transforms-2/files-2.1/9a4658afade2e57b9a640b6674c28496/core-1.1.0/AndroidManifest.xml:24:18-86
 	android:label
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:14:7-39
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:48-80
+	android:roundIcon
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:116-161
 	android:icon
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:15:7-41
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:81-115
 	android:allowBackup
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:16:7-34
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:162-189
 	android:theme
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:17:7-38
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:190-221
 	android:usesCleartextTraffic
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:18:7-42
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:222-257
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:13:7-38
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:11:16-47
 activity#com.shreegurugold.MainActivity
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:20:7-30:18
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:5-17:16
 	android:label
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:22:9-41
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:44-76
 	android:launchMode
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:24:9-40
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:155-186
 	android:windowSoftInputMode
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:25:9-51
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:187-229
 	android:configChanges
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:23:9-86
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:77-154
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:21:9-37
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:12:15-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:26:9-29:25
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:13:7-16:23
 action#android.intent.action.MAIN
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:27:13-65
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:14:9-61
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:27:21-62
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:14:17-58
 category#android.intent.category.LAUNCHER
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:28:13-73
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:15:9-69
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:28:23-70
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:15:19-66
 activity#com.facebook.react.devsupport.DevSettingsActivity
-ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:31:7-84
+ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:18:5-82
 	android:name
-		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:31:17-81
+		ADDED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml:18:15-79
 uses-sdk
 INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/AndroidManifest.xml

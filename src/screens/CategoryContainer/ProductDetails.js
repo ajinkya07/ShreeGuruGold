@@ -516,8 +516,6 @@ class ProductDetails extends React.Component {
     const { length, count, remark, weight, karatValue } = this.state;
 
     const addWishData = new FormData();
-    console.log("length", length);
-    console.log("weight", weight);
 
     let wshData = JSON.stringify([
       {
@@ -568,7 +566,7 @@ class ProductDetails extends React.Component {
         productDetailsStateData.zoom_image);
 
     let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : ''
-
+    console.log("productDetailsStateData", productDetailsStateData);
 
     return (
       <SafeAreaView style={styles.flex}>
@@ -608,9 +606,10 @@ class ProductDetails extends React.Component {
             >
               <SafeAreaView style={styles.safeAreaViewStyle}>
                 <View style={{ flex: 1 }}>
-                  <View>
-                    {this.carausalView(productDetailsStateData)}
-                  </View>
+                  {productDetailsStateData.image_name && productDetailsStateData.image_name.length > 0 &&
+                    <View>
+                      {this.carausalView(productDetailsStateData)}
+                    </View>}
 
                   <View style={{
                     backgroundColor: headerTheme ? '#' + headerTheme : '#D7D7D7',

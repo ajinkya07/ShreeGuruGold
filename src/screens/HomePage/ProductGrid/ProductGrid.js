@@ -676,7 +676,6 @@ class ProductGrid extends Component {
     let url = urls.imageUrl + 'public/backend/product_images/thumb_image/';
 
     const { isSelectPressed, selectedItem, selectedProducts } = this.state;
-
     return (
       <TouchableOpacity
         onPress={() =>
@@ -691,7 +690,6 @@ class ProductGrid extends Component {
         <View
           style={{
             backgroundColor: color.white,
-            // height: Platform.OS === 'android' ? hp(34) : hp(32),
             width: wp(46),
             marginHorizontal: hp(1),
             borderRadius: 15,
@@ -715,11 +713,19 @@ class ProductGrid extends Component {
                   })
               }
               onLongPress={() => this.showProductImageModal(item)}>
-              <Image
-                style={gridImage}
-                defaultSource={IconPack.APP_LOGO}
-                source={{ uri: url + item.image_name }}
-              />
+              {item.image_name != '' &&
+                <Image
+                  style={gridImage}
+                  defaultSource={IconPack.APP_LOGO}
+                  source={{ uri: url + item.image_name }}
+                />
+              }
+              {item.image_name == '' &&
+                <Image
+                  style={gridImage}
+                  source={IconPack.APP_LOGO}
+                />
+              }
             </TouchableOpacity>
             <View
               style={{
@@ -925,12 +931,22 @@ class ProductGrid extends Component {
               }
               onLongPress={() => this.showProductImageModal(item)}
               style={{ width: '100%' }}>
-              <Image
-                resizeMode="cover"
-                style={gridImage2}
-                defaultSource={IconPack.APP_LOGO}
-                source={{ uri: url + item.image_name }}
-              />
+
+              {item.image_name != '' &&
+                <Image
+                  resizeMode="cover"
+                  style={gridImage2}
+                  defaultSource={IconPack.APP_LOGO}
+                  source={{ uri: url + item.image_name }}
+                />
+              }
+              {item.image_name == '' &&
+                <Image
+                  resizeMode="cover"
+                  style={gridImage2}
+                  source={IconPack.APP_LOGO}
+                />
+              }
             </TouchableOpacity>
 
             <View
@@ -2259,30 +2275,30 @@ class ProductGrid extends Component {
                       width: wp(90),
                     }}
                   />
-                  <Image
-                    source={{
-                      uri: imageUrl + productImageToBeDisplayed.image_name,
-                    }}
-                    defaultSource={IconPack.APP_LOGO}
-                    style={{
-                      height: hp(34),
-                      width: wp(90),
-                      marginTop: hp(0.5),
-                    }}
-                    resizeMode="stretch"
-                  />
-                  {/* <FastImage
-                    style={{
-                      height: hp(34),
-                      width: wp(90),
-                      marginTop: hp(0.5),
-                    }}
-                    source={{
-                      uri: imageUrl + productImageToBeDisplayed.image_name,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-                  />
-                   */}
+
+                  {productImageToBeDisplayed.image_name != '' &&
+                    <Image
+                      source={{ uri: imageUrl + productImageToBeDisplayed.image_name }}
+                      defaultSource={IconPack.APP_LOGO}
+                      style={{
+                        height: hp(34),
+                        width: wp(90),
+                        marginTop: hp(0.5),
+                      }}
+                      resizeMode="stretch"
+                    />}
+
+                  {productImageToBeDisplayed.image_name == '' &&
+                    <Image
+                      source={IconPack.APP_LOGO}
+                      style={{
+                        height: hp(34),
+                        width: wp(90),
+                        marginTop: hp(0.5),
+                      }}
+                      resizeMode="stretch"
+                    />}
+
                 </View>
               </SafeAreaView>
             </Modal>

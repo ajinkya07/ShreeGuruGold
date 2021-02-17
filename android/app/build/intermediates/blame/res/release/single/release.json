@@ -12,6 +12,10 @@
         "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_image_account_bg2.png"
     },
     {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/anim-v21_design_bottom_sheet_slide_in.xml.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/0de090eb085e2927f79d80e53e48fe4a/material-1.1.0/res/anim-v21/design_bottom_sheet_slide_in.xml"
     },
@@ -90,6 +94,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable_mtrl_dropdown_arrow.xml.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/0de090eb085e2927f79d80e53e48fe4a/material-1.1.0/res/drawable/mtrl_dropdown_arrow.xml"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/color_mtrl_card_view_ripple.xml.flat",
@@ -326,6 +334,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-xhdpi-v4_ucrop_ic_done.png.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/2896533cdda4ddc34c448e100e01a69c/ucrop-2.2.6-native/res/drawable-xhdpi-v4/ucrop_ic_done.png"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
@@ -572,6 +584,10 @@
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/d2974ac36bf11b6e048576ef94732df8/appcompat-1.1.0/res/layout/abc_popup_menu_item_layout.xml"
     },
     {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/color_mtrl_filled_stroke_color.xml.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/0de090eb085e2927f79d80e53e48fe4a/material-1.1.0/res/color/mtrl_filled_stroke_color.xml"
     },
@@ -698,6 +714,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-mdpi_src_assets_image_account_rate.png.flat",
         "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_image_account_rate.png"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
@@ -1532,6 +1552,10 @@
         "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/generated/res/react/release/drawable-mdpi/src_assets_image_tabs_cart_grey.png"
     },
     {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable_btn_checkbox_checked_mtrl.xml.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/d2974ac36bf11b6e048576ef94732df8/appcompat-1.1.0/res/drawable/btn_checkbox_checked_mtrl.xml"
     },
@@ -1582,6 +1606,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-xxxhdpi-v4_ucrop_ic_angle.png.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/2896533cdda4ddc34c448e100e01a69c/ucrop-2.2.6-native/res/drawable-xxxhdpi-v4/ucrop_ic_angle.png"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable_abc_cab_background_top_material.xml.flat",
@@ -1842,6 +1870,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xxxhdpi_splash_screen.png.flat",
         "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xxxhdpi/splash_screen.png"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/color_abc_primary_text_material_light.xml.flat",
@@ -2216,6 +2248,10 @@
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/d2974ac36bf11b6e048576ef94732df8/appcompat-1.1.0/res/drawable-hdpi-v4/abc_ic_star_half_black_48dp.png"
     },
     {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-hdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/d2974ac36bf11b6e048576ef94732df8/appcompat-1.1.0/res/drawable-hdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
@@ -2434,6 +2470,10 @@
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/layout_mtrl_picker_header_toggle.xml.flat",
         "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/0de090eb085e2927f79d80e53e48fe4a/material-1.1.0/res/layout/mtrl_picker_header_toggle.xml"
+    },
+    {
+        "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
     },
     {
         "merged": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/res/merged/release/drawable-mdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
