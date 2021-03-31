@@ -27,7 +27,8 @@ export default class _CustomHeader extends Component {
             width: wp(100),
             height: hp(7.4),
             paddingVertical: Platform.OS === 'ios' ? hp(2) : 2,
-            backgroundColor: headerTheme ? '#' + headerTheme : this.props.backgroundColor
+            backgroundColor: color.white
+            // backgroundColor: headerTheme ? '#' + headerTheme : this.props.backgroundColor
           }}>
 
           <Left style={{ flex: 0.25 }}>
@@ -52,13 +53,13 @@ export default class _CustomHeader extends Component {
           </Left>
 
           {this.props.Title && (
-            <Body style={{ flex: 1 }}>
+            <Body style={{ flex: 2 }}>
               <Title
                 style={{
-                  color: '#ffffff',
-                  fontSize: hp(2.6),
+                  color: headerTheme ? '#' + headerTheme : color.black,
+                  fontSize: hp(2.2),
                   fontFamily: 'Lato-Bold',
-                  letterSpacing: 1,
+                  letterSpacing: 2,
                 }}>
                 {this.props.Title ? this.props.Title : ''}
               </Title>
@@ -70,7 +71,7 @@ export default class _CustomHeader extends Component {
             </Body>
           )}
 
-          <Right style={{ flex: 0.65 }}>
+          <Right style={{ flex: 0.95 }}>
             {this.props.RightBtnIcon1 && (
               <Button
                 style={{ marginTop: 8 }}
@@ -81,11 +82,12 @@ export default class _CustomHeader extends Component {
                   style={{
                     height: this.props.rightIconHeight1
                       ? this.props.rightIconHeight1
-                      : hp(3.2),
+                      : hp(3),
                     width: this.props.rightIconWidth1
                       ? this.props.rightIconWidth1
-                      : hp(3.2),
+                      : hp(3),
                   }}
+                  resizeMode='contain'
                 />
               </Button>
             )}
@@ -99,11 +101,12 @@ export default class _CustomHeader extends Component {
                   style={{
                     height: this.props.rightIconHeight2
                       ? this.props.rightIconHeight2
-                      : hp(3.2),
+                      : hp(3),
                     width: this.props.rightIconHeight2
                       ? this.props.rightIconHeight2
-                      : hp(3.2),
+                      : hp(3),
                   }}
+                  resizeMode='contain'
                 />
               </Button>
             )}
@@ -115,7 +118,9 @@ export default class _CustomHeader extends Component {
               </TouchableOpacity>
             )}
           </Right>
+
         </Header>
+
         <View
           style={{
             borderBottomWidth: hp(0.2),

@@ -40,80 +40,70 @@ export default class SubCategoryList extends Component {
         <Animatable.View
           animation="flipInX"
           style={{ paddingTop: hp(0.5), paddingBottom: hp(0.5) }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              flex: 1,
-              marginLeft: hp(2),
-              marginRight: hp(2),
+          <View style={{ flexDirection: 'row', flex: 1, marginHorizontal: hp(2), }}>
+            <View style={{
+              justifyContent: 'flex-start',
+              shadowColor: "#000",
+              backgroundColor: '#ffffff',
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.27,
+              shadowRadius: 4.65,
+              elevation: 6,
+              borderRadius: 10
             }}>
-            <View style={{ flex: 0.25, justifyContent: 'flex-start' }}>
               {item.image_name != '' && <Image
-                style={{
-                  height: hp(10),
-                  width: hp(10),
-                  borderRadius: 10,
-                  borderWidth: 0.4,
-                  borderColor: color.gray,
-                }}
+                style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
                 source={{ uri: baseUrl + item.image_name }}
                 defaultSource={IconPack.APP_LOGO}
               />
               }
               {item.image_name == '' &&
                 <Image
-                  style={{
-                    height: hp(10),
-                    width: hp(10),
-                    borderRadius: 10,
-                    borderWidth: 0.4,
-                    borderColor: color.gray,
-                  }}
+                  style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
                   source={IconPack.APP_LOGO}
+                  resizeMode='contain'
                 />}
             </View>
 
-            <View
-              style={{
-                alignContent: 'center',
-                justifyContent: 'center',
-                flex: 0.7,
-              }}>
-              <_Text
-                numberOfLines={2}
-                fwSmall
-                //textColor={color.white}
-                fsMedium
-                style={{ left: 5, marginRight: hp(3) }}>
-                {item.col_name && capitalizeFirstLetter(item.col_name)}
+            <View style={{ alignContent: 'center', justifyContent: 'center', flex: 0.70 }}>
+              <_Text numberOfLines={2} fwSmall
+                fsMedium style={{ marginRight: hp(3), marginLeft: hp(2) }}>
+                {capitalizeFirstLetter(item.col_name)}
               </_Text>
             </View>
           </View>
-          <View
-            style={{
-              paddingTop: hp(0.8),
-              marginLeft: wp(22),
-              marginRight: wp(3),
-              alignSelf: 'stretch',
-              borderBottomColor: '#D3D3D3',
-              borderBottomWidth: 1,
-            }}
-          />
+
         </Animatable.View>
       </TouchableOpacity>
     );
   };
 
   getProductGridOrNot = data => {
-    console.warn('data==', data);
     if (data.subcategory.length === 0) {
-      console.warn('in if');
       this.props.navigation.navigate('ProductGrid', { gridData: data });
     } else if (data.subcategory.length > 0) {
-      console.warn('in else');
       this.props.navigation.push('SubCategoryList', { subcategory: data });
     }
   };
+
+
+  seperator = () => {
+    return (
+      <View
+        style={{
+          paddingTop: hp(1), marginLeft: wp(23), marginRight: wp(2),
+          alignSelf: 'stretch',
+          borderBottomColor: '#D3D3D3',
+          borderBottomWidth: 1,
+        }}
+      />
+    )
+  }
+
+
 
   render() {
     const { subcategoryData } = this.state;
@@ -142,6 +132,7 @@ export default class SubCategoryList extends Component {
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
             renderItem={({ item, index }) => this.subcategoryView(item, index)}
+            ItemSeparatorComponent={() => this.seperator()}
           />
         </View>
       </SafeAreaView>

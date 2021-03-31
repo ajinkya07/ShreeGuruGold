@@ -1383,28 +1383,26 @@ class ProductGrid extends Component {
   };
 
   LoadMoreData = () => {
-    const { productTotalcount } = this.props;
+    const { productTotalcount, isFetching } = this.props;
     const { gridData } = this.state;
 
-    let count = productTotalcount.count;
+    const count = productTotalcount.count;
 
-    console.log('count ppp', count);
-
-    if (gridData.length !== count && gridData.length < count) {
+    if (gridData.length !== count && gridData.length < count && !isFetching) {
       this.setState(
         {
           page: this.state.page + 1,
         },
         () => this.LoadRandomData(),
       );
-    } else if (gridData.length === count || gridData.length > count) {
+    } else if (gridData.length === count || gridData.length > count && !isFetching) {
       Toast.show({
         text: 'No more products to show',
       });
     }
   };
 
-  LoadRandomData = () => {
+  LoadRandomData = async () => {
     const { categoryData, page, fromExclusive } = this.state;
     const { allParameterData } = this.props;
 
@@ -1421,7 +1419,7 @@ class ProductGrid extends Component {
         data.append('page_no', page);
         data.append('sort_by', '2');
 
-        this.props.getProductSubCategoryData(data);
+        await this.props.getProductSubCategoryData(data);
       }
       if (categoryData && fromExclusive) {
         const excl3 = new FormData();
@@ -1434,53 +1432,13 @@ class ProductGrid extends Component {
         excl3.append('sort_by', '2');
         excl3.append('my_collection_id', categoryData.id);
 
-        this.props.getProductSubCategoryData(excl3);
+        await this.props.getProductSubCategoryData(excl3);
       }
     } else {
       alert(
         'Your access to full category has been expired. Please contact administrator to get access.',
       );
     }
-  };
-
-  footer = () => {
-    return (
-      <View>
-        {!this.props.isFetching && this.state.gridData.length >= 10 ? (
-          <TouchableOpacity onPress={() => this.LoadMoreData()}>
-            <View
-              style={{
-                flex: 1,
-                height: hp(7),
-                width: wp(100),
-                backgroundColor: '#EEF8F7',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{ color: '#0d185c', fontSize: 18, fontWeight: 'bold' }}>
-                Load More
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-        {this.state.clickedLoadMore &&
-          this.props.isFetching &&
-          this.state.gridData.length >= 10 ? (
-            <View
-              style={{
-                flex: 1,
-                height: 40,
-                width: wp(100),
-                backgroundColor: '#EEF8F7',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <ActivityIndicator size="small" color={color.brandColor} />
-            </View>
-          ) : null}
-      </View>
-    );
   };
 
   toggleFilterModal = () => {
@@ -1657,20 +1615,15 @@ class ProductGrid extends Component {
               : collectionName
             }`
           }
-          RightBtnIcon1={require('../../../assets/image/BlueIcons/Search-White.png')}
-          RightBtnIcon2={require('../../../assets/shopping-cart.png')}
-          RightBtnPressOne={() =>
-            this.props.navigation.navigate('SearchScreen')
+          RightBtnIcon1={require('../../../assets/search.png')}
+          RightBtnIcon2={require('../../../assets/cart3.png')}
+          RightBtnPressOne={() => this.props.navigation.navigate('SearchScreen')}
+          RightBtnPressTwo={() => this.props.navigation.navigate('CartContainer', {
+            fromProductGrid: true,
+          })
           }
-          RightBtnPressTwo={() =>
-            this.props.navigation.navigate('CartContainer', {
-              fromProductGrid: true,
-            })
-          }
-          rightIconHeight2={hp(3.5)}
+          rightIconHeight2={hp(3)}
           LeftBtnPress={() => this.props.navigation.goBack()}
-          // LeftBtnPress={() => navigate('Container')}
-          backgroundColor="#19af81"
         />
 
         <View

@@ -201,7 +201,7 @@ class Customizable extends Component {
   handleGrossWeightChange = newText =>
     this.setState({
       grossWeight: newText,
-      netWeight: newText,
+      // netWeight: newText,
     });
 
   handleNetWeightChange = newText =>
@@ -634,6 +634,19 @@ class Customizable extends Component {
           </ScrollView>
         </KeyboardAvoidingView>
 
+        <View style={styles.bottomTextContainer}>
+          <Text
+            style={{
+              ...Theme.ffLatoRegular15,
+              color: '#000000',
+              textAlign: 'left',
+            }}>
+            Note: * There may be 10% variation (+/-) in the actual
+                          weight.{' '}
+          </Text>
+        </View>
+
+
         <View style={{ position: 'absolute', top: height / 3.8, right: wp(6) }}>
           <TouchableOpacity onPress={() => this.showActionSheet()}>
             <Image
@@ -676,6 +689,11 @@ const styles = StyleSheet.create({
   },
   myText: {
     fontSize: hp('15%'),
+  },
+  bottomTextContainer: {
+    marginHorizontal: 10,
+    marginTop: hp(3),
+    marginBottom: hp(3),
   },
 });
 

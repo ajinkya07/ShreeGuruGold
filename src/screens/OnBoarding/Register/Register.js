@@ -279,6 +279,18 @@ class Register extends React.Component {
                       {strings.appName}
                     </Text>
                   </View>
+
+
+                  <View style={{ alignSelf: 'flex-start', marginHorizontal: 22 }}>
+                    <Text style={{
+                      fontFamily: 'Lato-Regular', textAlign: 'center',
+                      letterSpacing: 1, fontSize: 14, color: '#fff',
+                    }}>
+                      All fields are mandatory
+                  </Text>
+                  </View>
+
+
                   <LoginFields
                     value={fullName ? fullName : null}
                     type="fullName"

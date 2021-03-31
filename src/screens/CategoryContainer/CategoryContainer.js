@@ -150,6 +150,19 @@ class CategoryContainer extends Component {
 
   }
 
+  seperator = () => {
+    return (
+      <View
+        style={{
+          paddingTop: hp(1), marginLeft: wp(23), marginRight: wp(2),
+          alignSelf: 'stretch',
+          borderBottomColor: '#D3D3D3',
+          borderBottomWidth: 1,
+        }}
+      />
+    )
+  }
+
 
   render() {
     const { categories, fromSeeMore } = this.state
@@ -184,47 +197,48 @@ class CategoryContainer extends Component {
             data={categories && categories}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => this.seperator()}
             renderItem={({ item, index }) => (
               <TouchableOpacity onPress={() => this.getProductGridOrNot(item)}>
                 <Animatable.View animation="flipInX" style={{ paddingTop: hp(1), paddingBottom: hp(0.5) }}>
-                  <View style={{ flexDirection: 'row', flex: 1, marginLeft: hp(2), marginRight: hp(2) }}>
-                    <View style={{ flex: 0.25, justifyContent: 'flex-start', }}>
+                  <View style={{ flexDirection: 'row', flex: 1, marginHorizontal: hp(2), }}>
+                    <View style={{
+                      justifyContent: 'flex-start',
+                      shadowColor: "#000",
+                      backgroundColor: '#ffffff',
+                      shadowOffset: {
+                        width: 0,
+                        height: 3,
+                      },
+                      shadowOpacity: 0.27,
+                      shadowRadius: 4.65,
+                      elevation: 6,
+                      borderRadius: 10
+                    }}>
                       {item.image_name != '' && <Image
-                        style={{
-                          height: hp(10), width: hp(10), borderRadius: 10,
-                          borderWidth: 0.4, borderColor: color.gray
-                        }}
+                        style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
                         source={{ uri: baseUrl + item.image_name }}
                         defaultSource={IconPack.APP_LOGO}
                       />
                       }
                       {item.image_name == '' &&
                         <Image
-                          style={{
-                            height: hp(10), width: hp(10), borderRadius: 10,
-                            borderWidth: 0.4, borderColor: color.gray
-                          }}
+                          style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
                           source={IconPack.APP_LOGO}
+                          resizeMode='contain'
                         />
                       }
                     </View>
 
                     <View style={{ alignContent: 'center', justifyContent: 'center', flex: 0.70 }}>
                       <_Text numberOfLines={2} fwSmall
-                        fsMedium style={{ marginRight: hp(3), marginLeft: Platform.OS === 'ios' ? hp(1) : 0 }}>
+                        fsMedium style={{ marginRight: hp(3), marginLeft: hp(2) }}>
                         {capitalizeFirstLetter(item.col_name)}
                       </_Text>
                     </View>
+
                   </View>
-                  {index !== 9 &&
-                    <View
-                      style={{
-                        paddingTop: hp(1), marginLeft: wp(22), marginRight: wp(3),
-                        alignSelf: 'stretch',
-                        borderBottomColor: '#D3D3D3',
-                        borderBottomWidth: 1,
-                      }}
-                    />}
+
                 </Animatable.View>
               </TouchableOpacity>
             )

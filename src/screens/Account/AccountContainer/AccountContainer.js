@@ -271,6 +271,7 @@ class AccountContainer extends Component {
     const whatsApp = allParameterData.whatsapp;
     const emailID = allParameterData.email;
     const call = allParameterData.call;
+    const call_us = allParameterData.call_us
 
     const instagram = allParameterData.instagram;
     const facebook = allParameterData.facebook;
@@ -356,7 +357,9 @@ class AccountContainer extends Component {
             <AccountRow
               title="Call / Email Us"
               icon={IconPack.EMAIL}
-              onPress={() => this.showCallEmailModal()}
+              // onPress={() => this.showCallEmailModal()}
+              onPress={() => this.props.navigation.navigate('CustomWebview', { link: call_us, title: 'Call / Email Us' })}
+
             />
             <AccountRow
               title="Social Media"

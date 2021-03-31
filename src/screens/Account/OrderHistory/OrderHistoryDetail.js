@@ -356,15 +356,10 @@ class OrderHistoryDetail extends Component {
         <SafeAreaView style={{ flex: 1, backgroundColor: color.white }}>
           <_CustomHeader
             Title="Order History Details"
-            //  RightBtnIcon1={require('../../../assets/image/BlueIcons/Search-White.png')}
-            RightBtnIcon2={require('../../../assets/image/BlueIcons/Notification-White.png')}
+            RightBtnIcon2={require('../../../assets/bell.png')}
             LeftBtnPress={() => this.props.navigation.goBack()}
-            // RightBtnPressOne={() =>this.props.navigation.navigate('SearchScreen')}
-            RightBtnPressTwo={() =>
-              this.props.navigation.navigate('Notification')
-            }
-            rightIconHeight2={hp(3.5)}
-            backgroundColor="#19af81"
+            RightBtnPressTwo={() => this.props.navigation.navigate('Notification')}
+            rightIconHeight2={hp(3)}
           />
 
           {orderHistoryDetailsData && (

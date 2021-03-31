@@ -537,28 +537,24 @@ class HomePage extends Component {
               marginRight: hp(1),
             }}
             >
-              <View style={{
-                height: hp(18), width: wp(49),
-                backgroundColor: '#070000',
-                opacity: 0.20,
-                position: 'absolute',
-                borderRadius: 8,
-              }}
-              />
+              <View style={{ height: hp(18), width: wp(49), position: 'absolute', }} />
               <ImageBackground
                 source={item.image_name != '' ? { uri: baseUrl + item.image_name } : IconPack.APP_LOGO}
                 imageStyle={{ borderRadius: 8 }}
                 resizeMode={item.image_name != '' ? 'cover' : 'contain'}
                 style={{
                   height: hp(18), width: wp(49),
-                  resizeMode: 'center',
-                  opacity: 0.40,
+                  backgroundColor: '#ffffff',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.27,
+                  shadowRadius: 4.65,
+                  elevation: 6,
+                  borderRadius: 8
                 }} />
-              <View style={{ position: 'absolute', width: wp(48), marginTop: 10, marginLeft: 10 }}>
-                <Text numberOfLines={1} style={{ textAlign: 'center', color: color.white, letterSpacing: 1.6, fontWeight: 'bold', fontSize: 22, }}>
-                  {item.col_name}
-                </Text>
-              </View>
             </View>
           </TouchableOpacity>
         }
@@ -573,31 +569,25 @@ class HomePage extends Component {
           }}
           >
             <TouchableOpacity onPress={() => this.getProductGridOrNot(item)}>
-              <View style={{
-                height: hp(18), width: wp(49),
-                backgroundColor: '#070000',
-                opacity: 0.20,
-                position: 'absolute',
-                borderRadius: 8,
-              }}
-              />
+              <View style={{ height: hp(18), width: wp(49), position: 'absolute', }} />
               <ImageBackground
                 source={item.image_name != '' ? { uri: baseUrl + item.image_name } : IconPack.APP_LOGO}
                 imageStyle={{ borderRadius: 8 }}
                 resizeMode={item.image_name != '' ? 'cover' : 'contain'}
                 style={{
                   height: hp(18), width: wp(49),
-                  resizeMode: 'center',
-                  opacity: 0.40,
+                  backgroundColor: '#ffffff',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.27,
+                  shadowRadius: 4.65,
+                  elevation: 6,
+                  borderRadius: 8
                 }} />
-              <View style={{ position: 'absolute', width: wp(48), marginTop: hp(7), marginLeft: 10 }}>
-                <Text numberOfLines={1} style={{ textAlign: 'center', color: color.white, letterSpacing: 1.6, fontWeight: 'bold', fontSize: 22, }}>
-                  {item.col_name}
-                </Text>
-              </View>
-
             </TouchableOpacity>
-
           </View>
         }
 
@@ -612,28 +602,25 @@ class HomePage extends Component {
               marginRight: hp(1),
             }}
             >
-              <View style={{
-                height: hp(18),
-                width: wp(49),
-                backgroundColor: '#070000',
-                opacity: 0.20, position: 'absolute',
-                borderRadius: 8,
-              }}
-              />
+              <View style={{ height: hp(18), width: wp(49), position: 'absolute', }} />
               <ImageBackground
                 source={item.image_name != '' ? { uri: baseUrl + item.image_name } : IconPack.APP_LOGO}
                 imageStyle={{ borderRadius: 8 }}
                 resizeMode={item.image_name != '' ? 'cover' : 'contain'}
                 style={{
                   height: hp(18), width: wp(49),
-                  resizeMode: 'center',
-                  opacity: 0.40,
+                  backgroundColor: '#ffffff',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.27,
+                  shadowRadius: 4.65,
+                  elevation: 6,
+                  borderRadius: 8
                 }} />
-              <View style={{ position: 'absolute', width: wp(48), marginTop: 10, marginLeft: 10 }}>
-                <Text numberOfLines={1} style={{ textAlign: 'center', color: color.white, letterSpacing: 1.6, fontWeight: 'bold', fontSize: 22, }}>
-                  {item.col_name}
-                </Text>
-              </View>
+
             </View>
           </TouchableOpacity>
         }
@@ -648,15 +635,7 @@ class HomePage extends Component {
             width: wp(49),
           }}
           >
-            <View style={{
-              height: hp(18),
-              width: wp(49),
-              backgroundColor: '#070000',
-              opacity: 0.20,
-              position: 'absolute',
-              borderRadius: 8,
-            }}
-            />
+            <View style={{ height: hp(18), width: wp(49), position: 'absolute', }} />
             <TouchableOpacity onPress={() => this.getProductGridOrNot(item)}>
               <ImageBackground
                 source={item.image_name != '' ? { uri: baseUrl + item.image_name } : IconPack.APP_LOGO}
@@ -664,16 +643,18 @@ class HomePage extends Component {
                 resizeMode={item.image_name != '' ? 'cover' : 'contain'}
                 style={{
                   height: hp(18), width: wp(49),
-                  resizeMode: 'center',
-                  opacity: 0.40,
+                  backgroundColor: '#ffffff',
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.27,
+                  shadowRadius: 4.65,
+                  elevation: 6,
+                  borderRadius: 8
                 }} />
-              <View style={{ position: 'absolute', width: wp(48), marginTop: hp(7), marginLeft: 10 }}>
-                <Text numberOfLines={1} style={{ textAlign: 'center', color: color.white, letterSpacing: 1.6, fontWeight: 'bold', fontSize: 22, }}>
-                  {item.col_name}
-                </Text>
-              </View>
             </TouchableOpacity>
-
           </View>
 
         }

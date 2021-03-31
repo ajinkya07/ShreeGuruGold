@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -19,9 +19,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import _Text from '@text/_Text';
-import {connect} from 'react-redux';
-import {color} from '@values/colors';
-import {urls} from '@api/urls';
+import { connect } from 'react-redux';
+import { color } from '@values/colors';
+import { urls } from '@api/urls';
 import IconPack from '@login/IconPack';
 
 import ProductGridStyle from '@productGrid/ProductGridStyle';
@@ -34,11 +34,11 @@ import {
   getProductTotalCount,
 } from '@productGrid/ProductGridAction';
 
-import {getTotalCartCount} from '@homepage/HomePageAction';
+import { getTotalCartCount } from '@homepage/HomePageAction';
 
-import {Toast, CheckBox} from 'native-base';
+import { Toast, CheckBox } from 'native-base';
 import Modal from 'react-native-modal';
-import {strings} from '@values/strings';
+import { strings } from '@values/strings';
 import FastImage from 'react-native-fast-image';
 import Theme from '../../../values/Theme';
 
@@ -81,8 +81,8 @@ class SearchProductGrid extends Component {
   }
 
   componentDidMount = () => {
-    const {searchByCategoryData} = this.props;
-    const {gridData} = this.state;
+    const { searchByCategoryData } = this.props;
+    const { gridData } = this.state;
 
     if (
       searchByCategoryData &&
@@ -244,7 +244,7 @@ class SearchProductGrid extends Component {
       totalCartCountData,
     } = this.props;
 
-    const {categoryData, page, selectedSortById, gridData} = this.state;
+    const { categoryData, page, selectedSortById, gridData } = this.state;
 
     if (
       this.state.successProductGridVersion > prevState.successProductGridVersion
@@ -271,7 +271,7 @@ class SearchProductGrid extends Component {
         color: 'warning',
         duration: 2500,
       });
-      this.setState({page: 0});
+      this.setState({ page: 0 });
     }
 
     if (
@@ -317,14 +317,14 @@ class SearchProductGrid extends Component {
             );
 
             this.setState(
-              {quantity: addProductToCartData.data.quantity},
+              { quantity: addProductToCartData.data.quantity },
               () => {
                 console.log(JSON.stringify(this.state.gridData));
               },
             );
           } else if (addProductToCartData.data == null) {
             this.state.gridData[dex].quantity = parseInt(0);
-            this.setState({quantity: '0'}, () => {
+            this.setState({ quantity: '0' }, () => {
               console.log(JSON.stringify(this.state.gridData));
             });
           }
@@ -367,7 +367,7 @@ class SearchProductGrid extends Component {
             );
 
             this.setState(
-              {quantity: productAddToCartPlusOneData.data.quantity},
+              { quantity: productAddToCartPlusOneData.data.quantity },
               () => {
                 console.log(JSON.stringify(this.state.gridData));
               },
@@ -441,7 +441,7 @@ class SearchProductGrid extends Component {
 
     let url = urls.imageUrl + 'public/backend/product_images/small_image/';
 
-    const {gridData} = this.state;
+    const { gridData } = this.state;
 
     return (
       <TouchableOpacity
@@ -487,16 +487,16 @@ class SearchProductGrid extends Component {
                   justifyContent: 'center',
                 }}
                 defaultSource={IconPack.APP_LOGO}
-                source={{uri: url + item.image_name}}
+                source={{ uri: url + item.image_name }}
               />
             </TouchableOpacity>
             <View style={latestTextView}>
-              <View style={{width: wp(15), marginLeft: 5}}>
+              <View style={{ width: wp(15), marginLeft: 5 }}>
                 <_Text
                   numberOfLines={1}
                   fsSmall
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular13}}>
+                  style={{ ...Theme.ffLatoRegular13 }}>
                   Code :
                 </_Text>
               </View>
@@ -511,19 +511,19 @@ class SearchProductGrid extends Component {
                   numberOfLines={1}
                   fsPrimary
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular12}}>
+                  style={{ ...Theme.ffLatoRegular12 }}>
                   {item.value[0]}
                 </_Text>
               </View>
             </View>
 
             <View style={latestTextView2}>
-              <View style={{marginLeft: 5}}>
+              <View style={{ marginLeft: 5 }}>
                 <_Text
                   numberOfLines={1}
                   fsSmall
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular13}}>
+                  style={{ ...Theme.ffLatoRegular13 }}>
                   Gross Wt :
                 </_Text>
               </View>
@@ -538,19 +538,19 @@ class SearchProductGrid extends Component {
                   numberOfLines={1}
                   fsPrimary
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular12}}>
+                  style={{ ...Theme.ffLatoRegular12 }}>
                   {parseInt(item.value[1]).toFixed(2)}
                 </_Text>
               </View>
             </View>
 
             <View style={latestTextView2}>
-              <View style={{marginLeft: 5}}>
+              <View style={{ marginLeft: 5 }}>
                 <_Text
                   numberOfLines={1}
                   fsSmall
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular13}}>
+                  style={{ ...Theme.ffLatoRegular13 }}>
                   Name :{' '}
                 </_Text>
               </View>
@@ -566,7 +566,7 @@ class SearchProductGrid extends Component {
                   fsPrimary
                   textColor={color.brandColor}
                   textColor={'#000000'}
-                  style={{...Theme.ffLatoRegular12}}>
+                  style={{ ...Theme.ffLatoRegular12 }}>
                   {item.value[2]}
                 </_Text>
               </View>
@@ -579,14 +579,14 @@ class SearchProductGrid extends Component {
                   onPress={() => this.addProductToWishlist(item)}>
                   <Image
                     source={require('../../../assets/Hertfill.png')}
-                    style={{height: hp(3.1), width: hp(3), marginTop: 2}}
+                    style={{ height: hp(3.1), width: hp(3), marginTop: 2 }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.addProductToCart(item)}>
                   <Image
                     source={require('../../../assets/Cart1.png')}
-                    style={{height: hp(3.1), width: hp(3), marginTop: 2}}
+                    style={{ height: hp(3.1), width: hp(3), marginTop: 2 }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -599,7 +599,7 @@ class SearchProductGrid extends Component {
                   onPress={() => this.removeProductFromCartByOne(item)}>
                   <Image
                     source={require('../../../assets/Minus1.png')}
-                    style={{height: hp(3), width: hp(3)}}
+                    style={{ height: hp(3), width: hp(3) }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -615,7 +615,7 @@ class SearchProductGrid extends Component {
                   onPress={() => this.addProductToCartPlusOne(item)}>
                   <Image
                     source={require('../../../assets/Plus1.png')}
-                    style={{height: hp(3), width: hp(3)}}
+                    style={{ height: hp(3), width: hp(3) }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -628,7 +628,7 @@ class SearchProductGrid extends Component {
   };
 
   addProductToWishlist = async item => {
-    const {gridData, page, selectedSortById} = this.state;
+    const { gridData, page, selectedSortById } = this.state;
 
     let id = gridData && gridData[0].collection_id;
 
@@ -655,7 +655,7 @@ class SearchProductGrid extends Component {
   };
 
   addProductToCart = async item => {
-    const {page, selectedSortById} = this.state;
+    const { page, selectedSortById } = this.state;
 
     const type = Platform.OS === 'ios' ? 'ios' : 'android';
 
@@ -681,7 +681,7 @@ class SearchProductGrid extends Component {
   };
 
   addProductToCartPlusOne = async item => {
-    const {page, selectedSortById} = this.state;
+    const { page, selectedSortById } = this.state;
 
     const type = Platform.OS === 'ios' ? 'ios' : 'android';
 
@@ -702,7 +702,7 @@ class SearchProductGrid extends Component {
   };
 
   removeProductFromCartByOne = async item => {
-    const {page, selectedSortById} = this.state;
+    const { page, selectedSortById } = this.state;
 
     const type = Platform.OS === 'ios' ? 'ios' : 'android';
 
@@ -747,10 +747,10 @@ class SearchProductGrid extends Component {
         }}>
         <Image
           source={require('../../../assets/gif/noData.gif')}
-          style={{height: hp(20), width: hp(20)}}
+          style={{ height: hp(20), width: hp(20) }}
           resizeMode="cover"
         />
-        <_Text style={{paddingTop: 5}}>{message}</_Text>
+        <_Text style={{ paddingTop: 5 }}>{message}</_Text>
       </View>
     );
   };
@@ -768,8 +768,8 @@ class SearchProductGrid extends Component {
   };
 
   LoadMoreData = () => {
-    const {productTotalcount} = this.props;
-    const {gridData} = this.state;
+    const { productTotalcount } = this.props;
+    const { gridData } = this.state;
 
     let count = productTotalcount.count;
 
@@ -788,9 +788,9 @@ class SearchProductGrid extends Component {
   };
 
   LoadRandomData = () => {
-    const {gridData, page} = this.state;
+    const { gridData, page } = this.state;
 
-    const {allParameterData} = this.props;
+    const { allParameterData } = this.props;
 
     let accessCheck = allParameterData && allParameterData.access_check;
 
@@ -814,45 +814,6 @@ class SearchProductGrid extends Component {
     }
   };
 
-  footer = () => {
-    return (
-      <View>
-        {!this.props.isFetching && this.state.gridData.length >= 10 ? (
-          <TouchableOpacity onPress={() => this.LoadMoreData()}>
-            <View
-              style={{
-                flex: 1,
-                height: hp(7),
-                width: wp(100),
-                backgroundColor: '#EEF8F7',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{color: '#0d185c', fontSize: 18, fontWeight: 'bold'}}>
-                Load More
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-        {this.state.clickedLoadMore &&
-        this.props.isFetching &&
-        this.state.gridData.length >= 10 ? (
-          <View
-            style={{
-              flex: 1,
-              height: 40,
-              width: wp(100),
-              backgroundColor: '#EEF8F7',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <ActivityIndicator size="small" color={color.brandColor} />
-          </View>
-        ) : null}
-      </View>
-    );
-  };
 
   onTextChanged = (inputKey, value) => {
     this.setState({
@@ -871,27 +832,23 @@ class SearchProductGrid extends Component {
     let imageUrl = urls.imageUrl + 'public/backend/product_images/zoom_image/';
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
         <_CustomHeader
           Title={
             `(${gridData.length.toString()})` +
             ' ' +
             `${!fromCodeSearch ? 'Advanced Search' : ' Search By Code'}`
           }
-          // Subtitle={ `(${(gridData.length).toString()})`}
-          RightBtnIcon1={require('../../../assets/image/BlueIcons/Search-White.png')}
-          RightBtnIcon2={require('../../../assets/shopping-cart.png')}
-          RightBtnPressOne={() =>
-            this.props.navigation.navigate('SearchScreen')
-          }
+          RightBtnIcon1={require('../../../assets/search.png')}
+          RightBtnIcon2={require('../../../assets/cart3.png')}
+          RightBtnPressOne={() => this.props.navigation.navigate('SearchScreen')}
           RightBtnPressTwo={() =>
             this.props.navigation.navigate('CartContainer', {
               fromProductGrid: true,
             })
           }
-          rightIconHeight2={hp(3.5)}
+          rightIconHeight2={hp(3)}
           LeftBtnPress={() => this.props.navigation.goBack()}
-          backgroundColor="#19af81"
         />
 
         {gridData && (
@@ -899,15 +856,14 @@ class SearchProductGrid extends Component {
             data={gridData}
             showsHorizontalScrollIndicator={true}
             showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View style={{marginBottom: hp(1), marginTop: hp(1)}}>
+            renderItem={({ item }) => (
+              <View style={{ marginBottom: hp(1), marginTop: hp(1) }}>
                 {this.gridView(item)}
               </View>
             )}
             numColumns={2}
             keyExtractor={(item, index) => item.product_inventory_id.toString()}
-            style={{marginTop: hp(1)}}
-            // ListFooterComponent={this.footer()}
+            style={{ marginTop: hp(1) }}
             onEndReachedThreshold={0.4}
             onEndReached={() => this.LoadMoreData()}
           />
@@ -920,16 +876,16 @@ class SearchProductGrid extends Component {
         {this.state.isProductImageModalVisibel && (
           <View>
             <Modal
-              style={{justifyContent: 'center'}}
+              style={{ justifyContent: 'center' }}
               isVisible={this.state.isProductImageModalVisibel}
               onRequestClose={() =>
-                this.setState({isProductImageModalVisibel: false})
+                this.setState({ isProductImageModalVisibel: false })
               }
               onBackdropPress={() =>
-                this.setState({isProductImageModalVisibel: false})
+                this.setState({ isProductImageModalVisibel: false })
               }
               onBackButtonPress={() =>
-                this.setState({isProductImageModalVisibel: false})
+                this.setState({ isProductImageModalVisibel: false })
               }>
               <SafeAreaView>
                 <View
@@ -940,7 +896,7 @@ class SearchProductGrid extends Component {
                     justifyContent: 'center',
                     borderRadius: 10,
                   }}>
-                  <_Text fsMedium style={{marginTop: hp(0.5)}}>
+                  <_Text fsMedium style={{ marginTop: hp(0.5) }}>
                     Code: {productImageToBeDisplayed.collection_sku_code}
                   </_Text>
                   <View

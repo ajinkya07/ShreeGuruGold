@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -11,16 +11,17 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Theme from '../../../values/Theme';
-import {Colors} from 'react-native-paper';
+import { Colors } from 'react-native-paper';
 import _CustomHeader from '@customHeader/_CustomHeader';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {connect} from 'react-redux';
-import {Toast} from 'native-base';
-import {getExclusiveList} from '@exclusive/ExclusiveAction';
-import {color} from '@values/colors';
+import { connect } from 'react-redux';
+import { Toast } from 'native-base';
+import { getExclusiveList } from '@exclusive/ExclusiveAction';
+import { color } from '@values/colors';
+import IconPack from '../../OnBoarding/Login/IconPack';
 
 class Exclusive extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Exclusive extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {successExclusiveVersion, errorExclusiveVersion} = nextProps;
+    const { successExclusiveVersion, errorExclusiveVersion } = nextProps;
 
     let newState = null;
 
@@ -61,7 +62,7 @@ class Exclusive extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const {orderHistoryData} = this.props;
+    const { orderHistoryData } = this.props;
 
     if (
       this.state.successExclusiveVersion > prevState.successExclusiveVersion
@@ -85,7 +86,7 @@ class Exclusive extends Component {
         }}>
         <Image
           source={require('../../../assets/gif/noData.gif')}
-          style={{height: hp(20), width: hp(20)}}
+          style={{ height: hp(20), width: hp(20) }}
         />
         <Text
           style={{
@@ -116,21 +117,16 @@ class Exclusive extends Component {
   };
 
   render() {
-    const {exclusiveData, isFetching} = this.props;
+    const { exclusiveData, isFetching } = this.props;
 
     return (
       <SafeAreaView style={styles.flex}>
         <_CustomHeader
           Title="Exclusive Collection"
-          //RightBtnIcon1={require('../../../assets/image/BlueIcons/Search-White.png')}
-          RightBtnIcon2={require('../../../assets/image/BlueIcons/Notification-White.png')}
+          RightBtnIcon2={require('../../../assets/bell.png')}
           LeftBtnPress={() => this.props.navigation.goBack()}
-          //  RightBtnPressOne={() =>this.props.navigation.navigate('SearchScreen')}
-          RightBtnPressTwo={() =>
-            this.props.navigation.navigate('Notification')
-          }
-          rightIconHeight2={hp(3.5)}
-          backgroundColor="#19af81"
+          RightBtnPressTwo={() => this.props.navigation.navigate('Notification')}
+          rightIconHeight2={hp(3)}
         />
 
         {exclusiveData && exclusiveData.final_collection && (
@@ -139,7 +135,7 @@ class Exclusive extends Component {
               data={exclusiveData.final_collection}
               refreshing={this.props.isFetching}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() =>
                     this.props.navigation.navigate('ProductGrid', {
@@ -189,7 +185,7 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {getExclusiveList},
+  { getExclusiveList },
 )(Exclusive);
 
 const styles = StyleSheet.create({

@@ -66,6 +66,7 @@ class ProductDetails extends React.Component {
       remark: '',
       isHideDetail: true,
       length: '',
+      size: '',
       lengthArray: [],
       weight: '',
       weightArray: [],
@@ -174,6 +175,7 @@ class ProductDetails extends React.Component {
 
     if (this.state.successProductDetailsVersion > prevState.successProductDetailsVersion) {
       if (productDetailsData.ack == '1') {
+        console.log('productDetailsData', productDetailsData);
         this.setState({
           karatValue: productDetailsData.data[0].default_melting_id,
 
@@ -206,7 +208,6 @@ class ProductDetails extends React.Component {
     }
     if (this.state.errorProductDetailsVersion > prevState.errorProductDetailsVersion) {
       this.showToast(this.props.errorMsg, 'danger');
-
       const countData = new FormData();
       countData.append('user_id', userId);
       countData.append('table', 'cart');
@@ -487,9 +488,6 @@ class ProductDetails extends React.Component {
 
     let addCartData = new FormData();
 
-    console.log("length", length);
-    console.log("weight", weight);
-
     let adData = JSON.stringify([
       {
         user_id: userId.toString(),
@@ -549,6 +547,11 @@ class ProductDetails extends React.Component {
       length: newText,
     });
 
+  handleSizeChange = newText =>
+    this.setState({
+      length: newText,
+    });
+
 
   render() {
     const headerOpacity = this.scrollY.interpolate({
@@ -566,8 +569,6 @@ class ProductDetails extends React.Component {
         productDetailsStateData.zoom_image);
 
     let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : ''
-    console.log("productDetailsStateData", productDetailsStateData);
-
     return (
       <SafeAreaView style={styles.flex}>
         {productDetailsStateData ? (
@@ -698,7 +699,8 @@ class ProductDetails extends React.Component {
 
                     <View style={styles.descriptionContainer}>
                       <TouchableOpacity
-                        onPress={() => this.toggleDescriptionDetails()}>
+                      // onPress={() => this.toggleDescriptionDetails()}
+                      >
                         <View style={styles.descriptionRowContainer}>
                           <Text
                             style={{
@@ -708,10 +710,10 @@ class ProductDetails extends React.Component {
                             }}>
                             Description
                           </Text>
-                          <Image
+                          {/* <Image
                             source={IconPack.GRAY_DOWN_ARROW}
                             style={styles.downArrow}
-                          />
+                          /> */}
                         </View>
                       </TouchableOpacity>
                       {this.state.isHideDetail ? (
@@ -771,9 +773,9 @@ class ProductDetails extends React.Component {
                       </Text>
 
 
-                      <View style={{ width: wp(90), marginVertical: 20, marginRight: 10, alignSelf: 'center' }}>
+                      <View style={{ width: wp(90), marginVertical: 10, marginRight: 10, alignSelf: 'center' }}>
                         <FloatingLabelTextInput
-                          label="Weight (gm)"
+                          label="Approx. weight (gm)"
                           value={this.state.weight}
                           onChangeText={(value) => this.handleWeightChange(value)}
                           width="100%"
@@ -782,13 +784,23 @@ class ProductDetails extends React.Component {
                         />
 
                         <FloatingLabelTextInput
-                          label="Length (Inches)"
+                          label="Length"
                           value={this.state.length}
                           onChangeText={(value) => this.handleLengthChange(value)}
                           width="100%"
                           keyboardType="numeric"
                           returnKeyType="done"
                         />
+
+                        <FloatingLabelTextInput
+                          label="Size"
+                          value={this.state.size}
+                          onChangeText={(value) => this.handleSizeChange(value)}
+                          width="100%"
+                          keyboardType="numeric"
+                          returnKeyType="done"
+                        />
+
                       </View>
 
 
@@ -812,19 +824,11 @@ class ProductDetails extends React.Component {
                       </View>
 
 
-                      <View style={styles.bottomTextContainer}>
-                        <Text
-                          style={{
-                            ...Theme.ffLatoRegular15,
-                            color: '#000000',
-                            textAlign: 'left',
-                          }}>
-                          Note: * There may be 10% variation (+/-) in the actual
-                          weight.{' '}
-                        </Text>
-                      </View>
-
                       {/* Footer buttons */}
+                      <View style={{
+                        justifyContent: 'flex-end',
+                        alignSelf: 'flex-end'
+                      }}></View>
                       <View
                         style={{
                           backgroundColor: headerTheme ? '#' + headerTheme : '#303030',

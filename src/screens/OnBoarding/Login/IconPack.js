@@ -44,6 +44,12 @@ export default {
   REMARK: require('../../../assets/image/BlueIcons/Remark.png'),
   SKY_LOGO: require('../../../assets/image/Account/skychainLogo.jpeg'),
   APP_LOGO: require('../../../assets/LOGO.png'),
+  BELL: require('../../../assets/bell.png'),
+  MOBILE: require('../../../assets/mobile.png'),
+  SEARCH: require('../../../assets/search.png'),
+
+
+
 
   SEARCH_WHITE: require('../../../assets/image/search_5.png'),
   WHITE_CLOSE: require('../../../assets/image/Close.png'),
@@ -55,4 +61,6 @@ export default {
   COMPANY: require('../../../assets/image/BlueIcons/company.png'),
   DSG: require('../../../assets/image/BlueIcons/designation.png'),
   EDITPHONE: require('../../../assets/image/BlueIcons/editphone.png'),
+
+
 };
