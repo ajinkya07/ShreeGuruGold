@@ -674,7 +674,6 @@ class ProductGrid extends Component {
     } = ProductGridStyle;
 
     let url = urls.imageUrl + 'public/backend/product_images/thumb_image/';
-
     const { isSelectPressed, selectedItem, selectedProducts } = this.state;
     return (
       <TouchableOpacity
@@ -724,16 +723,18 @@ class ProductGrid extends Component {
                 <Image
                   style={gridImage}
                   source={IconPack.APP_LOGO}
+                  resizeMode='contain'
                 />
               }
             </TouchableOpacity>
+
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 width: '100%',
                 paddingHorizontal: 6.5,
-                top: 2,
+                top: 5,
                 flex: 1,
               }}>
               <View style={{ flex: 1 }}>
@@ -1065,46 +1066,7 @@ class ProductGrid extends Component {
             )}
           </View>
 
-          {/* 
-          {isSelectPressed && !item.isSelect && (
-            <View
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 40 / 2,
-                borderWidth: 2,
-                borderColor: '#19af81',
-                backgroundColor: '#FFFFFF',
-                position: 'absolute',
-              }}>
-              <TouchableOpacity
-                onPress={() =>
-                  this.selectProduct(item, item.product_inventory_id)
-                }></TouchableOpacity>
-            </View>
-          )}
 
-          {isSelectPressed && item.isSelect && (
-            <View
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 40 / 2,
-                backgroundColor: '#FFFFFF',
-                position: 'absolute',
-              }}>
-              <TouchableOpacity
-                onPress={() =>
-                  this.selectProduct(item, item.product_inventory_id)
-                }>
-                <Image
-                  source={require('../../../assets/image/tick.png')}
-                  style={{ height: 40, width: 40, borderRadius: 40 / 2 }}
-                />
-              </TouchableOpacity>
-            </View>
-          )}
-           */}
         </View>
       </TouchableOpacity>
     );
@@ -1461,7 +1423,6 @@ class ProductGrid extends Component {
   };
 
   setFromToSliderValues = values => {
-    console.log('values net', values);
     if (values && values.length > 0) {
       this.setState({
         fromValue: values[0],

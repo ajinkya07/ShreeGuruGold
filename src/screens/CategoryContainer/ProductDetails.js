@@ -484,7 +484,7 @@ class ProductDetails extends React.Component {
 
 
   addtoCart = d => {
-    const { length, count, remark, weight, karatValue } = this.state;
+    const { length, count, remark, weight, karatValue, size, approx_weight } = this.state;
 
     let addCartData = new FormData();
 
@@ -500,9 +500,11 @@ class ProductDetails extends React.Component {
         no_quantity: count,
         device_type: Platform.OS === 'ios' ? 'ios' : 'android',
         remarks: remark,
-        size: d.key_value[2],
+        // size: d.key_value[2],
+        size: size,
         weight: weight ? weight : '',
         length: length ? length : '',
+        approx_weight: weight
       },
     ]);
 
@@ -511,7 +513,7 @@ class ProductDetails extends React.Component {
   };
 
   addToWishList = d => {
-    const { length, count, remark, weight, karatValue } = this.state;
+    const { length, count, remark, weight, karatValue, size } = this.state;
 
     const addWishData = new FormData();
 
@@ -527,9 +529,11 @@ class ProductDetails extends React.Component {
         no_quantity: count,
         device_type: Platform.OS === 'ios' ? 'ios' : 'android',
         remarks: remark,
-        size: d.key_value[2],
+        // size: d.key_value[2],
         weight: weight,
         length: length,
+        size: size,
+        approx_weight: weight
       },
     ]);
     addWishData.append('Add_To_Cart', wshData);
@@ -549,7 +553,7 @@ class ProductDetails extends React.Component {
 
   handleSizeChange = newText =>
     this.setState({
-      length: newText,
+      size: newText,
     });
 
 
@@ -760,18 +764,17 @@ class ProductDetails extends React.Component {
                         </>
                       ) : null}
 
-                      <View style={styles.customerDetailTopborder}></View>
+                      <View style={styles.customerDetailTopborder} />
+
                       <Text
                         style={{
                           color: '#000000',
                           ...Theme.ffLatoBold15,
                           letterSpacing: 0.6,
-                          marginBottom: 10,
                           marginHorizontal: 10,
                         }}>
                         Customizable Detail
                       </Text>
-
 
                       <View style={{ width: wp(90), marginVertical: 10, marginRight: 10, alignSelf: 'center' }}>
                         <FloatingLabelTextInput
@@ -784,7 +787,7 @@ class ProductDetails extends React.Component {
                         />
 
                         <FloatingLabelTextInput
-                          label="Length"
+                          label="Length (Inches)"
                           value={this.state.length}
                           onChangeText={(value) => this.handleLengthChange(value)}
                           width="100%"
@@ -793,7 +796,7 @@ class ProductDetails extends React.Component {
                         />
 
                         <FloatingLabelTextInput
-                          label="Size"
+                          label="Size (Inches)"
                           value={this.state.size}
                           onChangeText={(value) => this.handleSizeChange(value)}
                           width="100%"
@@ -853,9 +856,7 @@ class ProductDetails extends React.Component {
                               color: 'white',
                               fontWeight: 'bold',
                             }}
-                            onPress={() =>
-                              this.addtoCart(productDetailsStateData)
-                            }>
+                            onPress={() => this.addtoCart(productDetailsStateData)}>
                             ADD TO CART
                           </Text>
                         </View>
@@ -871,9 +872,7 @@ class ProductDetails extends React.Component {
                               color: 'white',
                               fontWeight: 'bold',
                             }}
-                            onPress={() =>
-                              this.addToWishList(productDetailsStateData)
-                            }>
+                            onPress={() => this.addToWishList(productDetailsStateData)}>
                             WISHLIST
                           </Text>
                         </View>

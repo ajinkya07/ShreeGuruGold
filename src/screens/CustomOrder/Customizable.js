@@ -58,6 +58,7 @@ class Customizable extends Component {
       color: '',
       diameter: '',
       remark: '',
+      productName: '',
       isDateTimePickerVisible: false,
       imageUrl: '',
       date: '',
@@ -73,7 +74,10 @@ class Customizable extends Component {
 
     userId = global.userId;
 
+
     this.lengthRef = React.createRef();
+    this.approxWeightRef = React.createRef();
+    this.grossWeightRef = React.createRef();
     this.sizeRef = React.createRef();
     this.netWeightRef = React.createRef();
     this.quantityRef = React.createRef();
@@ -198,6 +202,18 @@ class Customizable extends Component {
     // this.hideDateTimePicker();
   }
 
+
+  handleProductNameChange = (newText) => {
+    this.setState({ productName: newText })
+  }
+
+
+
+  handleApproxWeightChange = (newText) => {
+    this.setState({ approxWeight: newText })
+  }
+
+
   handleGrossWeightChange = newText =>
     this.setState({
       grossWeight: newText,
@@ -292,18 +308,9 @@ class Customizable extends Component {
   submitCustomOrder = async () => {
     const {
       imageData,
-      grossWeight,
-      karatValue,
-      netWeight,
-      size,
-      length,
-      quantity,
-      hookType,
-      color,
-      diameter,
-      remark,
-      imageUrl,
-      date,
+      grossWeight, karatValue, netWeight, length,
+      quantity, hookType, color, diameter,
+      remark, imageUrl, date, size, productName, approxWeight
     } = this.state;
 
     var timeStamp = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
@@ -352,6 +359,9 @@ class Customizable extends Component {
       data.append('file', photo);
       data.append('melting_id', karatValue);
       data.append('quantity', quantity);
+      data.append('approx_weight', approxWeight);
+      data.append('product_name', productName);
+
 
       await this.props.submitCustomOrder(data);
     }
@@ -471,28 +481,41 @@ class Customizable extends Component {
                 backgroundColor: '#FFFFFF',
                 flex: 2,
               }}>
-              <View
-                style={{
-                  borderTopLeftRadius: 20,
-                  borderTopRightRadius: 20,
-                  backgroundColor: '#ffffff',
-                }}>
+              <View>
                 <View style={{ marginHorizontal: 16, marginTop: 20 }}>
+
+                  <FloatingLabelTextInput
+                    label="Product Name"
+                    value={this.state.productName}
+                    onChangeText={(v) => this.handleProductNameChange(v)}
+                    width="100%"
+                    onSubmitEditing={() => this.approxWeightRef.current.focus()}
+                    returnKeyType="done"
+                  />
+                  <FloatingLabelTextInput
+                    label="Approx. Weight (gm)"
+                    value={this.state.approxWeight}
+                    onChangeText={(v) => this.handleApproxWeightChange(v)}
+                    width="100%"
+                    keyboardType="numeric"
+                    textInputRef={this.approxWeightRef}
+                    onSubmitEditing={() => this.grossWeightRef.current.focus()}
+                    returnKeyType="done"
+                  />
                   <FloatingLabelTextInput
                     label="Gross Weight (gm)"
                     value={this.state.grossWeight}
-                    onChangeText={this.handleGrossWeightChange}
-                    resetValue={this.resetFieldGross}
+                    onChangeText={(v) => this.handleGrossWeightChange()}
                     width="100%"
                     keyboardType="numeric"
+                    textInputRef={this.grossWeightRef}
                     onSubmitEditing={() => this.netWeightRef.current.focus()}
                     returnKeyType="done"
                   />
                   <FloatingLabelTextInput
                     label="Net Weight (gm)"
                     value={this.state.netWeight}
-                    onChangeText={this.handleNetWeightChange}
-                    resetValue={this.resetFieldNet}
+                    onChangeText={(v) => this.handleNetWeightChange(v)}
                     width="100%"
                     keyboardType="numeric"
                     textInputRef={this.netWeightRef}
@@ -503,19 +526,18 @@ class Customizable extends Component {
                   <FloatingLabelTextInput
                     label="Length (Inches)"
                     value={this.state.length}
-                    onChangeText={this.handleLengthChange}
-                    resetValue={this.resetFieldLength}
+                    onChangeText={(v) => this.handleLengthChange(v)}
                     width="100%"
                     keyboardType="numeric"
                     textInputRef={this.lengthRef}
                     onSubmitEditing={() => this.quantityRef.current.focus()}
                     returnKeyType="done"
                   />
-                  {/* 
-                  <FloatingLabelTextInput
+
+                  {/* <FloatingLabelTextInput
                     label="Size (Inches)"
                     value={this.state.size}
-                    onChangeText={this.handleSizeChange}
+                    onChangeText={(v) => this.handleSizeChange(v)}
                     resetValue={this.resetFieldSize}
                     width="100%"
                     keyboardType="numeric"
@@ -526,8 +548,7 @@ class Customizable extends Component {
                   <FloatingLabelTextInput
                     label="Quantity"
                     value={this.state.quantity}
-                    onChangeText={this.handleQuantityChange}
-                    resetValue={this.resetFieldQuantity}
+                    onChangeText={(v) => this.handleQuantityChange()}
                     width="100%"
                     keyboardType="numeric"
                     textInputRef={this.quantityRef}
@@ -566,8 +587,7 @@ class Customizable extends Component {
                   <FloatingLabelTextInput
                     label="Remarks"
                     value={this.state.remark}
-                    onChangeText={this.handleRemarkChange}
-                    resetValue={this.resetFieldRemark}
+                    onChangeText={(v) => this.handleRemarkChange(v)}
                     width="100%"
                     textInputRef={this.remarkRef}
                     returnKeyType="done"
@@ -631,20 +651,20 @@ class Customizable extends Component {
                 </View>
               </View>
             </View>
+
+            <View style={styles.bottomTextContainer}>
+              <Text
+                style={{
+                  ...Theme.ffLatoRegular15,
+                  color: '#000000',
+                  textAlign: 'left',
+                }}>
+                Note: * There may be 10% variation (+/-) in the actual weight.{' '}
+              </Text>
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={styles.bottomTextContainer}>
-          <Text
-            style={{
-              ...Theme.ffLatoRegular15,
-              color: '#000000',
-              textAlign: 'left',
-            }}>
-            Note: * There may be 10% variation (+/-) in the actual
-                          weight.{' '}
-          </Text>
-        </View>
 
 
         <View style={{ position: 'absolute', top: height / 3.8, right: wp(6) }}>
@@ -692,8 +712,8 @@ const styles = StyleSheet.create({
   },
   bottomTextContainer: {
     marginHorizontal: 10,
-    marginTop: hp(3),
-    marginBottom: hp(3),
+    marginVertical: hp(2),
+
   },
 });
 

@@ -39,7 +39,7 @@ export default class SubCategoryList extends Component {
       <TouchableOpacity onPress={() => this.getProductGridOrNot(item)}>
         <Animatable.View
           animation="flipInX"
-          style={{ paddingTop: hp(0.5), paddingBottom: hp(0.5) }}>
+          style={{ paddingVertical: hp(0.5) }}>
           <View style={{ flexDirection: 'row', flex: 1, marginHorizontal: hp(2), }}>
             <View style={{
               justifyContent: 'flex-start',

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -15,12 +15,12 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import _Text from '@text/_Text';
-import {connect} from 'react-redux';
-import {color} from '@values/colors';
+import { connect } from 'react-redux';
+import { color } from '@values/colors';
 import IconPack from '../../OnBoarding/Login/IconPack';
-import {urls} from '@api/urls';
+import { urls } from '@api/urls';
 
-import {getNotificationList} from '@notification/NotificationAction';
+import { getNotificationList } from '@notification/NotificationAction';
 
 class Notification extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class Notification extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {successNotificationVersion, errorNotificationVersion} = nextProps;
+    const { successNotificationVersion, errorNotificationVersion } = nextProps;
 
     let newState = null;
 
@@ -62,56 +62,43 @@ class Notification extends Component {
     return newState;
   }
 
-  async componentDidUpdate(prevProps, prevState) {
-    const {} = this.props;
-    if (
-      this.state.successNotificationVersion >
-      prevState.successNotificationVersion
-    ) {
-    }
-  }
+
 
   showNotifications = (item, index) => {
     let url2 = urls.imageUrl;
 
     return (
       <TouchableOpacity disabled={true}>
-        <View style={{paddingTop: hp(0.5), paddingBottom: hp(0.5)}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              flex: 1,
-              marginLeft: hp(1.5),
-              marginRight: hp(0.5),
+        <View style={{ paddingVertical: hp(1), }}>
+          <View style={{ flexDirection: 'row', flex: 1, marginHorizontal: hp(2), }}>
+            <View style={{
+              justifyContent: 'flex-start',
+              shadowColor: "#000",
+              backgroundColor: '#ffffff',
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.27,
+              shadowRadius: 4.65,
+              elevation: 6,
+              borderRadius: 10,
+              height: hp(10), width: hp(10),
             }}>
-            <View style={{flex: 0.25, justifyContent: 'flex-start'}}>
               {item.image_name != '' ? (
                 <Image
-                  style={{
-                    height: hp(10),
-                    width: hp(10),
-                    borderRadius: 10,
-                    borderWidth: 0.4,
-                    borderColor: color.gray,
-                  }}
-                  source={{uri: url2 + item.image_name}}
+                  style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
+                  source={{ uri: url2 + item.image_name }}
                   defaultSource={IconPack.APP_LOGO}
-                  resizeMode="cover"
                 />
               ) : (
-                <Image
-                  style={{
-                    height: hp(10),
-                    width: hp(10),
-                    borderRadius: 10,
-                    borderWidth: 0.4,
-                    borderColor: color.gray,
-                  }}
-                  source={IconPack.APP_LOGO}
-                  defaultSource={IconPack.APP_LOGO}
-                  resizeMode="cover"
-                />
-              )}
+                  <Image
+                    style={{ height: hp(10), width: hp(10), borderRadius: 10 }}
+                    source={IconPack.APP_LOGO}
+                    resizeMode='contain'
+
+                  />
+                )}
             </View>
 
             <View
@@ -124,18 +111,18 @@ class Notification extends Component {
                 numberOfLines={2}
                 fwSmall
                 fsMedium
-                style={{marginRight: hp(3)}}>
+                style={{ marginRight: hp(1), marginLeft: hp(2) }}>
                 Title: {item.title}
               </_Text>
-              <_Text numberOfLines={2} fsPrimary style={{marginRight: hp(3)}}>
+              <_Text numberOfLines={2} fsPrimary style={{ marginRight: hp(1), marginLeft: hp(2) }}>
                 Message: {item.sub_title}
               </_Text>
               <View
-                style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                <_Text numberOfLines={2} note style={{marginRight: hp(3)}}>
+                style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
+                <_Text numberOfLines={2} note style={{ marginRight: hp(1), marginLeft: hp(2) }}>
                   Order id: {item.order_id}
                 </_Text>
-                <_Text numberOfLines={2} note style={{marginRight: hp(3)}}>
+                <_Text numberOfLines={2} note style={{ marginRight: hp(1), marginLeft: hp(2) }}>
                   Date:{item.created}
                 </_Text>
               </View>
@@ -191,7 +178,7 @@ class Notification extends Component {
         }}>
         <Image
           source={require('../../../assets/gif/noData.gif')}
-          style={{height: hp(20), width: hp(20)}}
+          style={{ height: hp(20), width: hp(20) }}
         />
         <Text
           style={{
@@ -207,10 +194,10 @@ class Notification extends Component {
   };
 
   render() {
-    const {notificationData, isFetching} = this.props;
+    const { notificationData, isFetching } = this.props;
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
         <_CustomHeader
           Title={'Notifications'}
           LeftBtnPress={() => this.props.navigation.goBack()}
@@ -230,7 +217,7 @@ class Notification extends Component {
             data={notificationData.data}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
-            renderItem={({item, index}) => this.showNotifications(item, index)}
+            renderItem={({ item, index }) => this.showNotifications(item, index)}
           />
         </View>
 
@@ -259,5 +246,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {getNotificationList},
+  { getNotificationList },
 )(Notification);

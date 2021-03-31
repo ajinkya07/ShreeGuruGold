@@ -45,7 +45,7 @@ class _Header extends Component {
             {showBack ? (
               <Image
                 style={{ height: hp(2.5), width: hp(2.5) }}
-                source={require('../../assets/image/Account/back_button.png')}
+                source={require('../../assets/arrow-icon.png')}
               />
             ) : (
                 <View

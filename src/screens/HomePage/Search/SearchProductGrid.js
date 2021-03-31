@@ -439,7 +439,7 @@ class SearchProductGrid extends Component {
       iconView,
     } = ProductGridStyle;
 
-    let url = urls.imageUrl + 'public/backend/product_images/small_image/';
+    let url = urls.imageUrl + 'public/backend/product_images/thumb_image/';
 
     const { gridData } = this.state;
 
@@ -453,7 +453,6 @@ class SearchProductGrid extends Component {
         <View
           style={{
             backgroundColor: color.white,
-            height: Platform.OS === 'android' ? hp(34) : hp(32),
             width: wp(46),
             marginHorizontal: hp(1),
             borderRadius: 15,
@@ -475,102 +474,62 @@ class SearchProductGrid extends Component {
                 })
               }
               onLongPress={() => this.showProductImageModal(item)}>
-              <Image
-                resizeMode={'cover'}
-                style={{
-                  height: hp(18),
-                  width: wp(46),
-                  borderBottomLeftRadius: 0,
-                  borderBottomRightRadius: 0,
-                  borderRadius: 15,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                defaultSource={IconPack.APP_LOGO}
-                source={{ uri: url + item.image_name }}
-              />
+              {item.image_name != '' &&
+                <Image
+                  style={gridImage}
+                  defaultSource={IconPack.APP_LOGO}
+                  source={{ uri: url + item.image_name }}
+                />
+              }
+              {item.image_name == '' &&
+                <Image
+                  style={gridImage}
+                  source={IconPack.APP_LOGO}
+                  resizeMode='contain'
+                />
+              }
             </TouchableOpacity>
-            <View style={latestTextView}>
-              <View style={{ width: wp(15), marginLeft: 5 }}>
-                <_Text
-                  numberOfLines={1}
-                  fsSmall
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular13 }}>
-                  Code :
-                </_Text>
+
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                width: '100%',
+                paddingHorizontal: 6.5,
+                top: 5,
+                flex: 1,
+              }}>
+              <View style={{ flex: 1 }}>
+                {item.key.map((key, i) => {
+                  return (
+                    <_Text
+                      numberOfLines={1}
+                      fsSmall
+                      textColor={'#000000'}
+                      style={{ ...Theme.ffLatoRegular12 }}>
+                      {key.replace('_', ' ')}
+                    </_Text>
+                  );
+                })}
               </View>
-              <View
-                style={{
-                  marginRight: 8,
-                  width: wp(24),
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}>
-                <_Text
-                  numberOfLines={1}
-                  fsPrimary
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular12 }}>
-                  {item.value[0]}
-                </_Text>
+
+              <View style={{ flex: 1 }}>
+                {item.value.map((value, j) => {
+                  return (
+                    <_Text
+                      numberOfLines={1}
+                      fsPrimary
+                      //textColor={color.brandColor}
+                      textColor={'#000000'}
+                      style={{ ...Theme.ffLatoRegular12 }}>
+                      {value ? value : '-'}
+                    </_Text>
+                  );
+                })}
               </View>
             </View>
 
-            <View style={latestTextView2}>
-              <View style={{ marginLeft: 5 }}>
-                <_Text
-                  numberOfLines={1}
-                  fsSmall
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular13 }}>
-                  Gross Wt :
-                </_Text>
-              </View>
-              <View
-                style={{
-                  marginRight: 8,
-                  width: wp(24),
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}>
-                <_Text
-                  numberOfLines={1}
-                  fsPrimary
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular12 }}>
-                  {parseInt(item.value[1]).toFixed(2)}
-                </_Text>
-              </View>
-            </View>
-
-            <View style={latestTextView2}>
-              <View style={{ marginLeft: 5 }}>
-                <_Text
-                  numberOfLines={1}
-                  fsSmall
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular13 }}>
-                  Name :{' '}
-                </_Text>
-              </View>
-              <View
-                style={{
-                  marginRight: 10,
-                  width: wp(28),
-                  justifyContent: 'flex-end',
-                  alignItems: 'flex-end',
-                }}>
-                <_Text
-                  numberOfLines={1}
-                  fsPrimary
-                  textColor={color.brandColor}
-                  textColor={'#000000'}
-                  style={{ ...Theme.ffLatoRegular12 }}>
-                  {item.value[2]}
-                </_Text>
-              </View>
-            </View>
             <View style={border}></View>
 
             {item.quantity == 0 && (
@@ -856,13 +815,13 @@ class SearchProductGrid extends Component {
             data={gridData}
             showsHorizontalScrollIndicator={true}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View style={{ marginBottom: hp(1), marginTop: hp(1) }}>
+            renderItem={({ item, index }) => (
+              <View key={'g' + index} style={{ marginHorizontal: hp(1), }}>
                 {this.gridView(item)}
               </View>
             )}
             numColumns={2}
-            keyExtractor={(item, index) => item.product_inventory_id.toString()}
+            keyExtractor={(item, index) => index.toString()}
             style={{ marginTop: hp(1) }}
             onEndReachedThreshold={0.4}
             onEndReached={() => this.LoadMoreData()}

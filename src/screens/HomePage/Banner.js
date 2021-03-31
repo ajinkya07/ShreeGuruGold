@@ -37,9 +37,8 @@ export default class Banner extends Component {
         return (
             <SafeAreaView style={{ height: hp(100), backgroundColor: color.headerColor }}>
 
-                <View style={{ height: hp(10), backgroundColor: color.headerColor }}>
-                    <View
-                        style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <View style={{ height: hp(8), backgroundColor: color.headerColor }}>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => this.props.navigation.goBack()}
                             style={{ flex: 0.1, paddingLeft: hp(3) }}
@@ -53,25 +52,17 @@ export default class Banner extends Component {
                     </View>
                 </View>
 
-                <View style={{ marginTop: hp(12) }}>
-                    {/*                     
-                    <FastImage
-                        style={{ height: hp(40), width: wp(100) }}
-                        source={{ uri: baseUrl + bannerData.brand_image }}
-                        resizeMode={FastImage.resizeMode.stretch}
-                    /> */}
-
+                <View style={{ marginTop: hp(2) }}>
                     <Image
                         source={{ uri: baseUrl + bannerData.brand_image }}
-                        resizeMode='stretch'
-                        style={{ height: hp(40), width: wp(100) }}
+                        style={{ height: hp(75), width: wp(100) }}
                         defaultSource={IconPack.APP_LOGO}
                     />
 
                 </View>
 
-                <View style={{ marginTop: hp(5), justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 18, fontWeight: '400', textAlign: 'center' }}>
+                <View style={{ marginTop: hp(4), justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 18, fontWeight: '400', fontFamily: 'Lato-Regular', textAlign: 'center' }}>
                         {bannerData.description}
                     </Text>
                 </View>
