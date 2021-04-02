@@ -141,6 +141,11 @@ export const MOVE_PRODUCT_DATA_SUCCESS = "moveProductDataSuccess";
 export const MOVE_PRODUCT_DATA_ERROR = "moveProductDataError";
 export const MOVE_PRODUCT_DATA_RESET_REDUCER = "moveProductDataResetReducer";
 
+export const SEARCH_COUNT = "searchCount";
+export const SEARCH_COUNT_SUCCESS = "searchCountSuccess";
+export const SEARCH_COUNT_ERROR = "searchCountError";
+
+export const SEARCH_PAYLOAD = "searchPayload";
 
 
 export const CLEAR_ALL_CART_DATA = "clearCartData";

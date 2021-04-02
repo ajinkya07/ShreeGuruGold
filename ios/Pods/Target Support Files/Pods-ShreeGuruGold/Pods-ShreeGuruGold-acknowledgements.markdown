@@ -270,6 +270,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    limitations under the License.
 
 
+## FirebaseAnalytics
+
+Copyright 2020 Google
+
 ## FirebaseCore
 
 
@@ -2082,6 +2086,10 @@ Files in folly/external/farmhash licensed as follows
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 
+
+## GoogleAppMeasurement
+
+Copyright 2020 Google
 
 ## GoogleDataTransport
 

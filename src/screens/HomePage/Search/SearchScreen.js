@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -15,7 +15,7 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import {DatePicker, Footer} from 'native-base';
+import { DatePicker, Footer } from 'native-base';
 import moment from 'moment';
 
 import _CustomHeader from '@customHeader/_CustomHeader';
@@ -24,24 +24,24 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import _Text from '@text/_Text';
-import {connect} from 'react-redux';
-import {color} from '@values/colors';
+import { connect } from 'react-redux';
+import { color } from '@values/colors';
 import Modal from 'react-native-modal';
 import IconPack from '@login/IconPack';
 import CheckBox from '@react-native-community/checkbox';
-import {Toast, Picker} from 'native-base';
-import {strings} from '@values/strings';
+import { Toast, Picker } from 'native-base';
+import { strings } from '@values/strings';
 
-import {searchProducts, searchByCode} from '@search/SearchAction';
+import { searchProducts, searchByCode, searchProductsCount, saveSearchPayload } from '@search/SearchAction';
 import FromDatePicker from './FromDatePicker';
 import ToDatePicker from './ToDatePicker';
 import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
 import Theme from '../../../values/Theme';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import {Icon} from 'native-base';
+import { Icon } from 'native-base';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 var categoryIds = [];
 
@@ -86,13 +86,16 @@ class SearchScreen extends Component {
       items2: [],
       items3: [],
       items: [],
+
+      successSearchCountVersion: 0,
+      errorSearchCountVersion: 0,
     };
 
     userId = global.userId;
   }
 
   componentDidMount = () => {
-    const {homePageData} = this.props;
+    const { homePageData } = this.props;
 
     if (homePageData && homePageData.search_collection) {
       this.setState({
@@ -109,9 +112,12 @@ class SearchScreen extends Component {
       errorSearchbyCodeVersion,
       errorAllParamaterVersion,
       successAllParameterVersion,
+      successSearchCountVersion, errorSearchCountVersion
+
     } = nextProps;
 
     let newState = null;
+
 
     if (
       successSearchbyCategoryVersion > prevState.successSearchbyCategoryVersion
@@ -156,6 +162,18 @@ class SearchScreen extends Component {
       };
     }
 
+    if (successSearchCountVersion > prevState.successSearchCountVersion) {
+      newState = {
+        ...newState,
+        successSearchCountVersion: nextProps.successSearchCountVersion,
+      };
+    }
+    if (errorSearchCountVersion > prevState.errorSearchCountVersion) {
+      newState = {
+        ...newState,
+        errorSearchCountVersion: nextProps.errorSearchCountVersion,
+      };
+    }
     return newState;
   }
 
@@ -163,16 +181,14 @@ class SearchScreen extends Component {
     const {
       searchByCategoryData,
       searchByCodeData,
-      allParameterData,
+      allParameterData, searchCountData
     } = this.props;
 
-    if (
-      this.state.successSearchbyCategoryVersion >
-      prevState.successSearchbyCategoryVersion
-    ) {
-      this.props.navigation.navigate('SearchProductGrid', {
-        fromCodeSearch: false,
-      });
+    if (this.state.successSearchbyCategoryVersion > prevState.successSearchbyCategoryVersion) {
+      if (searchCountData.ack == '1') {
+        console.log("searchCountData", searchCountData);
+        this.props.navigation.navigate('SearchProductGrid', { fromCodeSearch: false, searchCount: searchCountData.data })
+      }
     }
     if (
       this.state.errorSearchbyCategoryVersion >
@@ -214,7 +230,7 @@ class SearchScreen extends Component {
   };
 
   toggleModal = () => {
-    this.setState({isModalVisible: true, isContinueClicked: false});
+    this.setState({ isModalVisible: true, isContinueClicked: false });
   };
 
   closeModal = () => {
@@ -227,9 +243,9 @@ class SearchScreen extends Component {
   };
 
   checkBox_Test = (id, name) => {
-    const {selectedCategories} = this.state;
+    const { selectedCategories } = this.state;
 
-    const checkCopy = {...this.state.check};
+    const checkCopy = { ...this.state.check };
     if (checkCopy[id]) {
       checkCopy[id] = false;
 
@@ -245,33 +261,22 @@ class SearchScreen extends Component {
 
       let array = [];
       let array2 = [];
-      array = [{id, name}];
+      array = [{ id, name }];
       array2.push(...selectedCategories, ...array);
-      console.warn('array', array2);
-      this.setState({selectedCategories: array2});
+      this.setState({ selectedCategories: array2 });
     }
 
-    this.setState({check: checkCopy});
+    this.setState({ check: checkCopy });
   };
 
   setToDate = newDate => {
-    const {fromDate} = this.state;
+    const { fromDate } = this.state;
 
-    // var timeStamp = new Date().getTime() + 1 * 24 * 60 * 60 * 1000;
-    // var timeStampDate = moment(new Date(timeStamp).toISOString().slice(0, 10)).format('DD-MM-YYYY');
-
-    // if (fromDate != '' && newDate != '' && timeStampDate > newDate) {
-    //     alert('Date must be greater than from date');
-    //   }
-    //   else if (!fromDate && newDate!=''){
-    //     this.setState({ toDate: newDate });
-    //   }
-
-    this.setState({toDate: newDate});
+    this.setState({ toDate: newDate });
   };
 
   setFromDate = newDate => {
-    this.setState({fromDate: newDate});
+    this.setState({ fromDate: newDate });
   };
 
   onTextChanged = (inputKey, value) => {
@@ -281,10 +286,10 @@ class SearchScreen extends Component {
   };
 
   grossWeight = () => {
-    const {gwFrom, gwTo, nwFrom, nwTo} = this.state;
+    const { gwFrom, gwTo, nwFrom, nwTo } = this.state;
 
     return (
-      <View style={{marginHorizontal: wp(3)}}>
+      <View style={{ marginHorizontal: wp(3) }}>
         <_Text fsHeading>Gross Weight</_Text>
         <View
           style={{
@@ -293,7 +298,7 @@ class SearchScreen extends Component {
             width: wp(100),
             justifyContent: 'space-between',
           }}>
-          <View style={{flexDirection: 'row', width: wp(40)}}>
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
               onChangeText={gwFrom => this.onTextChanged('gwFrom', gwFrom)}
@@ -305,11 +310,11 @@ class SearchScreen extends Component {
               returnKeyType="done"
             />
           </View>
-          <_Text fsMedium style={{marginTop: hp(2)}}>
+          <_Text fsMedium style={{ marginTop: hp(2) }}>
             AND{' '}
           </_Text>
 
-          <View style={{flexDirection: 'row', width: wp(40)}}>
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
               onChangeText={gwTo => this.onTextChanged('gwTo', gwTo)}
@@ -327,9 +332,9 @@ class SearchScreen extends Component {
   };
 
   netWeight = () => {
-    const {gwFrom, gwTo, nwFrom, nwTo} = this.state;
+    const { gwFrom, gwTo, nwFrom, nwTo } = this.state;
     return (
-      <View style={{marginHorizontal: wp(3)}}>
+      <View style={{ marginHorizontal: wp(3) }}>
         <_Text fsHeading>Net Weight</_Text>
         <View
           style={{
@@ -338,7 +343,7 @@ class SearchScreen extends Component {
             width: wp(100),
             justifyContent: 'space-between',
           }}>
-          <View style={{flexDirection: 'row', width: wp(40)}}>
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
               onChangeText={nwFrom => this.onTextChanged('nwFrom', nwFrom)}
@@ -350,11 +355,11 @@ class SearchScreen extends Component {
               returnKeyType="done"
             />
           </View>
-          <_Text fsMedium style={{marginTop: hp(2)}}>
+          <_Text fsMedium style={{ marginTop: hp(2) }}>
             AND{' '}
           </_Text>
 
-          <View style={{flexDirection: 'row', width: wp(40)}}>
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
               onChangeText={nwTo => this.onTextChanged('nwTo', nwTo)}
@@ -373,7 +378,7 @@ class SearchScreen extends Component {
 
   productReleaseDate = () => {
     return (
-      <View style={{marginHorizontal: wp(3)}}>
+      <View style={{ marginHorizontal: wp(3) }}>
         <_Text fsHeading>Product Release Between:</_Text>
         <View
           style={{
@@ -382,32 +387,19 @@ class SearchScreen extends Component {
             width: wp(100),
             justifyContent: 'space-between',
           }}>
-          <View style={{flexDirection: 'row', width: wp(40)}}>
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
             <FromDatePicker
               dateLabel="From Date"
               setFromDate={d => this.setFromDate(d)}
               fromDate={this.state.fromDate}
             />
           </View>
-          <_Text fsMedium style={{marginTop: hp(1.5)}}>
+          <_Text fsMedium style={{ marginTop: hp(1.5) }}>
             AND{' '}
           </_Text>
 
-          <View style={{flexDirection: 'row', width: wp(40)}}>
-            {/* <DatePicker
-                            defaultDate={new Date()}
-                            // minimumDate={new Date(2018, 1, 1)}
-                            //maximumDate={new Date(2018, 12, 31)}
-                            locale={"en"}
-                            // timeZoneOffsetInMinutes={undefined}
-                            modalTransparent={false}
-                            animationType={"fade"}
-                            androidMode={"default"}
-                            placeHolderText="To Date"
-                            textStyle={{ marginTop: hp(0.5), fontSize: 20 }}
-                            placeHolderTextStyle={{ color: "gray", fontSize: 20 }}
-                            onDateChange={() => this.setToDate()}
-                        /> */}
+          <View style={{ flexDirection: 'row', width: wp(40) }}>
+
             <ToDatePicker
               dateLabel="To Date"
               setToDate={d => this.setToDate(d)}
@@ -420,9 +412,9 @@ class SearchScreen extends Component {
   };
 
   selectKarat = () => {
-    const {selectedKarat, isOkKaratClicked} = this.state;
+    const { selectedKarat, isOkKaratClicked } = this.state;
     return (
-      <View style={{marginHorizontal: wp(3)}}>
+      <View style={{ marginHorizontal: wp(3) }}>
         <_Text fsHeading>Melting:</_Text>
         <TouchableOpacity onPress={() => this.karatModal()}>
           <View
@@ -433,15 +425,15 @@ class SearchScreen extends Component {
               width: wp(92),
             }}>
             {!isOkKaratClicked && (
-              <_Text fsHeading textColor={'gray'} style={{marginLeft: wp(3)}}>
+              <_Text fsHeading textColor={'gray'} style={{ marginLeft: wp(3) }}>
                 Select Melting:
               </_Text>
             )}
             {selectedKarat.length > 0 && isOkKaratClicked && (
-              <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                 {selectedKarat.map(s => {
                   return (
-                    <_Text fsHeading style={{marginLeft: wp(3)}}>
+                    <_Text fsHeading style={{ marginLeft: wp(3) }}>
                       {' '}
                       {s.value},
                     </_Text>
@@ -450,9 +442,14 @@ class SearchScreen extends Component {
               </View>
             )}
 
-            <Image
-              style={{height: hp(2.5), width: hp(2.5), marginTop: hp(1)}}
+            {/* <Image
+              style={{ height: hp(2.5), width: hp(2.5), marginTop: hp(1) }}
               source={require('../../../assets/image/DownArrow.png')}
+            /> */}
+            <Icon
+              type="Feather"
+              name="arrow-down"
+              style={{ fontSize: 22 }}
             />
           </View>
         </TouchableOpacity>
@@ -461,14 +458,14 @@ class SearchScreen extends Component {
   };
 
   selectCategories = () => {
-    const {selectedCategories, isContinueClicked} = this.state;
+    const { selectedCategories, isContinueClicked } = this.state;
 
     return (
-      <View style={{marginHorizontal: wp(3)}}>
+      <View style={{ marginHorizontal: wp(3) }}>
         <_Text fsHeading>Select Categories:</_Text>
 
         {selectedCategories.length > 0 && isContinueClicked && (
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', top: 3}}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', top: 3 }}>
             {selectedCategories.length > 0 && (
               <_Text fsPrimary>Selected: </_Text>
             )}
@@ -478,15 +475,6 @@ class SearchScreen extends Component {
           </View>
         )}
 
-        {/* <TouchableOpacity onPress={() => this.toggleModal()}>
-                    <View style={{ marginHorizontal: wp(3), justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={styles.roundedButton}>
-                            <View style={styles.buttonText}>
-                                <_Text fsHeading bold>SELECT CATEGORIES</_Text>
-                            </View>
-                        </View>
-                    </View>
-                </TouchableOpacity> */}
         <View
           style={{
             marginHorizontal: wp(3),
@@ -527,7 +515,7 @@ class SearchScreen extends Component {
   };
 
   continuecategoryModal = () => {
-    const {selectedCategories} = this.state;
+    const { selectedCategories } = this.state;
 
     categoryIds = selectedCategories.map(x => {
       return x.id;
@@ -540,7 +528,7 @@ class SearchScreen extends Component {
   };
 
   onOKkaratSelected = () => {
-    const {selectedKarat} = this.state;
+    const { selectedKarat } = this.state;
 
     karatIds = selectedKarat.map(x => {
       return x.id;
@@ -594,13 +582,52 @@ class SearchScreen extends Component {
       s.append('created_date_to', toDate ? toDate : '');
 
       this.props.searchProducts(s);
+
+      const countData = new FormData()
+      countData.append('table', 'product_master')
+      countData.append('mode_type', 'count_data')
+      countData.append('user_id', userId)
+      countData.append('record', 10)
+      countData.append('page_no', 0)
+      countData.append('collection_ids', categoryIds.toString())
+      countData.append('sort_by', 2)
+      countData.append('min_gross_weight', gwFrom ? gwFrom : '')
+      countData.append('max_gross_weight', gwTo ? gwTo : '')
+      countData.append('min_net_weight', nwFrom ? nwFrom : '')
+      countData.append('max_net_weight', nwTo ? nwTo : '')
+      countData.append('product_status', selectedStatus)
+      countData.append('melting_id  ', karatIds.toString())
+      countData.append('created_date_from', fromDate ? fromDate : '')
+      countData.append('created_date_to', toDate ? toDate : '')
+
+      this.props.searchProductsCount(countData)
+
+      const payload = {
+        table: 'product_master',
+        mode_type: 'count_data',
+        user_id: userId,
+        record: 10,
+        page_no: 0,
+        collection_ids: categoryIds.toString(),
+        sort_by: 2,
+        min_gross_weight: gwFrom ? gwFrom : '',
+        max_gross_weight: gwTo ? gwTo : '',
+        min_net_weight: nwFrom ? nwFrom : '',
+        max_net_weight: nwTo ? nwTo : '',
+        product_status: selectedStatus,
+        melting_id: karatIds.toString(),
+        created_date_from: fromDate ? fromDate : '',
+        created_date_to: toDate ? toDate : '',
+      }
+      this.props.saveSearchPayload(payload)
+
     } else {
       this.showToast('Please select category');
     }
   };
 
   searchModal = () => {
-    this.setState({isSearchCodeVisible: !this.state.isSearchCodeVisible});
+    this.setState({ isSearchCodeVisible: !this.state.isSearchCodeVisible });
   };
 
   handleSearchChange = newText =>
@@ -609,7 +636,7 @@ class SearchScreen extends Component {
     });
 
   searchByCode = () => {
-    const {searchText} = this.state;
+    const { searchText } = this.state;
     if (searchText !== '') {
       const byCode = new FormData();
       byCode.append('table', 'product_master');
@@ -647,9 +674,9 @@ class SearchScreen extends Component {
   }
 
   setToggleCheckBox = (id, value) => {
-    const {selectedKarat, toggleCheckBox} = this.state;
+    const { selectedKarat, toggleCheckBox } = this.state;
 
-    const val = {...this.state.karat};
+    const val = { ...this.state.karat };
     if (val[id]) {
       val[id] = false;
 
@@ -665,12 +692,12 @@ class SearchScreen extends Component {
 
       let array = [];
       let array2 = [];
-      array = [{id, value}];
+      array = [{ id, value }];
       array2.push(...selectedKarat, ...array);
-      this.setState({selectedKarat: array2});
+      this.setState({ selectedKarat: array2 });
     }
 
-    this.setState({karat: val});
+    this.setState({ karat: val });
   };
 
   closeKaratModal = () => {
@@ -689,25 +716,23 @@ class SearchScreen extends Component {
   };
 
   onSelectedItemsChange = selectedItems => {
-    this.setState({selectedItems});
+    this.setState({ selectedItems });
   };
 
   onSelectedItemsChange2 = selectedItems2 => {
-    this.setState({selectedItems2});
+    this.setState({ selectedItems2 });
   };
 
   onConfirmCategory = () => {
-    const {selectedItems2} = this.state;
+    const { selectedItems2 } = this.state;
 
     categoryIds = selectedItems2.map(x => {
       return x.id;
     });
-
-    console.log('selectedItems2', selectedItems2);
   };
 
   onCancelCategory = () => {
-    this.setState({selectedItems2: [], selectedItems: []});
+    this.setState({ selectedItems2: [], selectedItems: [] });
   };
 
   render() {
@@ -723,13 +748,13 @@ class SearchScreen extends Component {
       selectedCategories,
       isContinueClicked,
     } = this.state;
-    const {allParameterData} = this.props;
+    const { allParameterData } = this.props;
 
     const list = allParameterData && allParameterData.melting;
 
     let statusArray = [
-      {id: '1', status: 'Available'},
-      {id: '2', status: 'Sold'},
+      { id: '1', status: 'Available' },
+      { id: '2', status: 'Sold' },
     ];
 
     let headerTheme = allParameterData.theme_color
@@ -737,7 +762,7 @@ class SearchScreen extends Component {
       : '';
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
         <_CustomHeader
           Title={'Search'}
           RightBtnIcon2={require('../../../assets/image/BlueIcons/Notification-White.png')}
@@ -768,26 +793,26 @@ class SearchScreen extends Component {
           </View>
           <View style={styles.border} />
 
-          <_Text fsHeading style={{textAlign: 'center', marginTop: hp(1.5)}}>
+          <_Text fsHeading style={{ textAlign: 'center', marginTop: hp(1.5) }}>
             Advanced Search:
           </_Text>
 
-          <View style={{paddingVertical: hp(1.5)}}>{this.grossWeight()}</View>
+          <View style={{ paddingVertical: hp(1.5) }}>{this.grossWeight()}</View>
 
-          <View style={{paddingVertical: hp(1.5)}}>{this.netWeight()}</View>
+          <View style={{ paddingVertical: hp(1.5) }}>{this.netWeight()}</View>
 
-          <View style={{paddingVertical: hp(1.5)}}>
+          <View style={{ paddingVertical: hp(1.5) }}>
             {this.productReleaseDate()}
           </View>
 
-          <View style={{paddingVertical: hp(1), marginHorizontal: wp(3)}}>
+          <View style={{ paddingVertical: hp(1), marginHorizontal: wp(3) }}>
             <_Text fsHeading>Product Status:</_Text>
             <Picker
               iosIcon={
                 <Icon
                   type="Feather"
                   name="arrow-down"
-                  style={{marginRight: hp(1.5), fontSize: 22}}
+                  style={{ marginRight: hp(1.5), fontSize: 22 }}
                 />
               }
               mode="dropdown"
@@ -811,9 +836,9 @@ class SearchScreen extends Component {
             </Picker>
           </View>
 
-          <View style={{paddingVertical: hp(1)}}>{this.selectKarat()}</View>
+          <View style={{ paddingVertical: hp(1) }}>{this.selectKarat()}</View>
 
-          <View style={{paddingHorizontal: wp(2)}}>
+          <View style={{ paddingHorizontal: wp(2) }}>
             <SectionedMultiSelect
               items={collection}
               IconRenderer={Icon2}
@@ -897,10 +922,10 @@ class SearchScreen extends Component {
               </View>
 
               <FlatList
-                style={{backgroundColor: '#ffffff'}}
+                style={{ backgroundColor: '#ffffff' }}
                 showsVerticalScrollIndicator={false}
                 data={collection && collection}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
                   <View style={styles.categoryContainer}>
                     <Text numberOfLines={2} style={styles.categoryText}>
                       {item.col_name.length > 22
@@ -910,7 +935,7 @@ class SearchScreen extends Component {
                     {Platform.OS === 'ios' ? (
                       <CheckBox
                         style={styles.checkBox}
-                        tintColors={{true: '#11255a', false: 'gray'}}
+                        tintColors={{ true: '#11255a', false: 'gray' }}
                         value={this.state.check[item.id]}
                         onValueChange={() =>
                           this.checkBox_Test(item.id, item.col_name)
@@ -921,19 +946,19 @@ class SearchScreen extends Component {
                         onCheckColor="#ffffff"
                       />
                     ) : (
-                      <CheckBox
-                        style={styles.checkBox}
-                        tintColors={{true: '#11255a', false: 'gray'}}
-                        value={this.state.check[item.id]}
-                        onChange={() =>
-                          this.checkBox_Test(item.id, item.col_name)
-                        }
-                        boxType="square"
-                        onFillColor="#11255a"
-                        onTintColor="gray"
-                        onCheckColor="#ffffff"
-                      />
-                    )}
+                        <CheckBox
+                          style={styles.checkBox}
+                          tintColors={{ true: '#11255a', false: 'gray' }}
+                          value={this.state.check[item.id]}
+                          onChange={() =>
+                            this.checkBox_Test(item.id, item.col_name)
+                          }
+                          boxType="square"
+                          onFillColor="#11255a"
+                          onTintColor="gray"
+                          onCheckColor="#ffffff"
+                        />
+                      )}
                   </View>
                 )}
               />
@@ -954,13 +979,13 @@ class SearchScreen extends Component {
             <Modal
               isVisible={this.state.isSearchCodeVisible}
               onBackdropPress={() =>
-                this.setState({isSearchCodeVisible: false})
+                this.setState({ isSearchCodeVisible: false })
               }
               onBackButtonPress={() =>
-                this.setState({isSearchCodeVisible: false})
+                this.setState({ isSearchCodeVisible: false })
               }
-              onRequestClose={() => this.setState({isSearchCodeVisible: false})}
-              style={{margin: 30}}>
+              onRequestClose={() => this.setState({ isSearchCodeVisible: false })}
+              style={{ margin: 30 }}>
               <View style={styles.container}>
                 <View
                   style={[
@@ -977,12 +1002,12 @@ class SearchScreen extends Component {
                   <View style={styles.flexRow}>
                     <View style={styles.searchImgView}>
                       <Image
-                        style={{height: hp(3.2), width: hp(3.2)}}
+                        style={{ height: hp(3.2), width: hp(3.2) }}
                         source={IconPack.SEARCH_WHITE}
                       />
                     </View>
 
-                    <View style={{marginRight: 15, flex: 1}}>
+                    <View style={{ marginRight: 15, flex: 1 }}>
                       <FloatingLabelTextInput
                         label="Search"
                         value={this.state.searchText}
@@ -1003,7 +1028,7 @@ class SearchScreen extends Component {
 
                 <TouchableOpacity
                   style={styles.imageView}
-                  onPress={() => this.setState({isSearchCodeVisible: false})}>
+                  onPress={() => this.setState({ isSearchCodeVisible: false })}>
                   <Image
                     source={IconPack.WHITE_CLOSE}
                     style={styles.imageStyle}
@@ -1021,7 +1046,7 @@ class SearchScreen extends Component {
             onRequestClose={() => this.closeKaratModal()}
             onBackdropPress={() => this.closeKaratModal()}
             onBackButtonPress={() => this.closeKaratModal()}
-            style={{margin: 0}}>
+            style={{ margin: 0 }}>
             <TouchableWithoutFeedback>
               <View style={styles.container1}>
                 <View
@@ -1041,7 +1066,7 @@ class SearchScreen extends Component {
                   </View>
                 </View>
                 <TextInput
-                  onChangeText={search => this.setState({search})}
+                  onChangeText={search => this.setState({ search })}
                   style={styles.searchBar}
                   placeholder="Find Melting"
                   placeholderTextColor="#757575"
@@ -1049,56 +1074,56 @@ class SearchScreen extends Component {
                 />
 
                 {list &&
-                list.length > 0 &&
-                this.filterList(list).length !== 0 ? (
-                  this.filterList(list).map((listItem, index) => (
-                    <View style={styles.dataContainer}>
-                      <Text key={index} style={styles.itemText}>
-                        {listItem.melting_name}
-                      </Text>
+                  list.length > 0 &&
+                  this.filterList(list).length !== 0 ? (
+                    this.filterList(list).map((listItem, index) => (
+                      <View style={styles.dataContainer}>
+                        <Text key={index} style={styles.itemText}>
+                          {listItem.melting_name}
+                        </Text>
 
-                      <View style={{marginRight: 10}}>
-                        {Platform.OS === 'ios' ? (
-                          <CheckBox
-                            disabled={false}
-                            value={this.state.karat[listItem.id]}
-                            onValueChange={() =>
-                              this.setToggleCheckBox(
-                                listItem.id,
-                                listItem.melting_name,
-                              )
-                            }
-                            // onFillColor="#FFFFFF"
-                            onFillColor="#11255a"
-                            onTintColor="gray"
-                            onCheckColor="#ffffff"
-                          />
-                        ) : (
-                          <CheckBox
-                            disabled={false}
-                            value={this.state.karat[listItem.id]}
-                            onChange={() =>
-                              this.setToggleCheckBox(
-                                listItem.id,
-                                listItem.melting_name,
-                              )
-                            }
-                            // onFillColor="#FFFFFF"
-                            onFillColor="#11255a"
-                            onTintColor="gray"
-                            onCheckColor="#ffffff"
-                          />
-                        )}
+                        <View style={{ marginRight: 10 }}>
+                          {Platform.OS === 'ios' ? (
+                            <CheckBox
+                              disabled={false}
+                              value={this.state.karat[listItem.id]}
+                              onValueChange={() =>
+                                this.setToggleCheckBox(
+                                  listItem.id,
+                                  listItem.melting_name,
+                                )
+                              }
+                              // onFillColor="#FFFFFF"
+                              onFillColor="#11255a"
+                              onTintColor="gray"
+                              onCheckColor="#ffffff"
+                            />
+                          ) : (
+                              <CheckBox
+                                disabled={false}
+                                value={this.state.karat[listItem.id]}
+                                onChange={() =>
+                                  this.setToggleCheckBox(
+                                    listItem.id,
+                                    listItem.melting_name,
+                                  )
+                                }
+                                // onFillColor="#FFFFFF"
+                                onFillColor="#11255a"
+                                onTintColor="gray"
+                                onCheckColor="#ffffff"
+                              />
+                            )}
+                        </View>
                       </View>
+                    ))
+                  ) : (
+                    <View style={styles.noContainView}>
+                      <Text style={styles.noFoundText}>No Data found!</Text>
                     </View>
-                  ))
-                ) : (
-                  <View style={styles.noContainView}>
-                    <Text style={styles.noFoundText}>No Data found!</Text>
-                  </View>
-                )}
+                  )}
 
-                <View style={[styles.buttonContainer, {marginBottom: hp(1)}]}>
+                <View style={[styles.buttonContainer, { marginBottom: hp(1) }]}>
                   <ActionButtonRounded
                     title="CONTINUE"
                     onButonPress={() => this.onOKkaratSelected()}
@@ -1138,15 +1163,20 @@ function mapStateToProps(state) {
     searchByCodeData: state.searchReducer.searchByCodeData,
 
     allParameterData: state.homePageReducer.allParameterData,
-    successAllParameterVersion:
-      state.homePageReducer.successAllParameterVersion,
+    successAllParameterVersion: state.homePageReducer.successAllParameterVersion,
     errorAllParamaterVersion: state.homePageReducer.errorAllParamaterVersion,
+
+    successSearchCountVersion: state.searchReducer.successSearchCountVersion,
+    errorSearchCountVersion: state.searchReducer.errorSearchCountVersion,
+    searchCountData: state.searchReducer.searchCountData,
+
+    searchPayload: state.searchReducer.searchPayload,
+
   };
 }
 
 export default connect(
-  mapStateToProps,
-  {searchProducts, searchByCode},
+  mapStateToProps, { searchProducts, searchByCode, searchProductsCount, saveSearchPayload },
 )(SearchScreen);
 
 const styles = StyleSheet.create({
@@ -1388,7 +1418,7 @@ const styles = StyleSheet.create({
 });
 
 ///--------------------------------ActionButton------------------
-const ActionButtonRounded = ({title, onButonPress, containerStyle, color}) => {
+const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => {
   return (
     <TouchableOpacity
       onPress={() => {
@@ -1411,7 +1441,7 @@ const ActionButtonRounded = ({title, onButonPress, containerStyle, color}) => {
   );
 };
 
-const ActionButtonRounded2 = ({title, onButonPress, containerStyle}) => {
+const ActionButtonRounded2 = ({ title, onButonPress, containerStyle }) => {
   return (
     <TouchableOpacity
       onPress={() => {
