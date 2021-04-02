@@ -53,11 +53,17 @@ export default class Banner extends Component {
                 </View>
 
                 <View style={{ marginTop: hp(2) }}>
-                    <Image
-                        source={{ uri: baseUrl + bannerData.brand_image }}
-                        style={{ height: hp(75), width: wp(100) }}
-                        defaultSource={IconPack.APP_LOGO}
-                    />
+                    {bannerData.brand_image != '' ?
+                        <Image
+                            source={{ uri: baseUrl + bannerData.brand_image }}
+                            style={{ height: hp(75), width: wp(100), backgroundColor: '#d3d3d3' }}
+                        />
+                        :
+                        <Image
+                            style={{ height: hp(75), width: wp(100) }}
+                            source={IconPack.APP_LOGO}
+                        />
+                    }
 
                 </View>
 

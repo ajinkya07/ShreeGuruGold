@@ -96,7 +96,7 @@ class SearchScreen extends Component {
 
   componentDidMount = () => {
     const { homePageData } = this.props;
-
+    console.log("homePageData && homePageData.search_collection", homePageData && homePageData.search_collection);
     if (homePageData && homePageData.search_collection) {
       this.setState({
         collection: homePageData.search_collection,
@@ -805,7 +805,7 @@ class SearchScreen extends Component {
             {this.productReleaseDate()}
           </View>
 
-          <View style={{ paddingVertical: hp(1), marginHorizontal: wp(3) }}>
+          <View style={{ paddingTop: hp(1), marginHorizontal: wp(3) }}>
             <_Text fsHeading>Product Status:</_Text>
             <Picker
               iosIcon={
@@ -836,7 +836,7 @@ class SearchScreen extends Component {
             </Picker>
           </View>
 
-          <View style={{ paddingVertical: hp(1) }}>{this.selectKarat()}</View>
+          <View style={{ paddingBottom: hp(1) }}>{this.selectKarat()}</View>
 
           <View style={{ paddingHorizontal: wp(2) }}>
             <SectionedMultiSelect

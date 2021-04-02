@@ -1,8 +1,14 @@
-import React, {Component} from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import IconPack from '../../OnBoarding/Login/IconPack';
+import CalendarPicker from 'react-native-calendar-picker';
+import Modal from 'react-native-modal';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 
 export default class DatePickerComponent extends Component {
   constructor(props) {
@@ -39,7 +45,7 @@ export default class DatePickerComponent extends Component {
   }
 
   render() {
-    const {isDateTimePickerVisible, date} = this.state;
+    const { isDateTimePickerVisible, date } = this.state;
 
     return (
       <View style={styles.container}>
@@ -51,7 +57,7 @@ export default class DatePickerComponent extends Component {
             bottom: 0,
             left: 33,
           }}>
-          <Text style={{color: '#a3a3a3', fontSize: 13}}>
+          <Text style={{ color: '#a3a3a3', fontSize: 13 }}>
             {this.props.dateLabel}
           </Text>
         </View>
@@ -61,10 +67,10 @@ export default class DatePickerComponent extends Component {
             flexDirection: 'row',
             marginright: 0,
           }}>
-          <View style={{marginRight: 15}}>
+          <View style={{ marginRight: 15 }}>
             <Image
               source={IconPack.DATEEDIT}
-              style={{width: 20, height: 20, resizeMode: 'cover'}}
+              style={{ width: 20, height: 20, resizeMode: 'cover' }}
             />
           </View>
           <View
@@ -81,13 +87,52 @@ export default class DatePickerComponent extends Component {
             </TouchableOpacity>
           </View>
         </View>
-        {isDateTimePickerVisible && (
+        {/* {isDateTimePickerVisible && (
           <DateTimePicker
             isVisible={isDateTimePickerVisible}
             onConfirm={date => this.handleDatePicked(date)}
             onCancel={() => this.hideDateTimePicker()}
           />
-        )}
+        )} */}
+
+        <Modal
+          isVisible={isDateTimePickerVisible}
+          onRequestClose={() => this.setState({ isDateTimePickerVisible: false })}
+          onBackdropPress={() => this.setState({ isDateTimePickerVisible: false })}
+          onBackButtonPress={() => this.setState({ isDateTimePickerVisible: false })}
+          style={{ margin: 0 }}
+        >
+          <View style={{ backgroundColor: '#fff', }}>
+            <TouchableWithoutFeedback onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+              <>
+                <View>
+                  <CalendarPicker
+                    onDateChange={(d) => this.handleDatePicked(d)}
+                    selectedDayColor={headerTheme ? '#' + headerTheme : 'gray'}
+                    scrollable={true}
+                    headerWrapperStyle={{ marginVertical: 30, }}
+                  />
+                </View>
+
+                <TouchableOpacity onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+                  <View style={{
+                    alignItems: 'flex-end',
+                    height: hp(8),
+                    justifyContent: 'center',
+                    marginRight: 20
+                  }}>
+                    <Text style={{ fontSize: 16, color: '#000000' }}>
+                      Close
+                      </Text>
+                  </View>
+                </TouchableOpacity>
+
+              </>
+            </TouchableWithoutFeedback>
+          </View>
+
+        </Modal>
+
       </View>
     );
   }

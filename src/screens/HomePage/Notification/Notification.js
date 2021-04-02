@@ -105,27 +105,28 @@ class Notification extends Component {
               style={{
                 alignContent: 'center',
                 justifyContent: 'center',
-                flex: 0.75,
+                flex: 0.95,
               }}>
               <_Text
                 numberOfLines={2}
                 fwSmall
-                fsMedium
-                style={{ marginRight: hp(1), marginLeft: hp(2) }}>
+                fsPrimary
+                style={{ marginLeft: hp(2) }}>
                 Title: {item.title}
               </_Text>
-              <_Text numberOfLines={2} fsPrimary style={{ marginRight: hp(1), marginLeft: hp(2) }}>
+              <_Text numberOfLines={2} fsPrimary style={{ marginLeft: hp(2), marginTop: 5 }}>
                 Message: {item.sub_title}
               </_Text>
-              <View
-                style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
-                <_Text numberOfLines={2} note style={{ marginRight: hp(1), marginLeft: hp(2) }}>
+
+              <View style={{ marginTop: 5, justifyContent: 'space-between', flexDirection: 'row', flexWrap: 'wrap' }}>
+                <_Text numberOfLines={2} note style={{ marginLeft: hp(2) }}>
                   Order id: {item.order_id}
                 </_Text>
-                <_Text numberOfLines={2} note style={{ marginRight: hp(1), marginLeft: hp(2) }}>
-                  Date:{item.created}
+                <_Text numberOfLines={2} note style={{ marginLeft: hp(2) }}>
+                  Date:{(item.created).slice(0, 10)}
                 </_Text>
               </View>
+
             </View>
           </View>
           <View

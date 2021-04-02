@@ -1014,7 +1014,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 10,
-    marginTop: 20,
+    marginVertical: 18,
   },
   downArrow: {
     width: hp(2),

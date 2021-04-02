@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {color} from '@values/colors';
-import {urls} from '@api/urls';
-import {connect} from 'react-redux';
-import {getCustomOrderList} from '@accountCustomOrder/CustomOrderAction';
-import {Toast} from 'native-base';
+import { color } from '@values/colors';
+import { urls } from '@api/urls';
+import { connect } from 'react-redux';
+import { getCustomOrderList } from '@accountCustomOrder/CustomOrderAction';
+import { Toast } from 'native-base';
 import _Text from '@text/_Text';
 import Theme from '../../../values/Theme';
 import IconPack from '@login/IconPack';
@@ -42,7 +42,7 @@ class CustomOrder extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {successCustomVersion, errorCustomVersion} = nextProps;
+    const { successCustomVersion, errorCustomVersion } = nextProps;
 
     let newState = null;
 
@@ -63,7 +63,7 @@ class CustomOrder extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const {customOrderData} = this.props;
+    const { customOrderData } = this.props;
 
     if (this.state.successCustomVersion > prevState.successCustomVersion) {
     }
@@ -76,7 +76,7 @@ class CustomOrder extends Component {
   }
 
   customOrderDetails = item => {
-    const {customOrderData} = this.props;
+    const { customOrderData } = this.props;
 
     let url2 = urls.imageUrl + customOrderData.path + item.image_name;
 
@@ -85,18 +85,19 @@ class CustomOrder extends Component {
         <View style={styles.imageView}>
           <Image
             style={styles.imageStyle}
-            source={{uri: url2}}
+            source={{ uri: url2 }}
             defaultSource={IconPack.APP_LOGO}
           />
         </View>
         <View style={styles.contentRowStyle}>
-          <View style={{flexDirection: 'column'}}>
+          <View style={{ flexDirection: 'column' }}>
             {item.label.map((key, i) => {
               return (
                 <Text
                   style={{
                     marginTop: 5,
                     ...Theme.ffLatoRegular15,
+                    color: '#000000',
                   }}>
                   {key.replace('_', ' ')}
                 </Text>
@@ -104,7 +105,7 @@ class CustomOrder extends Component {
             })}
           </View>
 
-          <View style={{flexDirection: 'column'}}>
+          <View style={{ flexDirection: 'column' }}>
             {item.value.map((value, j) => {
               return (
                 <Text
@@ -135,7 +136,7 @@ class CustomOrder extends Component {
         }}>
         <Image
           source={require('../../../assets/gif/noData.gif')}
-          style={{height: hp(20), width: hp(20)}}
+          style={{ height: hp(20), width: hp(20) }}
         />
         <Text
           style={{
@@ -166,12 +167,12 @@ class CustomOrder extends Component {
   };
 
   render() {
-    const {customOrderData} = this.props;
+    const { customOrderData } = this.props;
     const data =
       customOrderData && customOrderData.data && customOrderData.data.data_list;
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
         <_CustomHeader
           Title="Custom Order History"
           // RightBtnIcon1={require('../../../assets/image/BlueIcons/Search.png')}
@@ -262,7 +263,7 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {getCustomOrderList},
+  { getCustomOrderList },
 )(CustomOrder);
 
 const styles = StyleSheet.create({

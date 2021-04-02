@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import IconPack from '@login/IconPack';
-import {color} from '@values/colors';
+import { color } from '@values/colors';
 import Theme from '../../values/Theme';
 
 export default class FloatingLabelInput extends Component {
@@ -39,8 +39,8 @@ export default class FloatingLabelInput extends Component {
       isFocused: false,
     });
   render() {
-    const {label, ...props} = this.props;
-    const {isFocused} = this.state;
+    const { label, maxLength, ...props } = this.props;
+    const { isFocused } = this.state;
     const labelStyle = {
       position: 'absolute',
       left: 0,
@@ -79,7 +79,7 @@ export default class FloatingLabelInput extends Component {
                   ? require('../../assets/USer.png')
                   : require('../../assets/USer.png')
               }
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -98,7 +98,7 @@ export default class FloatingLabelInput extends Component {
                   ? require('../../assets/image/Profile/Email.png')
                   : require('../../assets/image/Profile/Email.png')
               }
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -116,7 +116,7 @@ export default class FloatingLabelInput extends Component {
                   ? require('../../assets/image/Profile/mobile.png')
                   : require('../../assets/image/Profile/mobile.png')
               }
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -130,7 +130,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.COMMENT : IconPack.COMMENT}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -144,7 +144,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.PINCODE : IconPack.PINCODE}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -159,7 +159,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.GSTNO : IconPack.GSTNO}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -173,7 +173,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.PAN : IconPack.PAN}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -187,7 +187,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.COMPANY : IconPack.COMPANY}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -201,7 +201,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.DSG : IconPack.DSG}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -215,7 +215,7 @@ export default class FloatingLabelInput extends Component {
             }}>
             <Image
               source={!isFocused ? IconPack.EDITPHONE : IconPack.EDITPHONE}
-              style={{width: 25, height: 25, resizeMode: 'cover'}}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
@@ -226,7 +226,7 @@ export default class FloatingLabelInput extends Component {
               paddingTop: 16,
               width: '95%',
             },
-            {width: this.props.width},
+            { width: this.props.width },
           ]}>
           <Animated.Text style={labelStyle}>{label}</Animated.Text>
           <TextInput
@@ -246,6 +246,7 @@ export default class FloatingLabelInput extends Component {
             returnKeyType={
               this.props.returnKeyType ? this.props.returnKeyType : 'next'
             }
+            maxLength={maxLength ? maxLength : null}
           />
           {isFocused && this.props.value !== '' ? (
             <TouchableOpacity

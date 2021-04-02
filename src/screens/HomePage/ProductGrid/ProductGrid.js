@@ -935,7 +935,6 @@ class ProductGrid extends Component {
 
               {item.image_name != '' &&
                 <Image
-                  resizeMode="cover"
                   style={gridImage2}
                   defaultSource={IconPack.APP_LOGO}
                   source={{ uri: url + item.image_name }}
@@ -943,7 +942,7 @@ class ProductGrid extends Component {
               }
               {item.image_name == '' &&
                 <Image
-                  resizeMode="cover"
+                  resizeMode="contain"
                   style={gridImage2}
                   source={IconPack.APP_LOGO}
                 />

@@ -49,14 +49,14 @@ import {
 } from '@cartContainer/CartContainerAction';
 import { connect } from 'react-redux';
 import { urls } from '@api/urls';
-import Modal from 'react-native-modal';
 import { withNavigationFocus } from '@react-navigation/compat';
 import { strings } from '@values/strings';
 import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
 import Theme from '../../values/Theme';
+import CalendarPicker from 'react-native-calendar-picker';
+import Modal from 'react-native-modal';
 
 var userId = '';
 
@@ -807,10 +807,17 @@ class CartContainer extends Component {
         <View style={styles.tabCartTopContainer}>
           <View style={styles.imgView}>
             <TouchableOpacity onLongPress={() => this.showImageModal(data)}>
-              <Image
-                style={styles.imgStyle}
-                source={{ uri: baseurl + data.images }}
-              />
+              {data.images != '' ?
+                <Image
+                  style={styles.imgStyle}
+                  source={{ uri: baseurl + data.images }}
+                />
+                :
+                <Image
+                  style={styles.imgStyle}
+                  source={IconPack.APP_LOGO}
+                />
+              }
             </TouchableOpacity>
           </View>
           <View style={styles.codeCollectionView}>
@@ -1042,10 +1049,16 @@ class CartContainer extends Component {
         <View style={styles.tabCartTopContainer}>
           <View style={styles.imgView}>
             <TouchableOpacity onLongPress={() => this.showImageModal(item)}>
-              <Image
-                style={styles.imgStyle}
-                source={{ uri: baseurl2 + item.images }}
-              />
+              {item.images != '' ?
+                <Image
+                  style={styles.imgStyle}
+                  source={{ uri: baseurl2 + item.images }}
+                />
+                :
+                <Image
+                  style={styles.imgStyle}
+                  source={IconPack.APP_LOGO}
+                />}
             </TouchableOpacity>
           </View>
           <View style={styles.codeCollectionView}>
@@ -1499,7 +1512,7 @@ class CartContainer extends Component {
                       justifyContent: 'center',
                       borderRadius: 10,
                     }}>
-                    <_Text fsMedium style={{ marginTop: hp(0.5) }}>
+                    <_Text fsMedium style={{ marginTop: hp(0.5), fontFamily: 'Lato-Bold' }}>
                       Code: {imageToBeDisplayed.design_number}
                     </_Text>
                     <View
@@ -1510,9 +1523,8 @@ class CartContainer extends Component {
                         width: wp(90),
                       }}
                     />
-                    <Image
+                    {imageToBeDisplayed.images != '' ? <Image
                       source={{ uri: url + imageToBeDisplayed.images }}
-                      defaultSource={require('../../assets/image/default.png')}
                       style={{
                         height: hp(35),
                         width: wp(90),
@@ -1520,6 +1532,17 @@ class CartContainer extends Component {
                       }}
                       resizeMode="cover"
                     />
+                      :
+                      <Image
+                        source={IconPack.APP_LOGO}
+                        style={{
+                          height: hp(35),
+                          width: wp(90),
+                          marginTop: hp(1),
+                        }}
+                        resizeMode="contain"
+                      />
+                    }
                   </View>
                 </SafeAreaView>
               </Modal>
@@ -1906,13 +1929,13 @@ class CartContainer extends Component {
                           </View>
                         </View>
 
-                        {isDateTimePickerVisible && (
-                          <DateTimePicker
+                        {/* {isDateTimePickerVisible && (
+                          <DateTimePickerModal
                             isVisible={isDateTimePickerVisible}
                             onConfirm={date => this.handleDatePicked(date)}
                             onCancel={() => this.hideDateTimePicker()}
                           />
-                        )}
+                        )} */}
                       </View>
 
                       <View style={[styles.btnView, { marginVertical: 15 }]}>
@@ -1935,6 +1958,48 @@ class CartContainer extends Component {
                   </View>
                 </KeyboardAvoidingView>
               </TouchableWithoutFeedback>
+
+
+              {/* modal for date picker */}
+              <Modal
+                isVisible={this.state.isDateTimePickerVisible}
+                onRequestClose={() => this.setState({ isDateTimePickerVisible: false })}
+                onBackdropPress={() => this.setState({ isDateTimePickerVisible: false })}
+                onBackButtonPress={() => this.setState({ isDateTimePickerVisible: false })}
+                style={{ margin: 0 }}
+              >
+                <View style={{ backgroundColor: '#fff', }}>
+                  <TouchableWithoutFeedback onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+                    <>
+                      <View>
+                        <CalendarPicker
+                          onDateChange={(d) => this.handleDatePicked(d)}
+                          selectedDayColor={headerTheme ? '#' + headerTheme : 'gray'}
+                          scrollable={true}
+                          headerWrapperStyle={{ marginVertical: 30, }}
+                        />
+                      </View>
+
+                      <TouchableOpacity onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+                        <View style={{
+                          alignItems: 'flex-end',
+                          height: hp(8),
+                          justifyContent: 'center',
+                          marginRight: 20
+                        }}>
+                          <Text style={{ fontSize: 16, color: '#000000' }}>
+                            Close
+                      </Text>
+                        </View>
+                      </TouchableOpacity>
+
+                    </>
+                  </TouchableWithoutFeedback>
+                </View>
+
+              </Modal>
+
+
             </Modal>
           )}
 

@@ -111,7 +111,7 @@ class OrderHistory extends Component {
           this.props.navigation.navigate('OrderHistoryDetail', { data: item })
         }>
         <View style={{ backgroundColor: color.white }}>
-          <Text style={{ ...Theme.ffLatoBold13, color: '#000' }}>
+          <Text style={{ ...Theme.ffLatoBold15, color: '#000' }}>
             Order Number:{item.order_id}
           </Text>
           <View style={styles.rowTextStyle}>
@@ -187,8 +187,8 @@ class OrderHistory extends Component {
               data={orderHistoryData}
               refreshing={this.props.isFetching}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <View style={{}}>{this.orderHistoryView(item)}</View>
+              renderItem={({ item, index }) => (
+                <View key={'h' + index}>{this.orderHistoryView(item)}</View>
               )}
               keyExtractor={(item, index) => index.toString()}
             />

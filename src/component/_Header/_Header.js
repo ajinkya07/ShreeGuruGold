@@ -58,7 +58,7 @@ class _Header extends Component {
                   }}>
                   <Image
                     source={require('../../assets/Home-Icon.png')}
-                    style={{ height: 35, width: 35 }}
+                    style={{ height: 35, width: 35, marginLeft: Platform.OS == 'ios' ? 15 : 0, }}
                     resizeMode={'contain'}
                   />
 

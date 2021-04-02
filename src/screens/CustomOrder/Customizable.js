@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Platform,
-  ScrollView,
+  ScrollView, TouchableWithoutFeedback
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -26,7 +26,8 @@ import {
 } from 'native-base';
 import IconPack from '@login/IconPack';
 import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import CalendarPicker from 'react-native-calendar-picker';
+import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-crop-picker';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -63,6 +64,7 @@ class Customizable extends Component {
       imageUrl: '',
       date: '',
       imageData: '',
+      approxWeight: '',
 
       successCustomOrderVersion: 0,
       errorCustomOrderVersion: 0,
@@ -321,16 +323,24 @@ class Customizable extends Component {
     var date1 = moment(timeStampDate, 'DD-MM-YYYY').valueOf();
     var date2 = moment(date, 'DD-MM-YYYY').valueOf();
 
-    var photo = {
-      uri:
-        Platform.OS === 'android'
-          ? imageData.path
-          : imageData.path.replace('file://', ''),
-      type: imageData.mime,
-      name: imageData.modificationDate + '.jpg',
-    };
+    if (imageData != '') {
+      var photo = {
+        uri:
+          Platform.OS === 'android'
+            ? imageData.path
+            : imageData.path.replace('file://', ''),
+        type: imageData.mime,
+        name: imageData.modificationDate + '.jpg',
+      };
+    }
 
-    if (!grossWeight) {
+    if (productName == '') {
+      this.showToast('Please enter product name', 'danger');
+    }
+    else if (approxWeight == '') {
+      this.showToast('Please enter approximate weight', 'danger');
+    }
+    else if (!grossWeight) {
       this.showToast('Please enter gross weight', 'danger');
     } else if (!netWeight) {
       this.showToast('Please enter net weight', 'danger');
@@ -376,7 +386,6 @@ class Customizable extends Component {
   };
 
   setSelectedValue = karat => {
-    console.log('karat'), karat;
     this.setState({
       karatValue: karat,
     });
@@ -387,33 +396,30 @@ class Customizable extends Component {
     const { allParameterData } = this.props;
 
     let list = allParameterData && allParameterData.melting;
-
     return (
-      <View>
-        <Picker
-          iosIcon={
-            <Icon
-              type="FontAwesome"
-              name="chevron-circle-down"
-              style={{ fontSize: 20 }}
+      <Picker
+        iosIcon={
+          <Icon
+            type="Ionicons"
+            name="caret-down"
+            style={{ fontSize: 20 }}
+          />
+        }
+        mode="dropdown"
+        style={{ height: 40, width: wp(55) }}
+        selectedValue={karatValue}
+        onValueChange={(itemValue, itemIndex) =>
+          this.setSelectedValue(itemValue)
+        }>
+        {list && list.length > 0
+          ? list.map((listItem, index) => (
+            <Picker.Item
+              label={listItem.melting_name.toString()}
+              value={parseInt(`${listItem.id}`)}
             />
-          }
-          mode="dropdown"
-          style={{ height: 40, width: wp(55) }}
-          selectedValue={karatValue}
-          onValueChange={(itemValue, itemIndex) =>
-            this.setSelectedValue(itemValue)
-          }>
-          {list && list.length > 0
-            ? list.map((listItem, index) => (
-              <Picker.Item
-                label={listItem.melting_name.toString()}
-                value={parseInt(`${listItem.id}`)}
-              />
-            ))
-            : null}
-        </Picker>
-      </View>
+          ))
+          : null}
+      </Picker>
     );
   };
 
@@ -505,7 +511,7 @@ class Customizable extends Component {
                   <FloatingLabelTextInput
                     label="Gross Weight (gm)"
                     value={this.state.grossWeight}
-                    onChangeText={(v) => this.handleGrossWeightChange()}
+                    onChangeText={(v) => this.handleGrossWeightChange(v)}
                     width="100%"
                     keyboardType="numeric"
                     textInputRef={this.grossWeightRef}
@@ -524,7 +530,7 @@ class Customizable extends Component {
                   />
 
                   <FloatingLabelTextInput
-                    label="Length (Inches)"
+                    label="Length / Size (Inches)"
                     value={this.state.length}
                     onChangeText={(v) => this.handleLengthChange(v)}
                     width="100%"
@@ -548,7 +554,7 @@ class Customizable extends Component {
                   <FloatingLabelTextInput
                     label="Quantity"
                     value={this.state.quantity}
-                    onChangeText={(v) => this.handleQuantityChange()}
+                    onChangeText={(v) => this.handleQuantityChange(v)}
                     width="100%"
                     keyboardType="numeric"
                     textInputRef={this.quantityRef}
@@ -592,27 +598,6 @@ class Customizable extends Component {
                     textInputRef={this.remarkRef}
                     returnKeyType="done"
                   />
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      marginTop: 10,
-                    }}>
-                    <View
-                      style={{ alignItems: 'center', justifyContent: 'center' }}>
-                      <Text
-                        style={{
-                          ...Theme.ffLatoRegular16,
-                          color: '#aaa',
-                          marginLeft: 10,
-                        }}>
-                        Melting
-                      </Text>
-                    </View>
-                    {allParameterData &&
-                      allParameterData.melting &&
-                      this.PickerDropDown()}
-                  </View>
 
                   <View
                     style={{
@@ -641,13 +626,31 @@ class Customizable extends Component {
                     </View>
                   </View>
 
-                  {isDateTimePickerVisible && (
-                    <DateTimePicker
+                  {/* {isDateTimePickerVisible && (
+                    <DateTimePickerModal
                       isVisible={isDateTimePickerVisible}
                       onConfirm={date => this.handleDatePicked(date)}
                       onCancel={() => this.hideDateTimePicker()}
                     />
-                  )}
+                  )} */}
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      marginTop: 10,
+                    }}>
+                    <Text style={{
+                      ...Theme.ffLatoRegular16,
+                      color: '#aaa',
+                      marginLeft: 10,
+                    }}>
+                      Melting
+                      </Text>
+                    {allParameterData && allParameterData.melting && this.PickerDropDown()}
+                  </View>
+
+
                 </View>
               </View>
             </View>
@@ -695,6 +698,47 @@ class Customizable extends Component {
         </TouchableOpacity>
 
         {this.props.isFetching && this.renderLoader()}
+
+        {/* modal for date picker */}
+        <Modal
+          isVisible={this.state.isDateTimePickerVisible}
+          onRequestClose={() => this.setState({ isDateTimePickerVisible: false })}
+          onBackdropPress={() => this.setState({ isDateTimePickerVisible: false })}
+          onBackButtonPress={() => this.setState({ isDateTimePickerVisible: false })}
+          style={{ margin: 0 }}
+        >
+          <View style={{ backgroundColor: '#fff', }}>
+            <TouchableWithoutFeedback onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+              <>
+                <View>
+                  <CalendarPicker
+                    onDateChange={(d) => this.handleDatePicked(d)}
+                    selectedDayColor={headerTheme ? '#' + headerTheme : 'gray'}
+                    scrollable={true}
+                    headerWrapperStyle={{ marginVertical: 30, }}
+                  />
+                </View>
+
+                <TouchableOpacity onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+                  <View style={{
+                    alignItems: 'flex-end',
+                    height: hp(8),
+                    justifyContent: 'center',
+                    marginRight: 20
+                  }}>
+                    <Text style={{ fontSize: 16, color: '#000000' }}>
+                      Close
+                      </Text>
+                  </View>
+                </TouchableOpacity>
+
+              </>
+            </TouchableWithoutFeedback>
+          </View>
+
+        </Modal>
+
+
       </SafeAreaView>
     );
   }

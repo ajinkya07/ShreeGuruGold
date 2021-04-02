@@ -258,37 +258,53 @@ class OrderHistoryDetail extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.contentView}>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>order date:</Text>
-              <Text style={styles.contentText}>{data.value[0]}</Text>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
+              flex: 2,
+            }}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+              }}>
+              {data.key.map((key, i) => {
+                return (
+                  <_Text
+                    numberOfLines={1}
+                    fsSmall
+                    textColor={'#808080'}
+                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}>
+                    {key.replace('_', ' ')}
+                  </_Text>
+                );
+              })}
             </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>delivery date:</Text>
-              <Text style={styles.contentText}>{data.value[1]}</Text>
+
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'flex-start',
+                marginLeft: 55,
+              }}>
+              {data.value.map((value, j) => {
+                return (
+                  <_Text
+                    numberOfLines={1}
+                    fsPrimary
+                    textColor={'#808080'}
+                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}>
+                    {value ? value : '-'}
+                  </_Text>
+                );
+              })}
             </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>quantity:</Text>
-              <Text style={styles.contentText}>{data.value[2]}</Text>
-            </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>gross wt:</Text>
-              <Text style={styles.contentText}>{parseInt(data.value[3]).toFixed(2)}</Text>
-            </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>net wt:</Text>
-              <Text style={styles.contentText}>{parseInt(data.value[4]).toFixed(2)}</Text>
-            </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>order id:</Text>
-              <Text style={styles.contentText}>{data.value[5]}</Text>
-            </View>
-            <View style={styles.rowTextStyle}>
-              <Text style={styles.contentText}>order stage</Text>
-              <Text style={styles.contentText}>{data.value[6]}</Text>
-            </View>
-            <View style={styles.bottomLine}></View>
           </View>
+
+
         </View>
       </View>
     );
@@ -345,12 +361,11 @@ class OrderHistoryDetail extends Component {
   };
 
   render() {
-    const { orderHistoryDetailsData } = this.props;
+    const { orderHistoryDetailsData, isFetching } = this.props;
     const { imageToBeDisplayed } = this.state;
 
 
     const summaryData = orderHistoryDetailsData && orderHistoryDetailsData.order_summary
-
     return (
       <>
         <SafeAreaView style={{ flex: 1, backgroundColor: color.white }}>
@@ -368,10 +383,10 @@ class OrderHistoryDetail extends Component {
               refreshing={this.props.isFetching}
               // onRefresh={() => this.scrollDownToRefreshWishList()}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <View style={{}}>{this.OrderHistoryDetailComponent(item)}</View>
+              renderItem={({ item, index }) => (
+                <View key={'d' + index}>{this.OrderHistoryDetailComponent(item)}</View>
               )}
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item, index) => index.toString()}
             />
           )}
 
@@ -401,7 +416,7 @@ class OrderHistoryDetail extends Component {
                       justifyContent: 'center',
                       borderRadius: 10,
                     }}>
-                    <_Text fsMedium style={{ marginTop: hp(0.5) }}>
+                    <_Text fsMedium style={{ marginTop: hp(0.5), fontFamily: 'Lato-Bold' }}>
                       Code: {imageToBeDisplayed.product_id}
                     </_Text>
                     <View
@@ -412,16 +427,27 @@ class OrderHistoryDetail extends Component {
                         width: wp(90),
                       }}
                     />
-                    <Image
-                      source={{ uri: imageToBeDisplayed.image_zoom }}
-                      defaultSource={require('../../../assets/image/default.png')}
-                      style={{
-                        height: hp(35),
-                        width: wp(90),
-                        marginTop: hp(1),
-                      }}
-                      resizeMode="stretch"
-                    />
+                    {imageToBeDisplayed.image_zoom != '' ?
+                      <Image
+                        source={{ uri: imageToBeDisplayed.image_zoom }}
+                        style={{
+                          height: hp(35),
+                          width: wp(90),
+                          marginTop: hp(1),
+                        }}
+                        resizeMode="cover"
+                      />
+                      :
+                      <Image
+                        source={IconPack.APP_LOGO}
+                        style={{
+                          height: hp(35),
+                          width: wp(90),
+                          marginTop: hp(1),
+                        }}
+                        resizeMode="contain"
+                      />
+                    }
                   </View>
                 </SafeAreaView>
               </Modal>
@@ -612,7 +638,7 @@ const styles = StyleSheet.create({
   productIdText: {
     textAlign: 'center',
     marginBottom: 20,
-    ...Theme.ffLatoBold13,
+    ...Theme.ffLatoBold15,
     color: '#000',
   },
   subcontainerView: {

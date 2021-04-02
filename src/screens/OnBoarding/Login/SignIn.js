@@ -119,12 +119,14 @@ class SignIn extends React.Component {
 
   sendFcmToken = async () => {
     let fcmToken = await AsyncStorage.getItem('fcmToken');
+    let platform = Platform.OS === 'ios' ? 'ios' : 'android'
 
     const fcmData = new FormData();
 
     fcmData.append('worker_id', userId);
     fcmData.append('type', 'client');
     fcmData.append('gcm_no', fcmToken);
+    fcmData.append('platform', platform);
 
     await this.props.sendFCM(fcmData);
   };

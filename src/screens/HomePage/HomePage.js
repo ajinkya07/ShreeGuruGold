@@ -455,11 +455,17 @@ class HomePage extends Component {
           })
         }>
         <View key={index}>
-          <Image style={{ height: hp(28), width: wp(100), }}
-            source={{ uri: baseUrl + item.brand_image }}
-            defaultSource={IconPack.APP_LOGO}
-            resizeMode='cover'
-          />
+          {item.brand_image != '' ?
+            <Image style={{ height: hp(28), width: wp(100), backgroundColor: '#d3d3d3' }}
+              source={{ uri: baseUrl + item.brand_image }}
+              resizeMode='cover'
+            />
+            :
+            <Image style={{ height: hp(28), width: wp(100), }}
+              source={IconPack.APP_LOGO}
+              resizeMode='cover'
+            />
+          }
         </View >
       </TouchableOpacity>
     );

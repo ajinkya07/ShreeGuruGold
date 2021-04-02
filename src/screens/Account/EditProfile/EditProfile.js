@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -22,21 +22,20 @@ import Modal from 'react-native-modal';
 import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
 import DatePickerComponent from './DatePickerComponent';
 import DatePickerComponent1 from './DatePickerComponent1';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import _CustomHeader from '@customHeader/_CustomHeader';
-import {Toast} from 'native-base';
+import { Toast } from 'native-base';
 import {
   getProfile,
   getStateList,
   getCityList,
   updateUserProfile,
 } from '@editProfile/EditProfileAction';
-import {connect} from 'react-redux';
-import {allParameters} from '@homepage/HomePageAction';
-import {strings} from '@values/strings';
+import { connect } from 'react-redux';
+import { allParameters } from '@homepage/HomePageAction';
+import { strings } from '@values/strings';
 import Theme from '../../../values/Theme';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class EditProfile extends Component {
   constructor(props) {
@@ -203,7 +202,7 @@ class EditProfile extends Component {
       cityList,
       updateProfileData,
     } = this.props;
-    const {isFirstTime} = this.state;
+    const { isFirstTime } = this.state;
 
     if (
       this.state.successGetProfileVersion > prevState.successGetProfileVersion
@@ -326,14 +325,14 @@ class EditProfile extends Component {
   };
 
   toggleCountryModal = () => {
-    this.setState({isCountryModalVisible: !this.state.isCountryModalVisible});
+    this.setState({ isCountryModalVisible: !this.state.isCountryModalVisible });
   };
 
   toggleStateModal = () => {
-    this.setState({isStateModalVisible: !this.state.isStateModalVisible});
+    this.setState({ isStateModalVisible: !this.state.isStateModalVisible });
   };
   toggleCityModal = () => {
-    this.setState({isCityModalVisible: !this.state.isCityModalVisible});
+    this.setState({ isCityModalVisible: !this.state.isCityModalVisible });
   };
 
   handleNameChange = newText =>
@@ -414,7 +413,7 @@ class EditProfile extends Component {
   };
 
   setSelecedCountry = index => {
-    const {countryData} = this.state;
+    const { countryData } = this.state;
 
     let country = countryData.filter(i => i.id == index);
     let name = country[0].name;
@@ -437,7 +436,7 @@ class EditProfile extends Component {
   };
 
   setSelecedState = index => {
-    const {stateData} = this.state;
+    const { stateData } = this.state;
 
     let state = stateData.filter(i => i.id == index);
     let stateName = state[0].name;
@@ -458,7 +457,7 @@ class EditProfile extends Component {
   };
 
   setSelecedCity = index => {
-    const {cityData} = this.state;
+    const { cityData } = this.state;
 
     let city = cityData.filter(i => i.id == index);
     let cityName = city[0].name;
@@ -521,27 +520,27 @@ class EditProfile extends Component {
   searchCountry = s => {
     // this.setState({enteredCountry: s});
 
-    let filteredData = this.state.countryData.filter(function(item) {
+    let filteredData = this.state.countryData.filter(function (item) {
       return item.name.includes(s);
     });
 
-    this.setState({clonecountryData: filteredData, enteredCountry: s});
+    this.setState({ clonecountryData: filteredData, enteredCountry: s });
   };
 
   searchCity = c => {
-    let filteredCity = this.state.cityData.filter(function(item) {
+    let filteredCity = this.state.cityData.filter(function (item) {
       return item.name.includes(c);
     });
 
-    this.setState({cloneCityData: filteredCity, enteredCity: c});
+    this.setState({ cloneCityData: filteredCity, enteredCity: c });
   };
 
   searchState = s => {
-    let filteredState = this.state.stateData.filter(function(item) {
+    let filteredState = this.state.stateData.filter(function (item) {
       return item.name.includes(s);
     });
 
-    this.setState({cloneStateData: filteredState, enteredState: s});
+    this.setState({ cloneStateData: filteredState, enteredState: s });
   };
 
   renderEmptyContainer = () => {
@@ -577,7 +576,7 @@ class EditProfile extends Component {
   };
 
   render() {
-    const {allParameterData} = this.props;
+    const { allParameterData } = this.props;
     const {
       countryData,
       selectedCountry,
@@ -594,7 +593,7 @@ class EditProfile extends Component {
       : '';
 
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <>
           <_CustomHeader
             Title="Edit Profile"
@@ -634,7 +633,7 @@ class EditProfile extends Component {
                 shadowColor: '#000000',
                 shadowOpacity: 0.2,
                 shadowRadius: 2,
-                shadowOffset: {height: 1, width: 1},
+                shadowOffset: { height: 1, width: 1 },
                 elevation: 1,
               }}>
               <View
@@ -742,6 +741,7 @@ class EditProfile extends Component {
                     keyboardType="numeric"
                     width="95%"
                     style={10}
+                    maxLength={6}
                     textInputRef={this.pinCodeRef}
                     returnKeyType="done"
                   />
@@ -766,7 +766,7 @@ class EditProfile extends Component {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={{fontSize: 16, color: '#000000'}}>
+                    <Text style={{ fontSize: 16, color: '#000000' }}>
                       {selectedCountry}
                     </Text>
                     <Image
@@ -789,7 +789,7 @@ class EditProfile extends Component {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={{fontSize: 16, color: '#000000'}}>
+                    <Text style={{ fontSize: 16, color: '#000000' }}>
                       {selectedState}
                     </Text>
                     <Image
@@ -812,7 +812,7 @@ class EditProfile extends Component {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={{fontSize: 16, color: '#000000'}}>
+                    <Text style={{ fontSize: 16, color: '#000000' }}>
                       {selectedCity}
                     </Text>
                     <Image
@@ -841,7 +841,7 @@ class EditProfile extends Component {
           <Modal
             isVisible={this.state.isCountryModalVisible}
             transparent={true}
-            onRequestClose={() => this.setState({isCountryModalVisible: false})}
+            onRequestClose={() => this.setState({ isCountryModalVisible: false })}
             style={{}}>
             <View
               style={{
@@ -850,8 +850,8 @@ class EditProfile extends Component {
                 marginVertical: hp(11),
               }}>
               <TouchableWithoutFeedback
-                style={{flex: 1}}
-                onPress={() => this.setState({isCountryModalVisible: false})}>
+                style={{ flex: 1 }}
+                onPress={() => this.setState({ isCountryModalVisible: false })}>
                 <>
                   <View>
                     <Text
@@ -873,7 +873,7 @@ class EditProfile extends Component {
                         marginHorizontal: 10,
                       }}>
                       <TextInput
-                        style={{height: 45}}
+                        style={{ height: 45 }}
                         value={enteredCountry}
                         onChangeText={s => this.searchCountry(s)}
                         placeholder="search country"
@@ -893,7 +893,7 @@ class EditProfile extends Component {
                             justifyContent: 'center',
                           }}>
                           <TouchableOpacity
-                            onPress={() => this.setState({enteredCountry: ''})}>
+                            onPress={() => this.setState({ enteredCountry: '' })}>
                             <Image
                               source={require('../../../assets/image/Cross.png')}
                               style={{
@@ -917,7 +917,7 @@ class EditProfile extends Component {
                           : countryData
                       }
                       keyExtractor={item => item.id}
-                      renderItem={({item, index}) => (
+                      renderItem={({ item, index }) => (
                         <TouchableOpacity
                           onPress={() => this.setSelecedCountry(item.id)}>
                           <View
@@ -950,9 +950,9 @@ class EditProfile extends Component {
                     }}>
                     <TouchableOpacity
                       onPress={() =>
-                        this.setState({isCountryModalVisible: false})
+                        this.setState({ isCountryModalVisible: false })
                       }>
-                      <Text style={{fontSize: 14, color: '#000000'}}>
+                      <Text style={{ fontSize: 14, color: '#000000' }}>
                         Close
                       </Text>
                     </TouchableOpacity>
@@ -966,7 +966,7 @@ class EditProfile extends Component {
           <Modal
             isVisible={this.state.isStateModalVisible}
             transparent={true}
-            onRequestClose={() => this.setState({isStateModalVisible: false})}>
+            onRequestClose={() => this.setState({ isStateModalVisible: false })}>
             <View
               style={{
                 backgroundColor: '#ffffff',
@@ -974,8 +974,8 @@ class EditProfile extends Component {
                 marginVertical: hp(11),
               }}>
               <TouchableWithoutFeedback
-                style={{flex: 1}}
-                onPress={() => this.setState({isStateModalVisible: false})}>
+                style={{ flex: 1 }}
+                onPress={() => this.setState({ isStateModalVisible: false })}>
                 <>
                   <View>
                     <Text
@@ -997,7 +997,7 @@ class EditProfile extends Component {
                         marginHorizontal: 10,
                       }}>
                       <TextInput
-                        style={{height: 45}}
+                        style={{ height: 45 }}
                         value={enteredState}
                         onChangeText={c => this.searchState(c)}
                         placeholder="search state"
@@ -1017,7 +1017,7 @@ class EditProfile extends Component {
                             justifyContent: 'center',
                           }}>
                           <TouchableOpacity
-                            onPress={() => this.setState({enteredState: ''})}>
+                            onPress={() => this.setState({ enteredState: '' })}>
                             <Image
                               source={require('../../../assets/image/Cross.png')}
                               style={{
@@ -1041,7 +1041,7 @@ class EditProfile extends Component {
                           : stateData
                       }
                       keyExtractor={item => item.id}
-                      renderItem={({item, index}) => (
+                      renderItem={({ item, index }) => (
                         <TouchableOpacity
                           onPress={() => this.setSelecedState(item.id)}>
                           <View
@@ -1075,9 +1075,9 @@ class EditProfile extends Component {
                     }}>
                     <TouchableOpacity
                       onPress={() =>
-                        this.setState({isStateModalVisible: false})
+                        this.setState({ isStateModalVisible: false })
                       }>
-                      <Text style={{fontSize: 14, color: '#000000'}}>
+                      <Text style={{ fontSize: 14, color: '#000000' }}>
                         Close
                       </Text>
                     </TouchableOpacity>
@@ -1091,7 +1091,7 @@ class EditProfile extends Component {
           <Modal
             isVisible={this.state.isCityModalVisible}
             transparent={true}
-            onRequestClose={() => this.setState({isCityModalVisible: false})}
+            onRequestClose={() => this.setState({ isCityModalVisible: false })}
             style={{}}>
             <View
               style={{
@@ -1100,8 +1100,8 @@ class EditProfile extends Component {
                 marginVertical: hp(11),
               }}>
               <TouchableWithoutFeedback
-                style={{flex: 1}}
-                onPress={() => this.setState({isCityModalVisible: false})}>
+                style={{ flex: 1 }}
+                onPress={() => this.setState({ isCityModalVisible: false })}>
                 <>
                   <View>
                     <Text
@@ -1123,7 +1123,7 @@ class EditProfile extends Component {
                         marginHorizontal: 10,
                       }}>
                       <TextInput
-                        style={{height: 45}}
+                        style={{ height: 45 }}
                         value={enteredCity}
                         onChangeText={c => this.searchCity(c)}
                         placeholder="search city"
@@ -1143,7 +1143,7 @@ class EditProfile extends Component {
                             justifyContent: 'center',
                           }}>
                           <TouchableOpacity
-                            onPress={() => this.setState({enteredCity: ''})}>
+                            onPress={() => this.setState({ enteredCity: '' })}>
                             <Image
                               source={require('../../../assets/image/Cross.png')}
                               style={{
@@ -1167,7 +1167,7 @@ class EditProfile extends Component {
                           : cityData
                       }
                       keyExtractor={item => item.id}
-                      renderItem={({item, index}) => (
+                      renderItem={({ item, index }) => (
                         <TouchableOpacity
                           onPress={() => this.setSelecedCity(item.id)}>
                           <View
@@ -1201,9 +1201,9 @@ class EditProfile extends Component {
                     }}>
                     <TouchableOpacity
                       onPress={() =>
-                        this.setState({isCityModalVisible: false})
+                        this.setState({ isCityModalVisible: false })
                       }>
-                      <Text style={{fontSize: 14, color: '#000000'}}>
+                      <Text style={{ fontSize: 14, color: '#000000' }}>
                         Close
                       </Text>
                     </TouchableOpacity>
@@ -1280,7 +1280,7 @@ export default connect(
 )(EditProfile);
 
 ///--------------------------------ActionButton------------------
-const ActionButtonRounded = ({title, onButonPress, containerStyle, color}) => {
+const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => {
   return (
     <TouchableOpacity
       onPress={() => {
