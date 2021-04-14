@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/../node_modules/@react-native-community/async-storage/android" />
             <option value="$PROJECT_DIR$/../node_modules/@react-native-community/checkbox/android" />
             <option value="$PROJECT_DIR$/../node_modules/@react-native-community/clipboard/android" />
-            <option value="$PROJECT_DIR$/../node_modules/@react-native-community/datetimepicker/android" />
             <option value="$PROJECT_DIR$/../node_modules/@react-native-community/masked-view/android" />
             <option value="$PROJECT_DIR$/../node_modules/@react-native-community/picker/android" />
             <option value="$PROJECT_DIR$/../node_modules/@react-native-firebase/app/android" />

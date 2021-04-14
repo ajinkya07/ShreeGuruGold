@@ -11,7 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		174EA5BE2616E82500E5195A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 174EA5BD2616E82500E5195A /* GoogleService-Info.plist */; };
+		17B863C8261A0BEC00EDA9F0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17B863C7261A0BEC00EDA9F0 /* GoogleService-Info.plist */; };
 		18B9AC74E94AC6D37C41C8BF /* libPods-ShreeGuruGold-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 939622051DD4694717436D00 /* libPods-ShreeGuruGold-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -57,8 +57,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ShreeGuruGold/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ShreeGuruGold/main.m; sourceTree = "<group>"; };
 		1634368769174A01BD157550 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		174EA5BD2616E82500E5195A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/A_firebaseFiles/SGG/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		174EA7C726174B2100E5195A /* ShreeGuruGold.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ShreeGuruGold.entitlements; path = ShreeGuruGold/ShreeGuruGold.entitlements; sourceTree = "<group>"; };
+		17B863C7261A0BEC00EDA9F0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Documents/A_firebaseFiles/SGG/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19D99E3211FC489FBD534D3F /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		1C2D7126E8034F9BA66BC707 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		2062AD1B53344B5D9FF55E53 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -158,8 +158,8 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				174EA5BD2616E82500E5195A /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				17B863C7261A0BEC00EDA9F0 /* GoogleService-Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -406,7 +406,7 @@
 				694FB6B6893142DC8AC62D64 /* Lato-Bold.ttf in Resources */,
 				8414443C260F432183D3B0E5 /* Lato-Medium.ttf in Resources */,
 				FED99603EF304B58870BBC11 /* Lato-Regular.ttf in Resources */,
-				174EA5BE2616E82500E5195A /* GoogleService-Info.plist in Resources */,
+				17B863C8261A0BEC00EDA9F0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

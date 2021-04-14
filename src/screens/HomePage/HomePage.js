@@ -283,7 +283,6 @@ class HomePage extends Component {
             i = m;
             dx = inx;
           }
-          // })
         }
         if (dx >= 0) {
           finalCollection[i].product_assign[dx].in_cart =

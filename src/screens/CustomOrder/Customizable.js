@@ -161,6 +161,8 @@ class Customizable extends Component {
           imageUrl: '',
           date: '',
           imageData: '',
+          approxWeight: '',
+          productName: ''
         });
       }
     }
@@ -356,7 +358,7 @@ class Customizable extends Component {
     //   alert('Date must be 10 days greater');
     // }
     else if (!imageUrl) {
-      this.showToast('Please add image', 'danger');
+      this.showToast('Please add an image', 'danger');
     } else {
       const data = new FormData();
 
@@ -405,12 +407,11 @@ class Customizable extends Component {
             style={{ fontSize: 20 }}
           />
         }
-        mode="dropdown"
-        style={{ height: 40, width: wp(55) }}
+        mode='dropdown'
+        style={{ height: 50, width: wp(58) }}
         selectedValue={karatValue}
-        onValueChange={(itemValue, itemIndex) =>
-          this.setSelectedValue(itemValue)
-        }>
+        onValueChange={(itemValue, itemIndex) => this.setSelectedValue(itemValue)}>
+
         {list && list.length > 0
           ? list.map((listItem, index) => (
             <Picker.Item
@@ -447,7 +448,7 @@ class Customizable extends Component {
       : '';
 
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: color.white }}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={Platform.select({ ios: 110, android: -140 })}
@@ -484,7 +485,7 @@ class Customizable extends Component {
 
             <View
               style={{
-                backgroundColor: '#FFFFFF',
+                backgroundColor: color.white,
                 flex: 2,
               }}>
               <View>
@@ -562,33 +563,7 @@ class Customizable extends Component {
                     returnKeyType="done"
                   />
 
-                  {/* <FloatingLabelTextInput
-                    label="Hook Type"
-                    value={this.state.hookType}
-                    onChangeText={this.handleHookTypeChange}
-                    resetValue={this.resetFieldHook}
-                    width="100%"
-                    textInputRef={this.hookTypeRef}
-                    onSubmitEditing={() => this.colorTypeRef.current.focus()}
-                  />
-                  <FloatingLabelTextInput
-                    label="Color"
-                    value={this.state.color}
-                    onChangeText={this.handleColorChange}
-                    resetValue={this.resetFieldColor}
-                    width="100%"
-                    textInputRef={this.colorTypeRef}
-                    onSubmitEditing={() => this.diameterRef.current.focus()}
-                  />
-                  <FloatingLabelTextInput
-                    label="Diameter"
-                    value={this.state.diameter}
-                    onChangeText={this.handleDiameterChange}
-                    resetValue={this.resetDiameter}
-                    width="100%"
-                    textInputRef={this.diameterRef}
-                    onSubmitEditing={() => this.remarkRef.current.focus()}
-                  /> */}
+
 
                   <FloatingLabelTextInput
                     label="Remarks"
@@ -626,15 +601,8 @@ class Customizable extends Component {
                     </View>
                   </View>
 
-                  {/* {isDateTimePickerVisible && (
-                    <DateTimePickerModal
-                      isVisible={isDateTimePickerVisible}
-                      onConfirm={date => this.handleDatePicked(date)}
-                      onCancel={() => this.hideDateTimePicker()}
-                    />
-                  )} */}
 
-                  <View
+                  {/* <View
                     style={{
                       flexDirection: 'row',
                       justifyContent: 'space-between',
@@ -648,6 +616,17 @@ class Customizable extends Component {
                       Melting
                       </Text>
                     {allParameterData && allParameterData.melting && this.PickerDropDown()}
+                  </View> */}
+
+                  <View style={{ flexDirection: 'row', flex: 1, }}>
+                    <View style={{ flex: 0.40, top: Platform.OS === 'ios' ? 5 : 13 }}>
+                      <Text style={{ ...Theme.ffLatoRegular16, color: '#aaa', marginLeft: 10, }}>Melting</Text>
+                    </View>
+
+                    <View style={{ flex: 0.60, marginTop: Platform.OS === 'ios' ? -90 : 0, alignItems: "center" }}>
+                      {allParameterData && allParameterData.melting && this.PickerDropDown()}
+                    </View>
+
                   </View>
 
 
@@ -658,9 +637,10 @@ class Customizable extends Component {
             <View style={styles.bottomTextContainer}>
               <Text
                 style={{
-                  ...Theme.ffLatoRegular15,
-                  color: '#000000',
+                  ...Theme.ffLatoRegular16,
+                  color: color.black,
                   textAlign: 'left',
+                  marginTop: 20
                 }}>
                 Note: * There may be 10% variation (+/-) in the actual weight.{' '}
               </Text>
@@ -755,9 +735,9 @@ const styles = StyleSheet.create({
     fontSize: hp('15%'),
   },
   bottomTextContainer: {
-    marginHorizontal: 10,
-    marginVertical: hp(2),
-
+    marginHorizontal: 25,
+    marginVertical: hp(3),
+    backgroundColor: color.white
   },
 });
 

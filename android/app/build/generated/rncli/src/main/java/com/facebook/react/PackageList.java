@@ -11,16 +11,12 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-// react-native-gesture-handler
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/checkbox
 import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 // @react-native-community/clipboard
 import com.reactnativecommunity.clipboard.ClipboardPackage;
-// @react-native-community/datetimepicker
-import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // @react-native-community/picker
@@ -31,6 +27,8 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
 // react-native-fast-image
 import com.dylanvann.fastimage.FastImageViewPackage;
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-image-crop-picker
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 // react-native-push-notification
@@ -94,16 +92,15 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
-      new RNGestureHandlerPackage(),
       new AsyncStoragePackage(),
       new ReactCheckBoxPackage(),
       new ClipboardPackage(),
-      new RNDateTimePickerPackage(),
       new RNCMaskedViewPackage(),
       new RNCPickerPackage(),
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseMessagingPackage(),
       new FastImageViewPackage(),
+      new RNGestureHandlerPackage(),
       new PickerPackage(),
       new ReactNativePushNotificationPackage(),
       new ReanimatedPackage(),

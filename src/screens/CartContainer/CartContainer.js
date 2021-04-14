@@ -927,7 +927,7 @@ class CartContainer extends Component {
         onRefresh={() => this.scrollDownToRefreshWishList()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View style={{ marginBottom: hp(1), marginTop: hp(1) }}>
+          <View style={{ marginVertical: hp(1), }}>
             {this.wishListView(item, index)}
           </View>
         )}
@@ -1115,6 +1115,7 @@ class CartContainer extends Component {
                 }
               </View>
             </View>
+
             <View style={styles.tabCartBottomContainer}>
               <TouchableOpacity onPress={() => this.editCartProduct(item)}>
                 <View style={styles.tabCartBottomImgView}>
@@ -1224,7 +1225,7 @@ class CartContainer extends Component {
         onRefresh={() => this.scrollDownToRefreshCart()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View style={{ marginBottom: hp(1), marginTop: hp(1) }}>
+          <View style={{ marginVertical: hp(1), }}>
             {this.cartView(item, index)}
           </View>
         )}

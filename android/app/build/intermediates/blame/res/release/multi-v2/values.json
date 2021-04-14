@@ -277,6 +277,23 @@
                     }
                 },
                 {
+                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/2d4a1aa08cb3397a0b62e383e3c58ddb/jetified-firebase-messaging-21.1.0/res/values/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "178",
+                        "endColumns": "77",
+                        "endOffsets": "255"
+                    },
+                    "to": {
+                        "startLines": "928",
+                        "startColumns": "4",
+                        "startOffsets": "60281",
+                        "endColumns": "81",
+                        "endOffsets": "60358"
+                    }
+                },
+                {
                     "source": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/src/main/res/values/colors.xml",
                     "from": {
                         "startLines": "3,2",
@@ -365,23 +382,6 @@
                         "endLines": "24,4596,5898,5987",
                         "endColumns": "60,12,24,24",
                         "endOffsets": "1334,307630,379136,384347"
-                    }
-                },
-                {
-                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/8283a91460b52772ed995172ac2e6286/jetified-firebase-messaging-21.0.1/res/values/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "178",
-                        "endColumns": "77",
-                        "endOffsets": "255"
-                    },
-                    "to": {
-                        "startLines": "928",
-                        "startColumns": "4",
-                        "startOffsets": "60281",
-                        "endColumns": "81",
-                        "endOffsets": "60358"
                     }
                 },
                 {

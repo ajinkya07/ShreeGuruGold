@@ -1666,7 +1666,6 @@ drawable src_assets_image_blueicons_tick
 drawable src_assets_image_close
 drawable src_assets_image_close1
 drawable src_assets_image_cross
-drawable src_assets_image_default
 drawable src_assets_image_delete
 drawable src_assets_image_downarrow
 drawable src_assets_image_email
@@ -2219,8 +2218,6 @@ layout ucrop_layout_scale_wheel
 layout ucrop_view
 menu ucrop_menu_activity
 mipmap ic_launcher
-mipmap ic_launcher_foreground
-mipmap ic_launcher_round
 mipmap splash_screen
 plurals mtrl_badge_content_description
 raw app

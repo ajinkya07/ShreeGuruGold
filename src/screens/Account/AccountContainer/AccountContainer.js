@@ -270,8 +270,7 @@ class AccountContainer extends Component {
     const whatsApp = allParameterData.whatsapp;
     const emailID = allParameterData.email;
     const call = allParameterData.call;
-    const call_us = allParameterData.call_us
-
+    const call_us = allParameterData.call_email_us
     const instagram = allParameterData.instagram;
     const facebook = allParameterData.facebook;
     const schemes = allParameterData.schemes;
