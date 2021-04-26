@@ -40,7 +40,7 @@ class _Header extends Component {
           backgroundColor: color.white
           // backgroundColor: headerColor ? '#' + headerColor : '#fff',
         }}>
-        <Left style={{}}>
+        <Left>
           <Button transparent>
             {showBack ? (
               <Image

@@ -96,7 +96,6 @@ class SearchScreen extends Component {
 
   componentDidMount = () => {
     const { homePageData } = this.props;
-    console.log("homePageData && homePageData.search_collection", homePageData && homePageData.search_collection);
     if (homePageData && homePageData.search_collection) {
       this.setState({
         collection: homePageData.search_collection,

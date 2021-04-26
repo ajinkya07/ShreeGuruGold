@@ -119,12 +119,7 @@ class ProductGrid extends Component {
 
   componentDidMount = () => {
     const { categoryData, page, fromExclusive } = this.state;
-
-    if (
-      categoryData &&
-      !fromExclusive &&
-      categoryData.subcategory.length === 0
-    ) {
+    if (categoryData && !fromExclusive && categoryData.subcategory.length === 0) {
       const data = new FormData();
       data.append('table', 'product_master');
       data.append('mode_type', 'normal');
@@ -147,8 +142,9 @@ class ProductGrid extends Component {
 
       this.props.getProductTotalCount(productCountData);
     }
+
     let data2 = new FormData();
-    data2.append('collection_id', 83);
+    data2.append('collection_id', categoryData.id);
     data2.append('table', 'product_master');
     data2.append('user_id', userId);
     data2.append('mode_type', 'all_filter');
@@ -367,22 +363,7 @@ class ProductGrid extends Component {
       totalCartCountData,
     } = this.props;
 
-    const {
-      categoryData,
-      page,
-      selectedSortById,
-      gridData,
-      fromExclusive,
-    } = this.state;
-
-    // if (prevProps.isFocused !== this.props.isFocused) {
-    //   console.warn("isFocused");
-    //   await this.getData()
-    // }
-
-    if (
-      this.state.successProductGridVersion > prevState.successProductGridVersion
-    ) {
+    if (this.state.successProductGridVersion > prevState.successProductGridVersion) {
       if (productGridData.products && productGridData.products.length > 0) {
         this.setState({
           gridData:
@@ -394,9 +375,7 @@ class ProductGrid extends Component {
         this.showToast('Please contact admin', 'danger');
       }
     }
-    if (
-      this.state.errorProductGridVersion > prevState.errorProductGridVersion
-    ) {
+    if (this.state.errorProductGridVersion > prevState.errorProductGridVersion) {
       Toast.show({
         text: this.props.errorMsg
           ? this.props.errorMsg
@@ -407,14 +386,8 @@ class ProductGrid extends Component {
       this.setState({ page: 0 });
     }
 
-    if (
-      this.state.successFilteredProductVersion >
-      prevState.successFilteredProductVersion
-    ) {
-      if (
-        filteredProductData.products &&
-        filteredProductData.products.length > 0
-      ) {
+    if (this.state.successFilteredProductVersion > prevState.successFilteredProductVersion) {
+      if (filteredProductData.products && filteredProductData.products.length > 0) {
         let array = [];
         let array2 = [];
         array =
@@ -424,18 +397,12 @@ class ProductGrid extends Component {
 
         array2.push(...array);
 
-        this.setState({
-          gridData: array2,
-          // gridData: this.state.page === 0 ? filteredProductData.products : [...this.state.gridData, ...filteredProductData.products]
-        });
+        this.setState({ gridData: array2, });
       } else {
         this.showToast(strings.serverFailedMsg, 'danger');
       }
     }
-    if (
-      this.state.errorFilteredProductVersion >
-      prevState.errorFilteredProductVersion
-    ) {
+    if (this.state.errorFilteredProductVersion > prevState.errorFilteredProductVersion) {
       Toast.show({
         text: this.props.errorMsg
           ? this.props.errorMsg
@@ -445,10 +412,7 @@ class ProductGrid extends Component {
       });
     }
 
-    if (
-      this.state.successFilterParamsVersion >
-      prevState.successFilterParamsVersion
-    ) {
+    if (this.state.successFilterParamsVersion > prevState.successFilterParamsVersion) {
       if (filterParamsData && filterParamsData.length === undefined) {
         if (filterParamsData.gross_weight) {
           this.setState({
@@ -521,8 +485,6 @@ class ProductGrid extends Component {
             });
           }
         }
-
-        //await this.getData()
 
         Toast.show({
           text: addProductToCartData && addProductToCartData.msg,
@@ -2010,10 +1972,7 @@ class ProductGrid extends Component {
                         <View style={styles.leftGrossWeight}>
                           <View
                             style={{
-                              backgroundColor: this.state.isGrossWtSelected
-                                ? '#D3D3D3'
-                                : '#ffffff',
-                              // flex: 1,
+                              backgroundColor: this.state.isGrossWtSelected ? '#D3D3D3' : '#ffffff',
                               height: 50,
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -2032,10 +1991,7 @@ class ProductGrid extends Component {
                             filterParamsData.max_length && (
                               <View
                                 style={{
-                                  backgroundColor: this.state.isGrossWtSelected
-                                    ? '#ffffff'
-                                    : '#D3D3D3',
-                                  // flex: 1,
+                                  backgroundColor: this.state.isGrossWtSelected ? '#ffffff' : '#D3D3D3',
                                   height: 50,
                                   alignItems: 'center',
                                   justifyContent: 'center',
@@ -2446,11 +2402,11 @@ class RangeSlider extends React.Component {
               min={parseFloat(values[0])}
               max={parseFloat(values[1])}
               step={1}
-              selectedStyle={{ backgroundColor: '#19af81' }}
+              selectedStyle={{ backgroundColor: '#303030' }}
               unselectedStyle={{ backgroundColor: 'silver' }}
               trackStyle={{ height: 4 }}
               markerStyle={{
-                backgroundColor: '#19af81',
+                backgroundColor: '#303030',
                 width: 26,
                 height: 26,
                 borderRadius: 13,
@@ -2536,11 +2492,11 @@ class LengthSlider extends React.Component {
               min={parseFloat(values[0])}
               max={parseFloat(values[1])}
               step={1}
-              selectedStyle={{ backgroundColor: '#19af81' }}
+              selectedStyle={{ backgroundColor: '#303030' }}
               unselectedStyle={{ backgroundColor: 'silver' }}
               trackStyle={{ height: 4 }}
               markerStyle={{
-                backgroundColor: '#19af81',
+                backgroundColor: '#303030',
                 width: 26,
                 height: 26,
                 borderRadius: 13,

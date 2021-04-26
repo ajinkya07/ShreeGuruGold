@@ -2,26 +2,26 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ShreeGuruGold.iml" filepath="$PROJECT_DIR$/.idea/modules/ShreeGuruGold.iml" group="ShreeGuruGold" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="ShreeGuruGold/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1899739659/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/1899739659/react-native-community_async-storage.iml" group="ShreeGuruGold/react-native-community_async-storage" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1069640450/react-native-community_checkbox.iml" filepath="$PROJECT_DIR$/.idea/modules/1069640450/react-native-community_checkbox.iml" group="ShreeGuruGold/react-native-community_checkbox" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/174057463/react-native-community_clipboard.iml" filepath="$PROJECT_DIR$/.idea/modules/174057463/react-native-community_clipboard.iml" group="ShreeGuruGold/react-native-community_clipboard" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1136009160/react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1136009160/react-native-community_masked-view.iml" group="ShreeGuruGold/react-native-community_masked-view" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1538815859/react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1538815859/react-native-community_picker.iml" group="ShreeGuruGold/react-native-community_picker" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1366880897/react-native-fast-image.iml" filepath="$PROJECT_DIR$/.idea/modules/1366880897/react-native-fast-image.iml" group="ShreeGuruGold/react-native-fast-image" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/294294706/react-native-firebase_app.iml" filepath="$PROJECT_DIR$/.idea/modules/294294706/react-native-firebase_app.iml" group="ShreeGuruGold/react-native-firebase_app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/546706901/react-native-firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/546706901/react-native-firebase_messaging.iml" group="ShreeGuruGold/react-native-firebase_messaging" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1448498703/react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/1448498703/react-native-gesture-handler.iml" group="ShreeGuruGold/react-native-gesture-handler" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1941725438/react-native-image-crop-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1941725438/react-native-image-crop-picker.iml" group="ShreeGuruGold/react-native-image-crop-picker" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/93954503/react-native-push-notification.iml" filepath="$PROJECT_DIR$/.idea/modules/93954503/react-native-push-notification.iml" group="ShreeGuruGold/react-native-push-notification" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1318683987/react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-1318683987/react-native-reanimated.iml" group="ShreeGuruGold/react-native-reanimated" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1089218232/react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1089218232/react-native-safe-area-context.iml" group="ShreeGuruGold/react-native-safe-area-context" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2016283856/react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/2016283856/react-native-screens.iml" group="ShreeGuruGold/react-native-screens" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1648698008/react-native-share.iml" filepath="$PROJECT_DIR$/.idea/modules/-1648698008/react-native-share.iml" group="ShreeGuruGold/react-native-share" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2108145691/react-native-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/2108145691/react-native-splash-screen.iml" group="ShreeGuruGold/react-native-splash-screen" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1842670553/react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-1842670553/react-native-vector-icons.iml" group="ShreeGuruGold/react-native-vector-icons" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1275226434/react-native-webview.iml" filepath="$PROJECT_DIR$/.idea/modules/1275226434/react-native-webview.iml" group="ShreeGuruGold/react-native-webview" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ShreeGuruGold.iml" filepath="$PROJECT_DIR$/.idea/modules/ShreeGuruGold.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ShreeGuruGold.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ShreeGuruGold.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1899739659/ShreeGuruGold.react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/1899739659/ShreeGuruGold.react-native-community_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1069640450/ShreeGuruGold.react-native-community_checkbox.iml" filepath="$PROJECT_DIR$/.idea/modules/1069640450/ShreeGuruGold.react-native-community_checkbox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/174057463/ShreeGuruGold.react-native-community_clipboard.iml" filepath="$PROJECT_DIR$/.idea/modules/174057463/ShreeGuruGold.react-native-community_clipboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1136009160/ShreeGuruGold.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/1136009160/ShreeGuruGold.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1538815859/ShreeGuruGold.react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1538815859/ShreeGuruGold.react-native-community_picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1366880897/ShreeGuruGold.react-native-fast-image.iml" filepath="$PROJECT_DIR$/.idea/modules/1366880897/ShreeGuruGold.react-native-fast-image.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/294294706/ShreeGuruGold.react-native-firebase_app.iml" filepath="$PROJECT_DIR$/.idea/modules/294294706/ShreeGuruGold.react-native-firebase_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/546706901/ShreeGuruGold.react-native-firebase_messaging.iml" filepath="$PROJECT_DIR$/.idea/modules/546706901/ShreeGuruGold.react-native-firebase_messaging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1448498703/ShreeGuruGold.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/1448498703/ShreeGuruGold.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1941725438/ShreeGuruGold.react-native-image-crop-picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1941725438/ShreeGuruGold.react-native-image-crop-picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/93954503/ShreeGuruGold.react-native-push-notification.iml" filepath="$PROJECT_DIR$/.idea/modules/93954503/ShreeGuruGold.react-native-push-notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1318683987/ShreeGuruGold.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-1318683987/ShreeGuruGold.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1089218232/ShreeGuruGold.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/1089218232/ShreeGuruGold.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2016283856/ShreeGuruGold.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/2016283856/ShreeGuruGold.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1648698008/ShreeGuruGold.react-native-share.iml" filepath="$PROJECT_DIR$/.idea/modules/-1648698008/ShreeGuruGold.react-native-share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2108145691/ShreeGuruGold.react-native-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/2108145691/ShreeGuruGold.react-native-splash-screen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1842670553/ShreeGuruGold.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/-1842670553/ShreeGuruGold.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1275226434/ShreeGuruGold.react-native-webview.iml" filepath="$PROJECT_DIR$/.idea/modules/1275226434/ShreeGuruGold.react-native-webview.iml" />
     </modules>
   </component>
 </project>

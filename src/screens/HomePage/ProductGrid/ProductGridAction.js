@@ -127,9 +127,8 @@ export function getSortByParameters(data) {
 }
 
 
-
 export function getfilterParameters(data) {
-
+  console.log("data filter", data);
   return dispatch => {
     dispatch(showLoadingIndicator(FILTER_PARAMS_DATA));
 
