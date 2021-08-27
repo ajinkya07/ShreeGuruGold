@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
   Text,
@@ -14,26 +14,26 @@ import {
   Dimensions,
   Linking,
   Platform,
-} from 'react-native';
-import { Container, Content, Icon, Toast } from 'native-base';
-import IconPack from '../../OnBoarding/Login/IconPack';
+} from "react-native";
+import { Container, Content, Icon, Toast } from "native-base";
+import IconPack from "../../OnBoarding/Login/IconPack";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import _Text from '@text/_Text';
-import { strings } from '@values/strings';
-import { CommonActions, Link } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
-import Modal from 'react-native-modal';
-import { color } from '@values/colors';
-import { connect } from 'react-redux';
+} from "react-native-responsive-screen";
+import _Text from "@text/_Text";
+import { strings } from "@values/strings";
+import { CommonActions, Link } from "@react-navigation/native";
+import AsyncStorage from "@react-native-community/async-storage";
+import Modal from "react-native-modal";
+import { color } from "@values/colors";
+import { connect } from "react-redux";
 
-import { version } from '../../../../package.json';
-import Theme from '../../../values/Theme';
-const { width } = Dimensions.get('window');
-import Share from 'react-native-share';
-import { getCallEmailData } from '@accountContainer/AccountAction';
+import { version } from "../../../../package.json";
+import Theme from "../../../values/Theme";
+const { width } = Dimensions.get("window");
+import Share from "react-native-share";
+import { getCallEmailData } from "@accountContainer/AccountAction";
 
 const AccountRow = ({ icon, title, onPress }) => {
   return (
@@ -61,8 +61,8 @@ class AccountContainer extends Component {
       isSocialMediaModal: false,
       successCallEmailVersion: 0,
       errorCallEmailVersion: 0,
-      selectedPhoneNo: '',
-      fullName: '',
+      selectedPhoneNo: "",
+      fullName: "",
     };
   }
 
@@ -109,7 +109,7 @@ class AccountContainer extends Component {
   }
 
   async getItem() {
-    let value = await AsyncStorage.getItem('fullName');
+    let value = await AsyncStorage.getItem("fullName");
 
     if (value) {
       this.setState({
@@ -120,40 +120,40 @@ class AccountContainer extends Component {
 
   setLogout = () => {
     Alert.alert(
-      'Do you want to logout',
-      '',
+      "Do you want to logout",
+      "",
       [
         {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
         {
-          text: 'LOG OUT',
+          text: "LOG OUT",
           onPress: () => {
             this.setLoginData();
             this.props.navigation.dispatch(
               CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'SignIn' }],
-              }),
+                routes: [{ name: "SignIn" }],
+              })
             );
           },
         },
       ],
-      { cancelable: false },
+      { cancelable: false }
     );
   };
 
   setLoginData() {
-    global.userId = '';
-    AsyncStorage.setItem('userId', '');
+    global.userId = "";
+    AsyncStorage.setItem("userId", "");
   }
 
   showAppVersion = () => {
     Toast.show({
-      text: 'App version:  ' + '1.0.0',
-      duration: 5000,
+      text: "App version:  " + "1.0.0",
+      duration: 2000,
     });
   };
 
@@ -165,40 +165,40 @@ class AccountContainer extends Component {
     this.setState({ accountEmailModal: false });
   };
 
-  showCallPopup = phone => {
+  showCallPopup = (phone) => {
     this.setState({ isCallModalVisible: true, selectedPhoneNo: phone });
   };
 
   hideCallPopup = () => {
-    this.setState({ isCallModalVisible: false, selectedPhoneNo: '' });
+    this.setState({ isCallModalVisible: false, selectedPhoneNo: "" });
   };
 
   myCustomShare = async () => {
     const { allParameterData } = this.props;
 
-    let type = Platform.OS === 'ios' ? 'ios' : 'android';
+    let type = Platform.OS === "ios" ? "ios" : "android";
 
     let androidLink = allParameterData.android_app_link;
     let iosLink = allParameterData.ios_app_link;
 
     const shareOptions = {
-      message: type == 'ios' ? iosLink : androidLink,
+      message: type == "ios" ? iosLink : androidLink,
     };
 
     try {
       const ShareResponse = await Share.open(shareOptions);
     } catch (error) {
-      console.log('Error =>', error);
+      console.log("Error =>", error);
     }
   };
 
   rateApp = async () => {
     const { allParameterData } = this.props;
-    let type1 = Platform.OS === 'ios' ? 'ios' : 'android';
+    let type1 = Platform.OS === "ios" ? "ios" : "android";
 
     let androidLink1 = allParameterData.android_app_link;
     let iosLink1 = allParameterData.ios_app_link;
-    let link = type1 == 'ios' ? iosLink1 : androidLink1;
+    let link = type1 == "ios" ? iosLink1 : androidLink1;
 
     Linking.openURL(link);
   };
@@ -208,13 +208,13 @@ class AccountContainer extends Component {
 
     const c = allParameterData.call;
 
-    const url = Platform.OS == 'ios' ? `tel://${c}` : `tel:${c}`;
+    const url = Platform.OS == "ios" ? `tel://${c}` : `tel:${c}`;
     //TODO ios
     //const url = 'tel://+123456789';
     Linking.openURL(url);
   };
 
-  sentEmail = email => {
+  sentEmail = (email) => {
     Linking.openURL(`mailto:${email}?subject=write a subject`);
 
     // this.setState({
@@ -239,8 +239,8 @@ class AccountContainer extends Component {
 
     let facebook = allParameterData.facebook;
 
-    this.props.navigation.navigate('CustomWebview', {
-      title: 'Facebook',
+    this.props.navigation.navigate("CustomWebview", {
+      title: "Facebook",
       link: facebook,
     });
 
@@ -252,8 +252,8 @@ class AccountContainer extends Component {
 
     let instagram = allParameterData.instagram;
 
-    this.props.navigation.navigate('CustomWebview', {
-      title: 'Instagram',
+    this.props.navigation.navigate("CustomWebview", {
+      title: "Instagram",
       link: instagram,
     });
 
@@ -270,7 +270,7 @@ class AccountContainer extends Component {
     const whatsApp = allParameterData.whatsapp;
     const emailID = allParameterData.email;
     const call = allParameterData.call;
-    const call_us = allParameterData.call_email_us
+    const call_us = allParameterData.call_email_us;
     const instagram = allParameterData.instagram;
     const facebook = allParameterData.facebook;
     const schemes = allParameterData.schemes;
@@ -278,8 +278,9 @@ class AccountContainer extends Component {
     const wesiteLink = allParameterData.website;
     const bankDetails = allParameterData.bank_details;
 
-
-    let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : '';
+    let headerTheme = allParameterData.theme_color
+      ? allParameterData.theme_color
+      : "";
 
     return (
       <View style={{ flex: 1, width: wp(100) }}>
@@ -290,9 +291,10 @@ class AccountContainer extends Component {
                 style={styles.profileImageStyle}
                 source={IconPack.PROFILE}
               />
-              <Text style={styles.profileName}>{fullName ? fullName : ''}</Text>
+              <Text style={styles.profileName}>{fullName ? fullName : ""}</Text>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('EditProfile')}>
+                onPress={() => this.props.navigation.navigate("EditProfile")}
+              >
                 <Text style={styles.editProfileText}>Edit Profile</Text>
               </TouchableOpacity>
             </View>
@@ -300,25 +302,25 @@ class AccountContainer extends Component {
             <AccountRow
               title="Order History"
               icon={IconPack.ORDER_HISTORY}
-              onPress={() => this.props.navigation.navigate('OrderHistory')}
+              onPress={() => this.props.navigation.navigate("OrderHistory")}
             />
             <AccountRow
               title="Custom Order"
               icon={IconPack.CUSTOM_ORDER}
-              onPress={() => this.props.navigation.navigate('CustomOrder')}
+              onPress={() => this.props.navigation.navigate("CustomOrder")}
             />
             <AccountRow
               title="Exclusive"
               icon={IconPack.EXCLUSIVE}
-              onPress={() => this.props.navigation.navigate('Exclusive')}
+              onPress={() => this.props.navigation.navigate("Exclusive")}
             />
             <AccountRow
               title="About Us"
               icon={IconPack.ABOUT}
               onPress={() =>
-                this.props.navigation.navigate('CustomWebview', {
+                this.props.navigation.navigate("CustomWebview", {
                   link: aboutUS,
-                  title: 'About Us',
+                  title: "About Us",
                 })
               }
             />
@@ -326,42 +328,59 @@ class AccountContainer extends Component {
               title="Privacy Policy"
               icon={IconPack.ABOUT}
               onPress={() =>
-                this.props.navigation.navigate('CustomWebview', {
+                this.props.navigation.navigate("CustomWebview", {
                   link: privacyPolicy,
-                  title: 'Privacy Policy',
+                  title: "Privacy Policy",
                 })
               }
             />
 
-            <AccountRow title="Terms & Conditions" icon={IconPack.ABOUT}
+            <AccountRow
+              title="Terms & Conditions"
+              icon={IconPack.ABOUT}
               onPress={() =>
-                this.props.navigation.navigate('CustomWebview', {
+                this.props.navigation.navigate("CustomWebview", {
                   link: terms,
-                  title: 'Terms & Conditions',
+                  title: "Terms & Conditions",
                 })
               }
             />
 
             {/* add here */}
-            <AccountRow title="Visit Our Website" icon={IconPack.ABOUT}
-              onPress={() => this.props.navigation.navigate('CustomWebview', { link: wesiteLink, title: 'Visit Our Website', })
+            <AccountRow
+              title="Visit Our Website"
+              icon={IconPack.WEBSITE}
+              onPress={() =>
+                this.props.navigation.navigate("CustomWebview", {
+                  link: wesiteLink,
+                  title: "Visit Our Website",
+                })
               }
             />
 
-            <AccountRow title="Bank Details" icon={IconPack.ABOUT}
-              onPress={() => this.props.navigation.navigate('CustomWebview', { link: bankDetails, title: 'Bank Details', })
+            <AccountRow
+              title="Bank Details"
+              icon={IconPack.BANK}
+              onPress={() =>
+                this.props.navigation.navigate("CustomWebview", {
+                  link: bankDetails,
+                  title: "Bank Details",
+                })
               }
             />
             <AccountRow
               title="Call / Email Us"
               icon={IconPack.EMAIL}
-              // onPress={() => this.showCallEmailModal()}
-              onPress={() => this.props.navigation.navigate('CustomWebview', { link: call_us, title: 'Call / Email Us' })}
-
+              onPress={() =>
+                this.props.navigation.navigate("CustomWebview", {
+                  link: call_us,
+                  title: "Call / Email Us",
+                })
+              }
             />
             <AccountRow
               title="Social Media"
-              icon={IconPack.PROFILE}
+              icon={IconPack.SOCIAL_MEDIA}
               onPress={() => this.openSocialMediaModal()}
             />
             <AccountRow
@@ -369,7 +388,7 @@ class AccountContainer extends Component {
               icon={IconPack.WHATS_UP}
               onPress={() => {
                 Linking.openURL(
-                  `whatsapp://send?phone=${'91' + whatsApp}&text=${''}`,
+                  `whatsapp://send?phone=${"91" + whatsApp}&text=${""}`
                 );
               }}
             />
@@ -402,31 +421,35 @@ class AccountContainer extends Component {
             onRequestClose={() => this.hideCallEmailModal()}
             onBackdropPress={() => this.hideCallEmailModal()}
             onBackButtonPress={() => this.hideCallEmailModal()}
-            style={{ margin: 0 }}>
+            style={{ margin: 0 }}
+          >
             <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => null}>
               <>
                 <View style={styles.mainContainer}>
                   <View style={styles.content}>
                     <View
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
+                        flexDirection: "row",
+                        justifyContent: "space-between",
                         backgroundColor: headerTheme
-                          ? '#' + headerTheme
-                          : '#303030',
-                      }}>
+                          ? "#" + headerTheme
+                          : "#303030",
+                      }}
+                    >
                       <Text
                         style={{
-                          color: '#FFFFFF',
+                          color: "#FFFFFF",
                           fontSize: 18,
-                          margin: Platform.OS === 'android' ? 12 : 15,
-                        }}>
+                          margin: Platform.OS === "android" ? 12 : 15,
+                        }}
+                      >
                         Call / Email Us
                       </Text>
                       <TouchableOpacity
                         onPress={() =>
                           this.setState({ accountEmailModal: false })
-                        }>
+                        }
+                      >
                         <Image
                           style={styles.closeIcon}
                           source={IconPack.WHITE_CLOSE}
@@ -469,11 +492,13 @@ class AccountContainer extends Component {
                             <TouchableOpacity
                               onPress={() =>
                                 this.showCallPopup(item.contact_number[0].phone)
-                              }>
+                              }
+                            >
                               <Text style={styles.bottomText}>CALL</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                              onPress={() => this.sentEmail(item.email)}>
+                              onPress={() => this.sentEmail(item.email)}
+                            >
                               <Text style={styles.bottomText}>EMAIL</Text>
                             </TouchableOpacity>
                           </View>
@@ -494,39 +519,45 @@ class AccountContainer extends Component {
               onRequestClose={() => this.hideCallPopup()}
               onBackdropPress={() => this.hideCallPopup()}
               onBackButtonPress={() => this.hideCallPopup()}
-              style={{ margin: 0 }}>
+              style={{ margin: 0 }}
+            >
               <TouchableWithoutFeedback
                 style={{ flex: 1 }}
-                onPress={this._pressCall}>
+                onPress={this._pressCall}
+              >
                 <View
                   style={{
-                    backgroundColor: '#ffffff',
+                    backgroundColor: "#ffffff",
                     marginHorizontal: 16,
                     borderRadius: 14,
-                  }}>
+                  }}
+                >
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      flexDirection: "row",
+                      justifyContent: "space-between",
                       backgroundColor: headerTheme
-                        ? '#' + headerTheme
-                        : '#303030',
+                        ? "#" + headerTheme
+                        : "#303030",
                       borderTopLeftRadius: 10,
                       borderTopRightRadius: 10,
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 18,
                         marginLeft: 15,
-                        marginVertical: Platform.OS === 'android' ? 8 : 10,
-                        color: '#FFFFFF',
-                      }}>
+                        marginVertical: Platform.OS === "android" ? 8 : 10,
+                        color: "#FFFFFF",
+                      }}
+                    >
                       Contacts
                     </Text>
                     <TouchableOpacity
                       onPress={() =>
                         this.setState({ isCallModalVisible: false })
-                      }>
+                      }
+                    >
                       <Image
                         style={styles.closeIcon}
                         source={IconPack.WHITE_CLOSE}
@@ -538,10 +569,11 @@ class AccountContainer extends Component {
                     style={{
                       marginTop: 10,
                       borderBottomWidth: 0.8,
-                      borderColor: '#D3D3D3',
+                      borderColor: "#D3D3D3",
                       marginBottom: 12,
                       marginLeft: 20,
-                    }}>
+                    }}
+                  >
                     <Text style={{ fontSize: 15, marginBottom: 7 }}>
                       Contact : {selectedPhoneNo && selectedPhoneNo}
                     </Text>
@@ -573,7 +605,8 @@ class AccountContainer extends Component {
             onRequestClose={() => this.closeSocialMediaModal()}
             onBackdropPress={() => this.closeSocialMediaModal()}
             onBackButtonPress={() => this.closeSocialMediaModal()}
-            style={{ margin: 0 }}>
+            style={{ margin: 0 }}
+          >
             <TouchableWithoutFeedback style={styles.flex}>
               <View style={styles.contain}>
                 <View
@@ -581,13 +614,15 @@ class AccountContainer extends Component {
                     styles.titleContainer,
                     {
                       backgroundColor: headerTheme
-                        ? '#' + headerTheme
-                        : '#303030',
+                        ? "#" + headerTheme
+                        : "#303030",
                     },
-                  ]}>
+                  ]}
+                >
                   <Text style={styles.titleText2}>Social Media</Text>
                   <TouchableOpacity
-                    onPress={() => this.closeSocialMediaModal()}>
+                    onPress={() => this.closeSocialMediaModal()}
+                  >
                     <Image
                       style={styles.closeIcon}
                       source={IconPack.WHITE_CLOSE}
@@ -625,17 +660,17 @@ class AccountContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   contain: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     marginHorizontal: 16,
     borderRadius: 14,
   },
   titleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: color.green,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -646,14 +681,14 @@ const styles = StyleSheet.create({
   },
   titleText2: {
     ...Theme.ffLatoMedium18,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     marginLeft: 20,
-    marginTop: Platform.OS === 'android' ? 8 : 12,
-    textAlign: 'center',
+    marginTop: Platform.OS === "android" ? 8 : 12,
+    textAlign: "center",
   },
   bgImage: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   imageStyle: {
     width: hp(3),
@@ -667,55 +702,55 @@ const styles = StyleSheet.create({
     width: hp(11),
     height: hp(11),
     borderRadius: hp(5),
-    overflow: 'hidden',
-    alignSelf: 'center',
+    overflow: "hidden",
+    alignSelf: "center",
   },
   editProfileText: {
-    color: '#fff',
-    fontWeight: '400',
+    color: "#fff",
+    fontWeight: "400",
     fontSize: 18,
-    textDecorationLine: 'underline',
-    textAlign: 'center',
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
   profileName: {
-    color: '#fff',
+    color: "#fff",
     paddingTop: 8,
     paddingBottom: 10,
     ...Theme.ffLatoBold20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   topViewContainer: {
     marginBottom: 30,
     marginTop: hp(2),
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   accountRowViewContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 18,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 10,
   },
   titleText: {
-    color: '#fff',
-    marginLeft: 20,
-    ...Theme.ffLatoMedium18,
+    color: "#fff",
+    marginLeft: 18,
+    ...Theme.ffLatoMedium17,
   },
   borderStyle: {
-    borderBottomColor: '#d2d2d2',
+    borderBottomColor: "#d2d2d2",
     borderBottomWidth: 1,
   },
   subTitleStyle: {
     ...Theme.ffLatoRegular16,
-    color: '#757575',
+    color: "#757575",
     marginVertical: 5,
   },
 
   titleView: {
     flex: 1,
-    marginLeft: 40,
+    marginLeft: 35,
   },
   border: {
-    borderBottomColor: 'gray',
+    borderBottomColor: "gray",
     borderBottomWidth: 0.6,
     marginHorizontal: 16,
   },
@@ -728,50 +763,50 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   mainContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     flex: 1,
   },
   content: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
   title: {
     color: color.brandColor,
     fontSize: 18,
-    margin: Platform.OS === 'android' ? 16 : 20,
+    margin: Platform.OS === "android" ? 16 : 20,
   },
   border: {
     borderBottomWidth: 0.7,
-    borderColor: '#D3D3D3',
+    borderColor: "#D3D3D3",
   },
   cityContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginVertical: 20,
     marginHorizontal: 16,
   },
   circleContainer: {
-    backgroundColor: '#d774ed',
+    backgroundColor: "#d774ed",
     width: 38,
     height: 38,
     borderRadius: 19,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignContent: "center",
+    justifyContent: "center",
   },
   circleText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    color: '#ffffff',
-    fontFamily: 'Helvetica',
+    color: "#ffffff",
+    fontFamily: "Helvetica",
   },
   location: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     marginTop: 4,
     flex: 3,
     marginLeft: 12,
     height: 25,
     borderBottomWidth: 0.7,
-    borderColor: '#D3D3D3',
+    borderColor: "#D3D3D3",
   },
   locationText: {
     // color: '#A9A9A9',
@@ -781,18 +816,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   addressText: {
-    color: '#A9A9A9',
+    color: "#A9A9A9",
     fontSize: 15,
     paddingBottom: 6,
   },
   emailText: {
-    color: '#A9A9A9',
+    color: "#A9A9A9",
     fontSize: 15,
   },
   bottomContainer: {
     marginVertical: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   bottomText: {
     fontSize: 16,
@@ -800,13 +835,13 @@ const styles = StyleSheet.create({
     ...Theme.ffLatoBold14,
   },
   buttonContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     height: hp(8),
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderBottomLeftRadius: 14,
     borderBottomRightRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -821,20 +856,27 @@ const RowData = ({ title, onPress }) => {
   );
 };
 
-const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => {
+const ActionButtonRounded = ({
+  title,
+  onButonPress,
+  containerStyle,
+  color,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={{
-          backgroundColor: color ? '#' + color : '#303030',
+          backgroundColor: color ? "#" + color : "#303030",
           height: hp(6),
           width: wp(35),
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 45,
-        }}>
+        }}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle}>{title}</Text>
         </View>
@@ -856,31 +898,28 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { getCallEmailData },
-)(AccountContainer);
+export default connect(mapStateToProps, { getCallEmailData })(AccountContainer);
 
 const actionButtonRoundedStyle = StyleSheet.create({
   mainContainerStyle: {
     backgroundColor: color.green,
     height: hp(6),
     width: wp(35),
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 45,
   },
   innerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '400',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "400",
   },
 });

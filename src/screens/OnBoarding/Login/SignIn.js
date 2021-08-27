@@ -1,4 +1,4 @@
-import React, { useState, Component, useRef } from 'react';
+import React, { useState, Component, useRef } from "react";
 import {
   View,
   Text,
@@ -14,37 +14,36 @@ import {
   Platform,
   Keyboard,
   ScrollView,
-} from 'react-native';
-import { Container, Content, Icon, Toast } from 'native-base';
-import IconPack from '@login/IconPack';
-import { connect } from 'react-redux';
+} from "react-native";
+import { Container, Content, Icon, Toast } from "native-base";
+import IconPack from "@login/IconPack";
+import { connect } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { color } from '@values/colors';
+} from "react-native-responsive-screen";
+import { color } from "@values/colors";
 import {
   validateEmail,
   validateMobNum,
   validateName,
   validatePassword,
   validateUserName,
-} from '@values/validate';
+} from "@values/validate";
 
-import AsyncStorage from '@react-native-community/async-storage';
-import { signInRequest, sendFCM } from '@login/LoginAction';
-import { strings } from '@values/strings'
+import AsyncStorage from "@react-native-community/async-storage";
+import { signInRequest, sendFCM } from "@login/LoginAction";
+import { strings } from "@values/strings";
 
-
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
+      password: "",
       isPassword: false,
-      mobileNo: '',
+      mobileNo: "",
       isMobile: false,
       successLoginVersion: 0,
       errorLoginVersion: 0,
@@ -96,50 +95,50 @@ class SignIn extends React.Component {
 
   async componentDidUpdate(prevProps, prevState) {
     if (this.state.successLoginVersion > prevState.successLoginVersion) {
-      if (this.props.loginData.user_status === 'Available') {
+      if (this.props.loginData.user_status === "Available") {
         // this.showToast('Login successfull', 'success');
         // this.props.navigation.navigate('Container');
         this.sendFcmToken();
       } else {
-        this.showToast('Please contact admin', 'danger');
+        this.showToast("Please contact admin", "danger");
       }
     }
 
     if (this.state.errorLoginVersion > prevState.errorLoginVersion) {
-      this.showToast(this.props.errorMsg, 'danger');
+      this.showToast(this.props.errorMsg, "danger");
     }
     if (this.state.successFcmVersion > prevState.successFcmVersion) {
-      this.props.navigation.navigate('Container');
+      this.props.navigation.navigate("Container");
     }
 
     if (this.state.errorFcmVersion > prevState.errorFcmVersion) {
-      this.showToast(this.props.errorMsg, 'danger');
+      this.showToast(this.props.errorMsg, "danger");
     }
   }
 
   sendFcmToken = async () => {
-    let fcmToken = await AsyncStorage.getItem('fcmToken');
-    let platform = Platform.OS === 'ios' ? 'ios' : 'android'
+    let fcmToken = await AsyncStorage.getItem("fcmToken");
+    let platform = Platform.OS === "ios" ? "ios" : "android";
 
     const fcmData = new FormData();
 
-    fcmData.append('worker_id', userId);
-    fcmData.append('type', 'client');
-    fcmData.append('gcm_no', fcmToken);
-    fcmData.append('platform', platform);
+    fcmData.append("worker_id", userId);
+    fcmData.append("type", "client");
+    fcmData.append("gcm_no", fcmToken);
+    fcmData.append("platform", platform);
 
     await this.props.sendFCM(fcmData);
   };
 
   onInputChanged = ({ inputKey, isValid, value }) => {
-    let validationKey = '';
+    let validationKey = "";
     switch (inputKey) {
-      case 'mobileNo':
-        validationKey = 'isMobile';
+      case "mobileNo":
+        validationKey = "isMobile";
         break;
 
-      case 'password':
-        validationKey = 'isPassword';
+      case "password":
+        validationKey = "isPassword";
         break;
       default:
         break;
@@ -161,8 +160,8 @@ class SignIn extends React.Component {
 
   showToast = (msg, type, duration) => {
     Toast.show({
-      text: msg ? msg : 'Server error, Please try again',
-      type: type ? type : 'danger',
+      text: msg ? msg : "Server error, Please try again",
+      type: type ? type : "danger",
       duration: duration ? duration : 2500,
     });
   };
@@ -170,30 +169,30 @@ class SignIn extends React.Component {
   loginRequest = () => {
     const { password, isPassword, mobileNo, isMobile } = this.state;
 
-    let error = '';
+    let error = "";
     try {
-      if (mobileNo == '') {
-        error = 'Please enter mobile number';
+      if (mobileNo == "") {
+        error = "Please enter mobile number";
         throw new Error();
       }
       if (!isMobile) {
-        error = 'Please enter valid mobile number';
+        error = "Please enter valid mobile number";
         throw new Error();
       }
-      if (password == '') {
-        error = 'Please enter password';
+      if (password == "") {
+        error = "Please enter password";
         throw new Error();
       } else {
         const data = new FormData();
-        data.append('mobile_number', mobileNo);
-        data.append('password', password);
-        data.append('login_type', 'client');
+        data.append("mobile_number", mobileNo);
+        data.append("password", password);
+        data.append("login_type", "client");
 
         this.props.signInRequest(data);
       }
     } catch (err) {
-      console.log('err', err);
-      this.showToast(error, 'danger');
+      console.log("err", err);
+      this.showToast(error, "danger");
     }
   };
 
@@ -215,36 +214,42 @@ class SignIn extends React.Component {
         <ImageBackground source={IconPack.LOGIN_BG} style={styles.bgImage}>
           <SafeAreaView style={styles.flex}>
             <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : null}
+              behavior={Platform.OS === "ios" ? "padding" : null}
               keyboardVerticalOffset={Platform.select({
                 ios: -150,
                 android: 500,
               })}
-              style={{ flex: 1 }}>
+              style={{ flex: 1 }}
+            >
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps={'always'}>
+                keyboardShouldPersistTaps={"always"}
+              >
                 <Content
                   contentContainerStyle={{
                     flex: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <View style={styles.viewContainer}>
                     <View
                       style={{
-                        alignItems: 'center',
+                        alignItems: "center",
                         marginTop: hp(10),
                         height: hp(19),
-                      }}>
+                      }}
+                    >
                       <Text
                         style={{
-                          fontFamily: 'Lato-Bold',
-                          textAlign: 'center',
+                          fontFamily: "Lato-Bold",
+                          textAlign: "center",
                           letterSpacing: 2,
                           fontSize: 22,
-                          color: '#fff',
-                        }}>
+                          color: "#fff",
+                          textTransform: "uppercase",
+                        }}
+                      >
                         {strings.appName}
                       </Text>
                     </View>
@@ -257,7 +262,7 @@ class SignIn extends React.Component {
                       minLength={10}
                       onChangeText={this.onInputChanged}
                       placeholder="Mobile"
-                      returnKeyType="next"
+                      returnKeyType="done"
                       keyboardType="phone-pad"
                       placeholderTextColor="#ffffff"
                       Icon={IconPack.MOBILE_LOGO}
@@ -279,19 +284,23 @@ class SignIn extends React.Component {
                       textInputRef={this.passwordRef}
                     />
 
-                    <View style={{ justifyContent: 'flex-end', marginLeft: 110 }}>
+                    <View
+                      style={{ justifyContent: "flex-end", marginLeft: 110 }}
+                    >
                       <TouchableOpacity
                         onPress={() =>
-                          this.props.navigation.navigate('ForgotPassword')
-                        }>
+                          this.props.navigation.navigate("ForgotPassword")
+                        }
+                      >
                         <Text
                           style={{
                             paddingVertical: 22,
                             fontSize: 18,
-                            color: '#fff',
+                            color: "#fff",
                             marginBottom: 10,
-                            fontFamily: 'Lato-Regular',
-                          }}>
+                            fontFamily: "Lato-Regular",
+                          }}
+                        >
                           Forgot your password ?
                         </Text>
                       </TouchableOpacity>
@@ -299,7 +308,7 @@ class SignIn extends React.Component {
 
                     {!this.props.isFetching && (
                       <ActionButtonRounded
-                        title="LOGIN"
+                        title="LOG IN"
                         onButonPress={() => this.loginRequest()}
                         containerStyle={styles.buttonStyle}
                       />
@@ -307,30 +316,32 @@ class SignIn extends React.Component {
 
                     {this.props.isFetching && this.showLoader()}
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: "row" }}>
                       <Text
                         style={{
                           paddingTop: 12,
                           fontSize: 18,
-                          color: '#fff',
-                          fontFamily: 'Lato-Regular',
-                        }}>
+                          color: "#fff",
+                          fontFamily: "Lato-Regular",
+                        }}
+                      >
                         Don't have an account ?
                       </Text>
                       <TouchableOpacity
                         onPress={() =>
-                          this.props.navigation.navigate('Register')
-                        }>
+                          this.props.navigation.navigate("Register")
+                        }
+                      >
                         <Text
                           style={{
-                            fontSize: 18,
-                            //color: '#fbcb84',
-                            color: '#fff',
-                            fontFamily: 'Lato-Bold',
-                            paddingTop: 12,
+                            fontSize: 19,
+                            color: "#fff",
+                            fontFamily: "Lato-Bold",
+                            paddingTop: 11,
                             marginLeft: 5,
-                          }}>
-                          Signup
+                          }}
+                        >
+                          Sign Up
                         </Text>
                       </TouchableOpacity>
                     </View>
@@ -349,23 +360,23 @@ class SignIn extends React.Component {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   bgImage: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   flex: { flex: 1 },
   buttonStyle: {
     //marginTop: 60,
   },
   loaderView: {
-    position: 'absolute',
+    position: "absolute",
     height: hp(100),
     width: wp(100),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -384,10 +395,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { signInRequest, sendFCM },
-)(SignIn);
+export default connect(mapStateToProps, { signInRequest, sendFCM })(SignIn);
 
 class LoginFields extends Component {
   constructor(props) {
@@ -400,7 +408,7 @@ class LoginFields extends Component {
     };
   }
 
-  onChangeText = text => {
+  onChangeText = (text) => {
     const {
       type,
       inputKey,
@@ -413,23 +421,23 @@ class LoginFields extends Component {
 
     if (text && text.length > 0) {
       switch (type) {
-        case 'mobileNo':
+        case "mobileNo":
           isValid = validateMobNum(text);
           break;
 
-        case 'emailId':
+        case "emailId":
           isValid = validateEmail(text);
           break;
 
-        case 'password':
+        case "password":
           isValid = validatePassword(text);
           break;
 
-        case 'firstName':
+        case "firstName":
           isValid = validateName(text);
           break;
 
-        case 'lastName':
+        case "lastName":
           isValid = validateName(text);
           break;
 
@@ -441,7 +449,7 @@ class LoginFields extends Component {
     onChangeText && onChangeText({ inputKey, isValid, value: text, inputId });
   };
 
-  setSecureInput = secureInput => {
+  setSecureInput = (secureInput) => {
     if (this.props.isSecure) {
       this.setState({
         secureInput: !this.state.secureInput,
@@ -468,21 +476,22 @@ class LoginFields extends Component {
 
     return (
       <View
-        style={[loginFieldsStyles.mainContainerStyle, containerStyle || null]}>
+        style={[loginFieldsStyles.mainContainerStyle, containerStyle || null]}
+      >
         <TextInput
           maxLength={maxLength}
           minLength={minLength}
           style={loginFieldsStyles.textInput}
-          placeholderTextColor={'#FFFFFF'}
+          placeholderTextColor={"#FFFFFF"}
           underlineColorAndroid="transparent"
           autoCorrect={false}
-          selectionColor={'#FFFFFF'}
+          selectionColor={"#FFFFFF"}
           autoCapitalize="none"
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
           onChangeText={this.onChangeText}
           secureTextEntry={isSecure && !secureInput}
-          keyboardType={keyboardType ? keyboardType : 'default'}
+          keyboardType={keyboardType ? keyboardType : "default"}
           ref={textInputRef}
           returnKeyType={returnKeyType}
           onSubmitEditing={onSubmitEditing}
@@ -507,17 +516,17 @@ const loginFieldsStyles = StyleSheet.create({
   textInput: {
     height: 50,
     fontSize: 18,
-    color: '#fff',
-    textAlign: 'left',
+    color: "#fff",
+    textAlign: "left",
     marginTop: 20,
-    backgroundColor: '#FFFFFF25',
+    backgroundColor: "#FFFFFF25",
     borderRadius: 40,
     paddingLeft: 42,
-    fontFamily: 'Lato-Regular',
+    fontFamily: "Lato-Regular",
     letterSpacing: 0.9,
   },
   whiteColor: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
   mainContainerStyle: {
     height: 70,
@@ -525,39 +534,39 @@ const loginFieldsStyles = StyleSheet.create({
     //width: Appstore.wWidth -30,
   },
   userTextInputButtonRight: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     width: 30,
     height: 30,
   },
   userTextInputButtonLeft: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     width: 25,
     height: 25,
   },
   buttonStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 12,
     top: 20,
     bottom: 0,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   loginIconStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 20,
     bottom: 0,
     left: 12,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   imageloginIconStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 34,
     bottom: 0,
     left: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    resizeMode: 'contain',
+    justifyContent: "center",
+    alignItems: "center",
+    resizeMode: "contain",
     width: 22,
     height: 22,
   },
@@ -569,12 +578,14 @@ const ActionButtonRounded = ({ title, onButonPress, containerStyle }) => {
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={[
           actionButtonRoundedStyle.mainContainerStyle,
           containerStyle || null,
-        ]}>
+        ]}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle}>{title}</Text>
         </View>
@@ -588,25 +599,25 @@ const actionButtonRoundedStyle = StyleSheet.create({
     //backgroundColor: '#FFFFFF',
     height: 50,
     width: width - 36,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
-    borderColor: '#ffffff',
+    borderColor: "#ffffff",
     borderWidth: 2,
   },
   innerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: hp(2),
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Lato-Regular',
-    fontWeight: 'bold',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Lato-Regular",
+    fontWeight: "bold",
     letterSpacing: 1.3,
   },
 });

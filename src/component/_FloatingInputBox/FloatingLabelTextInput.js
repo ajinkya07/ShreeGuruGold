@@ -38,6 +38,9 @@ export default class FloatingLabelInput extends Component {
     this.setState({
       isFocused: false,
     });
+
+
+
   render() {
     const { label, maxLength, ...props } = this.props;
     const { isFocused } = this.state;
@@ -58,6 +61,8 @@ export default class FloatingLabelInput extends Component {
       }),
       marginLeft: 10,
     };
+
+
     return (
       <View
         style={{
@@ -74,11 +79,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={
-                !isFocused
-                  ? require('../../assets/USer.png')
-                  : require('../../assets/USer.png')
-              }
+              source={require('../../assets/USer.png')}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -93,11 +94,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={
-                !isFocused
-                  ? require('../../assets/image/Profile/Email.png')
-                  : require('../../assets/image/Profile/Email.png')
-              }
+              source={require('../../assets/email2.png')}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -111,11 +108,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={
-                !isFocused
-                  ? require('../../assets/image/Profile/mobile.png')
-                  : require('../../assets/image/Profile/mobile.png')
-              }
+              source={require('../../assets/image/Profile/mobile.png')}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -129,7 +122,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.COMMENT : IconPack.COMMENT}
+              source={IconPack.COMMENT}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -143,7 +136,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.PINCODE : IconPack.PINCODE}
+              source={IconPack.PINCODE}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -158,7 +151,7 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.GSTNO : IconPack.GSTNO}
+              source={IconPack.GSTNO}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
@@ -172,11 +165,12 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.PAN : IconPack.PAN}
+              source={IconPack.PAN}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
+
         {this.props.imageIcon === 'company' ? (
           <View
             style={{
@@ -186,11 +180,12 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.COMPANY : IconPack.COMPANY}
+              source={IconPack.COMPANY}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
+
         {this.props.imageIcon === 'dsg' ? (
           <View
             style={{
@@ -200,11 +195,12 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.DSG : IconPack.DSG}
+              source={IconPack.DSG}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
+
         {this.props.imageIcon === 'phn' ? (
           <View
             style={{
@@ -214,11 +210,60 @@ export default class FloatingLabelInput extends Component {
               justifyContent: 'center',
             }}>
             <Image
-              source={!isFocused ? IconPack.EDITPHONE : IconPack.EDITPHONE}
+              source={IconPack.EDITPHONE}
               style={{ width: 25, height: 25, resizeMode: 'cover' }}
             />
           </View>
         ) : null}
+
+
+        {this.props.imageIcon === 'code' ? (
+          <View
+            style={{
+              marginTop: 21,
+              marginRight: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('../../assets/code.png')}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
+            />
+          </View>
+        ) : null}
+
+
+        {this.props.imageIcon === 'name' ? (
+          <View
+            style={{
+              marginTop: 21,
+              marginRight: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('../../assets/abc.png')}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
+            />
+          </View>
+        ) : null}
+
+
+        {this.props.imageIcon === 'quantity' ? (
+          <View
+            style={{
+              marginTop: 21,
+              marginRight: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Image
+              source={require('../../assets/quantity.png')}
+              style={{ width: 25, height: 25, resizeMode: 'cover' }}
+            />
+          </View>
+        ) : null}
+
 
         <View
           style={[
@@ -268,6 +313,7 @@ export default class FloatingLabelInput extends Component {
             </TouchableOpacity>
           ) : null}
         </View>
+
       </View>
     );
   }

@@ -17,5 +17,6 @@ export const color = {
     golden: '#fbcb84',
     headerColor: '#EEF8F7',
     green: '#19af81',
-    black: '#303030'
+    black: '#303030',
+    themeColor: '#91381f'
 }

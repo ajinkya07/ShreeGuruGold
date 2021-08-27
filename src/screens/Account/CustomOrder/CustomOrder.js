@@ -99,7 +99,7 @@ class CustomOrder extends Component {
                     ...Theme.ffLatoRegular15,
                     color: '#000000',
                   }}>
-                  {key.replace('_', ' ')}
+                  {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
                 </Text>
               );
             })}

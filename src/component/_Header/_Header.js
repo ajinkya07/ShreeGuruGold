@@ -35,10 +35,9 @@ class _Header extends Component {
       <Header
         style={{
           width: wp(100),
-          height: hp(7.5),
+          height: hp(7),
           paddingVertical: Platform.OS === 'ios' ? hp(2) : 2,
           backgroundColor: color.white
-          // backgroundColor: headerColor ? '#' + headerColor : '#fff',
         }}>
         <Left>
           <Button transparent>
@@ -58,7 +57,7 @@ class _Header extends Component {
                   }}>
                   <Image
                     source={require('../../assets/Home-Icon.png')}
-                    style={{ height: 35, width: 35, marginLeft: Platform.OS == 'ios' ? 15 : 0, }}
+                    style={{ height: 35, width: 35, marginLeft: Platform.OS == 'ios' ? 15 : 5, }}
                     resizeMode={'contain'}
                   />
 
@@ -66,7 +65,7 @@ class _Header extends Component {
                     style={{
                       fontFamily: 'Lato-Bold',
                       textAlign: 'center',
-                      letterSpacing: 2,
+                      textTransform: 'uppercase',
                       left: 5,
                       fontSize: 16,
                       color: headerColor ? '#' + headerColor : '#000',
@@ -94,8 +93,7 @@ class _Header extends Component {
           {showCalling ? (
             <Button transparent onPress={onCallingPress}>
               <Image
-                style={{ height: hp(3.2), width: hp(3) }}
-                // source={require('../../assets/image/BlueIcons/Mobile.png')}
+                style={{ height: hp(3.2), width: hp(3.2) }}
                 source={IconPack.MOBILE}
                 resizeMode='contain'
               />
@@ -106,10 +104,9 @@ class _Header extends Component {
             <Button transparent onPress={onNotificationPress}>
               <Image
                 resizeMode={'cover'}
-                style={{ height: hp(3.3), width: hp(3), }}
+                style={{ height: hp(3.2), width: hp(3.2), }}
                 source={IconPack.BELL}
                 resizeMode='contain'
-              // source={require('../../assets/image/BlueIcons/Notification-White.png')}
               />
             </Button>
           ) : null}

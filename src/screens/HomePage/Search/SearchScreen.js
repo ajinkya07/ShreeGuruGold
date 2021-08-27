@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Text,
   View,
@@ -14,34 +14,39 @@ import {
   SafeAreaView,
   Dimensions,
   FlatList,
-} from 'react-native';
-import { DatePicker, Footer } from 'native-base';
-import moment from 'moment';
+} from "react-native";
+import { DatePicker, Footer } from "native-base";
+import moment from "moment";
 
-import _CustomHeader from '@customHeader/_CustomHeader';
+import _CustomHeader from "@customHeader/_CustomHeader";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import _Text from '@text/_Text';
-import { connect } from 'react-redux';
-import { color } from '@values/colors';
-import Modal from 'react-native-modal';
-import IconPack from '@login/IconPack';
-import CheckBox from '@react-native-community/checkbox';
-import { Toast, Picker } from 'native-base';
-import { strings } from '@values/strings';
+} from "react-native-responsive-screen";
+import _Text from "@text/_Text";
+import { connect } from "react-redux";
+import { color } from "@values/colors";
+import Modal from "react-native-modal";
+import IconPack from "@login/IconPack";
+import CheckBox from "@react-native-community/checkbox";
+import { Toast, Picker } from "native-base";
+import { strings } from "@values/strings";
 
-import { searchProducts, searchByCode, searchProductsCount, saveSearchPayload } from '@search/SearchAction';
-import FromDatePicker from './FromDatePicker';
-import ToDatePicker from './ToDatePicker';
-import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
-import Theme from '../../../values/Theme';
-import Icon2 from 'react-native-vector-icons/MaterialIcons';
-import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import { Icon } from 'native-base';
+import {
+  searchProducts,
+  searchByCode,
+  searchProductsCount,
+  saveSearchPayload,
+} from "@search/SearchAction";
+import FromDatePicker from "./FromDatePicker";
+import ToDatePicker from "./ToDatePicker";
+import FloatingLabelTextInput from "@floatingInputBox/FloatingLabelTextInput";
+import Theme from "../../../values/Theme";
+import Icon2 from "react-native-vector-icons/MaterialIcons";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import { Icon } from "native-base";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 var categoryIds = [];
 
@@ -51,12 +56,12 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gwFrom: '',
-      gwTo: '',
-      nwFrom: '',
-      nwTo: '',
-      fromDate: '',
-      toDate: '',
+      gwFrom: "",
+      gwTo: "",
+      nwFrom: "",
+      nwTo: "",
+      fromDate: "",
+      toDate: "",
       isModalVisible: false,
       isContinueClicked: false,
       check: {},
@@ -67,12 +72,12 @@ class SearchScreen extends Component {
 
       successSearchbyCategoryVersion: 0,
       errorSearchbyCategoryVersion: 0,
-      searchText: '',
+      searchText: "",
       isSearchCodeVisible: false,
 
       successSearchbyCodeVersion: 0,
       errorSearchbyCodeVersion: 0,
-      search: '',
+      search: "",
       isKaratModalVisible: false,
       toggleCheckBox: true,
 
@@ -80,7 +85,7 @@ class SearchScreen extends Component {
       errorAllParamaterVersion: 0,
       karatData: [],
       isOkKaratClicked: false,
-      selectedStatus: '1',
+      selectedStatus: "1",
       selectedItems: [],
       selectedItems2: [],
       items2: [],
@@ -111,12 +116,11 @@ class SearchScreen extends Component {
       errorSearchbyCodeVersion,
       errorAllParamaterVersion,
       successAllParameterVersion,
-      successSearchCountVersion, errorSearchCountVersion
-
+      successSearchCountVersion,
+      errorSearchCountVersion,
     } = nextProps;
 
     let newState = null;
-
 
     if (
       successSearchbyCategoryVersion > prevState.successSearchbyCategoryVersion
@@ -180,33 +184,38 @@ class SearchScreen extends Component {
     const {
       searchByCategoryData,
       searchByCodeData,
-      allParameterData, searchCountData
+      allParameterData,
+      searchCountData,
     } = this.props;
-
-    if (this.state.successSearchbyCategoryVersion > prevState.successSearchbyCategoryVersion) {
-      if (searchCountData.ack == '1') {
-        console.log("searchCountData", searchCountData);
-        this.props.navigation.navigate('SearchProductGrid', { fromCodeSearch: false, searchCount: searchCountData.data })
+    if (
+      this.state.successSearchbyCategoryVersion >
+      prevState.successSearchbyCategoryVersion
+    ) {
+      if (searchCountData.ack == "1") {
+        this.props.navigation.navigate("SearchProductGrid", {
+          fromCodeSearch: false,
+          searchCount: searchCountData.data,
+        });
       }
     }
     if (
       this.state.errorSearchbyCategoryVersion >
       prevState.errorSearchbyCategoryVersion
     ) {
-      this.showToast(this.props.errorMsgSearch, 'danger');
+      this.showToast(this.props.errorMsgSearch, "danger");
     }
     if (
       this.state.successSearchbyCodeVersion >
       prevState.successSearchbyCodeVersion
     ) {
-      this.props.navigation.navigate('SearchProductGrid', {
+      this.props.navigation.navigate("SearchProductGrid", {
         fromCodeSearch: true,
       });
     }
     if (
       this.state.errorSearchbyCodeVersion > prevState.errorSearchbyCodeVersion
     ) {
-      this.showToast(this.props.errorMsgSearch, 'danger');
+      this.showToast(this.props.errorMsgSearch, "danger");
     }
 
     if (
@@ -223,7 +232,7 @@ class SearchScreen extends Component {
   showToast = (msg, type, duration) => {
     Toast.show({
       text: msg ? msg : strings.serverFailedMsg,
-      type: type ? type : 'danger',
+      type: type ? type : "danger",
       duration: duration ? duration : 2500,
     });
   };
@@ -249,7 +258,7 @@ class SearchScreen extends Component {
       checkCopy[id] = false;
 
       var index = selectedCategories
-        .map(x => {
+        .map((x) => {
           return x.id;
         })
         .indexOf(id);
@@ -268,13 +277,13 @@ class SearchScreen extends Component {
     this.setState({ check: checkCopy });
   };
 
-  setToDate = newDate => {
+  setToDate = (newDate) => {
     const { fromDate } = this.state;
 
     this.setState({ toDate: newDate });
   };
 
-  setFromDate = newDate => {
+  setFromDate = (newDate) => {
     this.setState({ fromDate: newDate });
   };
 
@@ -293,35 +302,36 @@ class SearchScreen extends Component {
         <View
           style={{
             marginTop: hp(1),
-            flexDirection: 'row',
+            flexDirection: "row",
             width: wp(100),
-            justifyContent: 'space-between',
-          }}>
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
-              onChangeText={gwFrom => this.onTextChanged('gwFrom', gwFrom)}
+              onChangeText={(gwFrom) => this.onTextChanged("gwFrom", gwFrom)}
               value={gwFrom}
               placeholder="From"
               maxLength={10}
               placeholderTextColor="gray"
-              keyboardType={'numeric'}
+              keyboardType={"numeric"}
               returnKeyType="done"
             />
           </View>
           <_Text fsMedium style={{ marginTop: hp(2) }}>
-            AND{' '}
+            AND{" "}
           </_Text>
 
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
-              onChangeText={gwTo => this.onTextChanged('gwTo', gwTo)}
+              onChangeText={(gwTo) => this.onTextChanged("gwTo", gwTo)}
               value={gwTo}
               maxLength={10}
               placeholder="To"
               placeholderTextColor="gray"
-              keyboardType={'numeric'}
+              keyboardType={"numeric"}
               returnKeyType="done"
             />
           </View>
@@ -338,35 +348,36 @@ class SearchScreen extends Component {
         <View
           style={{
             marginTop: hp(1),
-            flexDirection: 'row',
+            flexDirection: "row",
             width: wp(100),
-            justifyContent: 'space-between',
-          }}>
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
-              onChangeText={nwFrom => this.onTextChanged('nwFrom', nwFrom)}
+              onChangeText={(nwFrom) => this.onTextChanged("nwFrom", nwFrom)}
               value={nwFrom}
               maxLength={10}
               placeholder="From"
               placeholderTextColor="gray"
-              keyboardType={'numeric'}
+              keyboardType={"numeric"}
               returnKeyType="done"
             />
           </View>
           <_Text fsMedium style={{ marginTop: hp(2) }}>
-            AND{' '}
+            AND{" "}
           </_Text>
 
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <TextInput
               style={styles.textInputStyle}
-              onChangeText={nwTo => this.onTextChanged('nwTo', nwTo)}
+              onChangeText={(nwTo) => this.onTextChanged("nwTo", nwTo)}
               value={nwTo}
               maxLength={10}
               placeholder="To"
               placeholderTextColor="gray"
-              keyboardType={'numeric'}
+              keyboardType={"numeric"}
               returnKeyType="done"
             />
           </View>
@@ -382,26 +393,26 @@ class SearchScreen extends Component {
         <View
           style={{
             marginTop: hp(0.5),
-            flexDirection: 'row',
+            flexDirection: "row",
             width: wp(100),
-            justifyContent: 'space-between',
-          }}>
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <FromDatePicker
               dateLabel="From Date"
-              setFromDate={d => this.setFromDate(d)}
+              setFromDate={(d) => this.setFromDate(d)}
               fromDate={this.state.fromDate}
             />
           </View>
           <_Text fsMedium style={{ marginTop: hp(1.5) }}>
-            AND{' '}
+            AND{" "}
           </_Text>
 
-          <View style={{ flexDirection: 'row', width: wp(40) }}>
-
+          <View style={{ flexDirection: "row", width: wp(40) }}>
             <ToDatePicker
               dateLabel="To Date"
-              setToDate={d => this.setToDate(d)}
+              setToDate={(d) => this.setToDate(d)}
               toDate={this.state.toDate}
             />
           </View>
@@ -419,21 +430,22 @@ class SearchScreen extends Component {
           <View
             style={{
               marginTop: hp(1),
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: "row",
+              justifyContent: "space-between",
               width: wp(92),
-            }}>
+            }}
+          >
             {!isOkKaratClicked && (
-              <_Text fsHeading textColor={'gray'} style={{ marginLeft: wp(3) }}>
+              <_Text fsHeading textColor={"gray"} style={{ marginLeft: wp(3) }}>
                 Select Melting:
               </_Text>
             )}
             {selectedKarat.length > 0 && isOkKaratClicked && (
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {selectedKarat.map(s => {
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {selectedKarat.map((s) => {
                   return (
                     <_Text fsHeading style={{ marginLeft: wp(3) }}>
-                      {' '}
+                      {" "}
                       {s.value},
                     </_Text>
                   );
@@ -445,11 +457,7 @@ class SearchScreen extends Component {
               style={{ height: hp(2.5), width: hp(2.5), marginTop: hp(1) }}
               source={require('../../../assets/image/DownArrow.png')}
             /> */}
-            <Icon
-              type="Feather"
-              name="arrow-down"
-              style={{ fontSize: 22 }}
-            />
+            <Icon type="Feather" name="arrow-down" style={{ fontSize: 22 }} />
           </View>
         </TouchableOpacity>
       </View>
@@ -464,11 +472,11 @@ class SearchScreen extends Component {
         <_Text fsHeading>Select Categories:</_Text>
 
         {selectedCategories.length > 0 && isContinueClicked && (
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', top: 3 }}>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", top: 3 }}>
             {selectedCategories.length > 0 && (
               <_Text fsPrimary>Selected: </_Text>
             )}
-            {selectedCategories.map(s => {
+            {selectedCategories.map((s) => {
               return <_Text fsPrimary> {s.name},</_Text>;
             })}
           </View>
@@ -477,9 +485,10 @@ class SearchScreen extends Component {
         <View
           style={{
             marginHorizontal: wp(3),
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <ActionButtonRounded2
             title="SELECT CATEGORIES"
             onButonPress={() => this.toggleModal()}
@@ -498,12 +507,13 @@ class SearchScreen extends Component {
           style={{
             marginBottom: hp(4),
             marginHorizontal: wp(3),
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <View style={styles.roundedButtonSearch}>
             <View style={styles.buttonText}>
-              <_Text fsHeading bold textColor={'#FFFFFF'}>
+              <_Text fsHeading bold textColor={"#FFFFFF"}>
                 SEARCH
               </_Text>
             </View>
@@ -516,7 +526,7 @@ class SearchScreen extends Component {
   continuecategoryModal = () => {
     const { selectedCategories } = this.state;
 
-    categoryIds = selectedCategories.map(x => {
+    categoryIds = selectedCategories.map((x) => {
       return x.id;
     });
 
@@ -529,7 +539,7 @@ class SearchScreen extends Component {
   onOKkaratSelected = () => {
     const { selectedKarat } = this.state;
 
-    karatIds = selectedKarat.map(x => {
+    karatIds = selectedKarat.map((x) => {
       return x.id;
     });
 
@@ -559,69 +569,68 @@ class SearchScreen extends Component {
       selectedStatus,
     } = this.state;
 
-    console.log('categoryIds', categoryIds);
+    console.log("categoryIds", categoryIds);
 
     if (selectedItems2.length > 0) {
       const s = new FormData();
 
-      s.append('table', 'product_master');
-      s.append('mode_type', 'filter_data');
-      s.append('user_id', userId);
-      s.append('record', 10);
-      s.append('page_no', 0);
-      s.append('collection_ids', categoryIds.toString());
-      s.append('sort_by', 2);
-      s.append('min_gross_weight', gwFrom ? gwFrom : '');
-      s.append('max_gross_weight', gwTo ? gwTo : '');
-      s.append('min_net_weight', nwFrom ? nwFrom : '');
-      s.append('max_net_weight', nwTo ? nwTo : '');
-      s.append('product_status', selectedStatus);
-      s.append('melting_id  ', karatIds.toString());
-      s.append('created_date_from', fromDate ? fromDate : '');
-      s.append('created_date_to', toDate ? toDate : '');
+      s.append("table", "product_master");
+      s.append("mode_type", "filter_data");
+      s.append("user_id", userId);
+      s.append("record", 10);
+      s.append("page_no", 0);
+      s.append("collection_ids", categoryIds.toString());
+      s.append("sort_by", 2);
+      s.append("min_gross_weight", gwFrom ? gwFrom : "");
+      s.append("max_gross_weight", gwTo ? gwTo : "");
+      s.append("min_net_weight", nwFrom ? nwFrom : "");
+      s.append("max_net_weight", nwTo ? nwTo : "");
+      s.append("product_status", selectedStatus);
+      s.append("melting_id  ", karatIds.toString());
+      s.append("created_date_from", fromDate ? fromDate : "");
+      s.append("created_date_to", toDate ? toDate : "");
 
       this.props.searchProducts(s);
 
-      const countData = new FormData()
-      countData.append('table', 'product_master')
-      countData.append('mode_type', 'count_data')
-      countData.append('user_id', userId)
-      countData.append('record', 10)
-      countData.append('page_no', 0)
-      countData.append('collection_ids', categoryIds.toString())
-      countData.append('sort_by', 2)
-      countData.append('min_gross_weight', gwFrom ? gwFrom : '')
-      countData.append('max_gross_weight', gwTo ? gwTo : '')
-      countData.append('min_net_weight', nwFrom ? nwFrom : '')
-      countData.append('max_net_weight', nwTo ? nwTo : '')
-      countData.append('product_status', selectedStatus)
-      countData.append('melting_id  ', karatIds.toString())
-      countData.append('created_date_from', fromDate ? fromDate : '')
-      countData.append('created_date_to', toDate ? toDate : '')
+      const countData = new FormData();
+      countData.append("table", "product_master");
+      countData.append("mode_type", "count_data");
+      countData.append("user_id", userId);
+      countData.append("record", 10);
+      countData.append("page_no", 0);
+      countData.append("collection_ids", categoryIds.toString());
+      countData.append("sort_by", 2);
+      countData.append("min_gross_weight", gwFrom ? gwFrom : "");
+      countData.append("max_gross_weight", gwTo ? gwTo : "");
+      countData.append("min_net_weight", nwFrom ? nwFrom : "");
+      countData.append("max_net_weight", nwTo ? nwTo : "");
+      countData.append("product_status", selectedStatus);
+      countData.append("melting_id  ", karatIds.toString());
+      countData.append("created_date_from", fromDate ? fromDate : "");
+      countData.append("created_date_to", toDate ? toDate : "");
 
-      this.props.searchProductsCount(countData)
+      this.props.searchProductsCount(countData);
 
       const payload = {
-        table: 'product_master',
-        mode_type: 'count_data',
+        table: "product_master",
+        mode_type: "count_data",
         user_id: userId,
         record: 10,
         page_no: 0,
         collection_ids: categoryIds.toString(),
         sort_by: 2,
-        min_gross_weight: gwFrom ? gwFrom : '',
-        max_gross_weight: gwTo ? gwTo : '',
-        min_net_weight: nwFrom ? nwFrom : '',
-        max_net_weight: nwTo ? nwTo : '',
+        min_gross_weight: gwFrom ? gwFrom : "",
+        max_gross_weight: gwTo ? gwTo : "",
+        min_net_weight: nwFrom ? nwFrom : "",
+        max_net_weight: nwTo ? nwTo : "",
         product_status: selectedStatus,
         melting_id: karatIds.toString(),
-        created_date_from: fromDate ? fromDate : '',
-        created_date_to: toDate ? toDate : '',
-      }
-      this.props.saveSearchPayload(payload)
-
+        created_date_from: fromDate ? fromDate : "",
+        created_date_to: toDate ? toDate : "",
+      };
+      this.props.saveSearchPayload(payload);
     } else {
-      this.showToast('Please select category');
+      this.showToast("Please select category");
     }
   };
 
@@ -629,19 +638,19 @@ class SearchScreen extends Component {
     this.setState({ isSearchCodeVisible: !this.state.isSearchCodeVisible });
   };
 
-  handleSearchChange = newText =>
+  handleSearchChange = (newText) =>
     this.setState({
       searchText: newText,
     });
 
   searchByCode = () => {
     const { searchText } = this.state;
-    if (searchText !== '') {
+    if (searchText !== "") {
       const byCode = new FormData();
-      byCode.append('table', 'product_master');
-      byCode.append('mode_type', 'filter_data');
-      byCode.append('user_id', userId);
-      byCode.append('design_number', searchText);
+      byCode.append("table", "product_master");
+      byCode.append("mode_type", "filter_data");
+      byCode.append("user_id", userId);
+      byCode.append("design_number", searchText);
 
       this.props.searchByCode(byCode);
 
@@ -649,7 +658,7 @@ class SearchScreen extends Component {
         isSearchCodeVisible: false,
       });
     } else {
-      this.showToast('please enter design code', 'danger');
+      this.showToast("please enter design code", "danger");
 
       this.setState({
         isSearchCodeVisible: false,
@@ -665,10 +674,10 @@ class SearchScreen extends Component {
   };
 
   filterList(list) {
-    return list.filter(listItem =>
+    return list.filter((listItem) =>
       listItem.melting_name
         .toLowerCase()
-        .includes(this.state.search.toLowerCase()),
+        .includes(this.state.search.toLowerCase())
     );
   }
 
@@ -680,7 +689,7 @@ class SearchScreen extends Component {
       val[id] = false;
 
       var index = selectedKarat
-        .map(x => {
+        .map((x) => {
           return x.id;
         })
         .indexOf(id);
@@ -708,24 +717,24 @@ class SearchScreen extends Component {
     karatIds = [];
   };
 
-  setSelectedStatus = value => {
+  setSelectedStatus = (value) => {
     this.setState({
       selectedStatus: value,
     });
   };
 
-  onSelectedItemsChange = selectedItems => {
+  onSelectedItemsChange = (selectedItems) => {
     this.setState({ selectedItems });
   };
 
-  onSelectedItemsChange2 = selectedItems2 => {
+  onSelectedItemsChange2 = (selectedItems2) => {
     this.setState({ selectedItems2 });
   };
 
   onConfirmCategory = () => {
     const { selectedItems2 } = this.state;
 
-    categoryIds = selectedItems2.map(x => {
+    categoryIds = selectedItems2.map((x) => {
       return x.id;
     });
   };
@@ -752,22 +761,22 @@ class SearchScreen extends Component {
     const list = allParameterData && allParameterData.melting;
 
     let statusArray = [
-      { id: '1', status: 'Available' },
-      { id: '2', status: 'Sold' },
+      { id: "1", status: "Available" },
+      { id: "2", status: "Sold" },
     ];
 
     let headerTheme = allParameterData.theme_color
       ? allParameterData.theme_color
-      : '';
+      : "";
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
         <_CustomHeader
-          Title={'Search'}
-          RightBtnIcon2={require('../../../assets/image/BlueIcons/Notification-White.png')}
+          Title={"Search"}
+          RightBtnIcon2={require("../../../assets/image/BlueIcons/Notification-White.png")}
           LeftBtnPress={() => this.props.navigation.goBack()}
           RightBtnPressTwo={() =>
-            this.props.navigation.navigate('Notification')
+            this.props.navigation.navigate("Notification")
           }
           rightIconHeight2={hp(3.5)}
           backgroundColor="#19af81"
@@ -776,9 +785,10 @@ class SearchScreen extends Component {
           <View
             style={{
               paddingVertical: hp(1.5),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <_Text fsHeading>Code Search:</_Text>
             <TouchableOpacity onPress={() => this.searchModal()}>
               <View style={styles.roundedButton}>
@@ -792,7 +802,7 @@ class SearchScreen extends Component {
           </View>
           <View style={styles.border} />
 
-          <_Text fsHeading style={{ textAlign: 'center', marginTop: hp(1.5) }}>
+          <_Text fsHeading style={{ textAlign: "center", marginTop: hp(1.5) }}>
             Advanced Search:
           </_Text>
 
@@ -817,15 +827,16 @@ class SearchScreen extends Component {
               mode="dropdown"
               style={{
                 height: 50,
-                width: '70%',
-                justifyContent: 'space-between',
+                width: "70%",
+                justifyContent: "space-between",
                 width: wp(95),
                 marginTop: -5,
               }}
               selectedValue={this.state.selectedStatus}
-              onValueChange={value => this.setSelectedStatus(value)}>
+              onValueChange={(value) => this.setSelectedStatus(value)}
+            >
               {statusArray &&
-                statusArray.map(s => (
+                statusArray.map((s) => (
                   <Picker.Item
                     key={s.id.toString()}
                     label={s.status}
@@ -850,45 +861,50 @@ class SearchScreen extends Component {
               onSelectedItemObjectsChange={this.onSelectedItemsChange2}
               selectedItems={this.state.selectedItems}
               modalWithSafeAreaView={true}
-              subItemFontFamily={'Roboto'}
+              subItemFontFamily={"Roboto"}
               onConfirm={this.onConfirmCategory}
               onCancel={this.onCancelCategory}
               showCancelButton={true}
               showRemoveAll={true}
+              hideChipRemove={true}
             />
           </View>
         </ScrollView>
 
         <View
           style={{
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: "center",
+            justifyContent: "center",
             marginBottom: 10,
             marginTop: 10,
-          }}>
+          }}
+        >
           <TouchableOpacity onPress={() => this.searchProducts()}>
             <View
               style={{
-                backgroundColor: headerTheme ? '#' + headerTheme : '#303030',
+                backgroundColor: headerTheme ? "#" + headerTheme : "#303030",
                 height: 50,
                 width: wp(85),
-                justifyContent: 'center',
+                justifyContent: "center",
                 borderRadius: 40,
                 marginVertical: 5,
-              }}>
+              }}
+            >
               <View
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Text
                   style={{
-                    color: '#FFFFFF',
+                    color: "#FFFFFF",
                     fontSize: 16,
-                    fontFamily: 'Lato-Bold',
-                  }}>
+                    fontFamily: "Lato-Bold",
+                  }}
+                >
                   SEARCH
                 </Text>
               </View>
@@ -905,8 +921,9 @@ class SearchScreen extends Component {
             onBackButtonPress={() => this.closeModal()}
             style={{
               marginHorizontal: 24,
-              marginVertical: Platform.OS === 'ios' ? 70 : 0,
-            }}>
+              marginVertical: Platform.OS === "ios" ? 70 : 0,
+            }}
+          >
             <SafeAreaView>
               <View style={styles.selectCategoriesContainer}>
                 <Text style={styles.selectCategoryText}>Select Categories</Text>
@@ -921,20 +938,20 @@ class SearchScreen extends Component {
               </View>
 
               <FlatList
-                style={{ backgroundColor: '#ffffff' }}
+                style={{ backgroundColor: "#ffffff" }}
                 showsVerticalScrollIndicator={false}
                 data={collection && collection}
                 renderItem={({ item }) => (
                   <View style={styles.categoryContainer}>
                     <Text numberOfLines={2} style={styles.categoryText}>
                       {item.col_name.length > 22
-                        ? item.col_name.substring(0, 22) + '...'
+                        ? item.col_name.substring(0, 22) + "..."
                         : item.col_name}
                     </Text>
-                    {Platform.OS === 'ios' ? (
+                    {Platform.OS === "ios" ? (
                       <CheckBox
                         style={styles.checkBox}
-                        tintColors={{ true: '#11255a', false: 'gray' }}
+                        tintColors={{ true: "#11255a", false: "gray" }}
                         value={this.state.check[item.id]}
                         onValueChange={() =>
                           this.checkBox_Test(item.id, item.col_name)
@@ -945,19 +962,19 @@ class SearchScreen extends Component {
                         onCheckColor="#ffffff"
                       />
                     ) : (
-                        <CheckBox
-                          style={styles.checkBox}
-                          tintColors={{ true: '#11255a', false: 'gray' }}
-                          value={this.state.check[item.id]}
-                          onChange={() =>
-                            this.checkBox_Test(item.id, item.col_name)
-                          }
-                          boxType="square"
-                          onFillColor="#11255a"
-                          onTintColor="gray"
-                          onCheckColor="#ffffff"
-                        />
-                      )}
+                      <CheckBox
+                        style={styles.checkBox}
+                        tintColors={{ true: "#11255a", false: "gray" }}
+                        value={this.state.check[item.id]}
+                        onChange={() =>
+                          this.checkBox_Test(item.id, item.col_name)
+                        }
+                        boxType="square"
+                        onFillColor="#11255a"
+                        onTintColor="gray"
+                        onCheckColor="#ffffff"
+                      />
+                    )}
                   </View>
                 )}
               />
@@ -983,18 +1000,22 @@ class SearchScreen extends Component {
               onBackButtonPress={() =>
                 this.setState({ isSearchCodeVisible: false })
               }
-              onRequestClose={() => this.setState({ isSearchCodeVisible: false })}
-              style={{ margin: 30 }}>
+              onRequestClose={() =>
+                this.setState({ isSearchCodeVisible: false })
+              }
+              style={{ margin: 30 }}
+            >
               <View style={styles.container}>
                 <View
                   style={[
                     styles.topContainer,
                     {
                       backgroundColor: headerTheme
-                        ? '#' + headerTheme
-                        : '#303030',
+                        ? "#" + headerTheme
+                        : "#303030",
                     },
-                  ]}>
+                  ]}
+                >
                   <Text style={styles.title}>Search By Code</Text>
                 </View>
                 <View style={styles.bottomConatiner}>
@@ -1013,7 +1034,7 @@ class SearchScreen extends Component {
                         onChangeText={this.handleSearchChange}
                         resetValue=""
                         width="100%"
-                        returnKeyType={'done'}
+                        returnKeyType={"done"}
                       />
                     </View>
                   </View>
@@ -1027,7 +1048,8 @@ class SearchScreen extends Component {
 
                 <TouchableOpacity
                   style={styles.imageView}
-                  onPress={() => this.setState({ isSearchCodeVisible: false })}>
+                  onPress={() => this.setState({ isSearchCodeVisible: false })}
+                >
                   <Image
                     source={IconPack.WHITE_CLOSE}
                     style={styles.imageStyle}
@@ -1045,15 +1067,17 @@ class SearchScreen extends Component {
             onRequestClose={() => this.closeKaratModal()}
             onBackdropPress={() => this.closeKaratModal()}
             onBackButtonPress={() => this.closeKaratModal()}
-            style={{ margin: 0 }}>
+            style={{ margin: 0 }}
+          >
             <TouchableWithoutFeedback>
               <View style={styles.container1}>
                 <View
                   style={{
                     backgroundColor: headerTheme
-                      ? '#' + headerTheme
-                      : '#303030',
-                  }}>
+                      ? "#" + headerTheme
+                      : "#303030",
+                  }}
+                >
                   <Text style={styles.titleText}>Select Melting</Text>
                   <View style={styles.closeIconView}>
                     <TouchableOpacity onPress={() => this.closeKaratModal()}>
@@ -1065,7 +1089,7 @@ class SearchScreen extends Component {
                   </View>
                 </View>
                 <TextInput
-                  onChangeText={search => this.setState({ search })}
+                  onChangeText={(search) => this.setState({ search })}
                   style={styles.searchBar}
                   placeholder="Find Melting"
                   placeholderTextColor="#757575"
@@ -1073,54 +1097,54 @@ class SearchScreen extends Component {
                 />
 
                 {list &&
-                  list.length > 0 &&
-                  this.filterList(list).length !== 0 ? (
-                    this.filterList(list).map((listItem, index) => (
-                      <View style={styles.dataContainer}>
-                        <Text key={index} style={styles.itemText}>
-                          {listItem.melting_name}
-                        </Text>
+                list.length > 0 &&
+                this.filterList(list).length !== 0 ? (
+                  this.filterList(list).map((listItem, index) => (
+                    <View style={styles.dataContainer}>
+                      <Text key={index} style={styles.itemText}>
+                        {listItem.melting_name}
+                      </Text>
 
-                        <View style={{ marginRight: 10 }}>
-                          {Platform.OS === 'ios' ? (
-                            <CheckBox
-                              disabled={false}
-                              value={this.state.karat[listItem.id]}
-                              onValueChange={() =>
-                                this.setToggleCheckBox(
-                                  listItem.id,
-                                  listItem.melting_name,
-                                )
-                              }
-                              // onFillColor="#FFFFFF"
-                              onFillColor="#11255a"
-                              onTintColor="gray"
-                              onCheckColor="#ffffff"
-                            />
-                          ) : (
-                              <CheckBox
-                                disabled={false}
-                                value={this.state.karat[listItem.id]}
-                                onChange={() =>
-                                  this.setToggleCheckBox(
-                                    listItem.id,
-                                    listItem.melting_name,
-                                  )
-                                }
-                                // onFillColor="#FFFFFF"
-                                onFillColor="#11255a"
-                                onTintColor="gray"
-                                onCheckColor="#ffffff"
-                              />
-                            )}
-                        </View>
+                      <View style={{ marginRight: 10 }}>
+                        {Platform.OS === "ios" ? (
+                          <CheckBox
+                            disabled={false}
+                            value={this.state.karat[listItem.id]}
+                            onValueChange={() =>
+                              this.setToggleCheckBox(
+                                listItem.id,
+                                listItem.melting_name
+                              )
+                            }
+                            // onFillColor="#FFFFFF"
+                            onFillColor="#11255a"
+                            onTintColor="gray"
+                            onCheckColor="#ffffff"
+                          />
+                        ) : (
+                          <CheckBox
+                            disabled={false}
+                            value={this.state.karat[listItem.id]}
+                            onChange={() =>
+                              this.setToggleCheckBox(
+                                listItem.id,
+                                listItem.melting_name
+                              )
+                            }
+                            // onFillColor="#FFFFFF"
+                            onFillColor="#11255a"
+                            onTintColor="gray"
+                            onCheckColor="#ffffff"
+                          />
+                        )}
                       </View>
-                    ))
-                  ) : (
-                    <View style={styles.noContainView}>
-                      <Text style={styles.noFoundText}>No Data found!</Text>
                     </View>
-                  )}
+                  ))
+                ) : (
+                  <View style={styles.noContainView}>
+                    <Text style={styles.noFoundText}>No Data found!</Text>
+                  </View>
+                )}
 
                 <View style={[styles.buttonContainer, { marginBottom: hp(1) }]}>
                   <ActionButtonRounded
@@ -1162,7 +1186,8 @@ function mapStateToProps(state) {
     searchByCodeData: state.searchReducer.searchByCodeData,
 
     allParameterData: state.homePageReducer.allParameterData,
-    successAllParameterVersion: state.homePageReducer.successAllParameterVersion,
+    successAllParameterVersion:
+      state.homePageReducer.successAllParameterVersion,
     errorAllParamaterVersion: state.homePageReducer.errorAllParamaterVersion,
 
     successSearchCountVersion: state.searchReducer.successSearchCountVersion,
@@ -1170,57 +1195,59 @@ function mapStateToProps(state) {
     searchCountData: state.searchReducer.searchCountData,
 
     searchPayload: state.searchReducer.searchPayload,
-
   };
 }
 
-export default connect(
-  mapStateToProps, { searchProducts, searchByCode, searchProductsCount, saveSearchPayload },
-)(SearchScreen);
+export default connect(mapStateToProps, {
+  searchProducts,
+  searchByCode,
+  searchProductsCount,
+  saveSearchPayload,
+})(SearchScreen);
 
 const styles = StyleSheet.create({
   border: {
-    borderColor: '#DDDDDD',
+    borderColor: "#DDDDDD",
     borderBottomWidth: 0.8,
     marginTop: hp(1),
   },
   textInputStyle: {
     height: 45,
     width: wp(35),
-    borderColor: 'gray',
+    borderColor: "gray",
     borderBottomWidth: 1,
     fontSize: 20,
   },
   roundedButton: {
     marginTop: hp(1.5),
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
     width: wp(85),
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
-    borderColor: '#fbcb84',
+    borderColor: "#fbcb84",
     borderWidth: 2,
   },
   roundedButtonSearch: {
     marginTop: hp(1.5),
     backgroundColor: color.green,
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
     width: wp(85),
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
   },
   buttonText: {
     width: wp(100),
     height: hp(100),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   closeIcon: {
     width: 20,
@@ -1234,46 +1261,46 @@ const styles = StyleSheet.create({
     backgroundColor: color.green,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   selectCategoryText: {
     fontSize: 21,
-    fontFamily: 'Helvetica',
-    color: '#FFFFFF',
+    fontFamily: "Helvetica",
+    color: "#FFFFFF",
     ...Theme.ffLatoBold20,
   },
   scrollView: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   buttonContainer: {
     height: 60,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderBottomLeftRadius: 14,
     borderBottomRightRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     // marginBottom:hp(2)
   },
   closeIconView: {
-    position: 'absolute',
+    position: "absolute",
     top: 14,
     right: 10,
     bottom: 0,
   },
   categoryContainer: {
-    backgroundColor: '#D3D3D3',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
+    backgroundColor: "#D3D3D3",
+    justifyContent: "space-between",
+    flexDirection: "row",
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 2,
     marginBottom: 2,
   },
   categoryText: {
     marginLeft: 25,
-    fontFamily: 'Helvetica',
+    fontFamily: "Helvetica",
     fontSize: 16,
   },
   checkBox: {
@@ -1283,39 +1310,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     height: 200,
     borderRadius: 15,
   },
   topContainer: {
     flex: 1,
-    backgroundColor: '#19af81',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#19af81",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   bottomConatiner: {
     flex: 3,
-    backgroundColor: '#FFFFFF',
-    width: '100%',
-    alignItems: 'center',
+    backgroundColor: "#FFFFFF",
+    width: "100%",
+    alignItems: "center",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
   title: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     ...Theme.ffLatoBold20,
   },
   imageStyle: {
     width: hp(2.5),
     height: hp(2.5),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   imageView: {
-    position: 'absolute',
+    position: "absolute",
     top: 16,
     right: 14,
   },
@@ -1324,13 +1351,13 @@ const styles = StyleSheet.create({
     marginBottom: hp(1),
   },
   flexRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 10,
   },
   searchImgView: {
     marginHorizontal: 10,
     marginTop: 8,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 
   flex: {
@@ -1338,26 +1365,26 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     //marginLeft: 10,
-    backgroundColor: '#19af81',
+    backgroundColor: "#19af81",
   },
   titleText: {
     ...Theme.ffLatoBold20,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     marginLeft: 15,
-    marginTop: Platform.OS === 'android' ? 8 : 12,
-    marginBottom: Platform.OS === 'android' ? 8 : 12,
+    marginTop: Platform.OS === "android" ? 8 : 12,
+    marginBottom: Platform.OS === "android" ? 8 : 12,
   },
   borderStyle: {
-    borderBottomColor: '#d2d2d2',
+    borderBottomColor: "#d2d2d2",
     borderBottomWidth: 1,
   },
   subTitleStyle: {
     ...Theme.ffLatoRegular16,
-    color: '#757575',
+    color: "#757575",
     marginVertical: 5,
   },
   container1: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     marginHorizontal: 16,
   },
   spaceHorizontal: {
@@ -1368,8 +1395,8 @@ const styles = StyleSheet.create({
     ...Theme.ffLatoRegular14,
     margin: 10,
     height: 38,
-    backgroundColor: 'white',
-    borderColor: '#d2d2d2',
+    backgroundColor: "white",
+    borderColor: "#d2d2d2",
     borderWidth: 1,
     //marginLeft: 7,
   },
@@ -1384,54 +1411,61 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     height: 45,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: "#FFFFFF",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginHorizontal: 20,
   },
   bottomTxt: {
     ...Theme.ffLatoRegular13,
-    color: '#000000',
+    color: "#000000",
   },
   dataContainer: {
     marginHorizontal: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     // backgroundColor: '#657fd6',
-    borderBottomColor: '#d2d2d2',
+    borderBottomColor: "#d2d2d2",
     borderBottomWidth: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   noContainView: {
     height: 35,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
   },
   noFoundText: {
     ...Theme.ffLatoRegular18,
-    color: 'red',
+    color: "red",
     letterSpacing: 0.7,
   },
 });
 
 ///--------------------------------ActionButton------------------
-const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => {
+const ActionButtonRounded = ({
+  title,
+  onButonPress,
+  containerStyle,
+  color,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={{
-          backgroundColor: color ? '#' + color : '#303030',
+          backgroundColor: color ? "#" + color : "#303030",
           height: 42,
           width: 140,
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 40,
           marginTop: 10,
-        }}>
+        }}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle}>{title}</Text>
         </View>
@@ -1445,12 +1479,14 @@ const ActionButtonRounded2 = ({ title, onButonPress, containerStyle }) => {
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={[
           actionButtonRoundedStyle.mainContainerStyle,
           containerStyle || null,
-        ]}>
+        ]}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle2}>{title}</Text>
         </View>
@@ -1464,29 +1500,29 @@ const actionButtonRoundedStyle = StyleSheet.create({
     backgroundColor: color.green,
     height: 44,
     width: width - 255,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
   },
   innerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Lato-Bold',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Lato-Bold",
   },
   titleStyle2: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 16,
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Lato-Bold',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "Lato-Bold",
   },
 });

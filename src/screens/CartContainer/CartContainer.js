@@ -852,7 +852,7 @@ class CartContainer extends Component {
                         ...Theme.ffLatoRegular15,
                         color: '#000000',
                       }}>
-                      {key.replace('_', ' ')}
+                      {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
                     </Text>
                   );
                 })}
@@ -1093,7 +1093,7 @@ class CartContainer extends Component {
                         ...Theme.ffLatoRegular15,
                         color: '#000000',
                       }}>
-                      {key.replace('_', ' ')}
+                      {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
                     </Text>
                   );
                 })}
@@ -1593,16 +1593,17 @@ class CartContainer extends Component {
             <Modal
               style={{
                 justifyContent: 'flex-end',
-                marginBottom: 0,
-                marginLeft: 0,
-                marginRight: 0,
+                marginBottom: 0, marginLeft: 0, marginRight: 0,
               }}
               isVisible={this.state.isModalVisible}
               transparent={true}
               onRequestClose={() => this.setState({ isModalVisible: false })}
               onBackdropPress={() => this.setState({ isModalVisible: false })}
               onBackButtonPress={() => this.setState({ isModalVisible: false })}>
-              <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => null}>
+              <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={Platform.select({ ios: -60, android: -140 })}
+              >
                 <View
                   style={[
                     styles.bottomContainer,
@@ -1653,7 +1654,7 @@ class CartContainer extends Component {
                         value={this.state.productcode}
                         onChangeText={this.handleProductcodeChange}
                         resetValue={this.resetFieldEmail}
-                        imageIcon="email"
+                        imageIcon="code"
                         editable={false}
                         selectTextOnFocus={false}
                         width="95%"
@@ -1664,7 +1665,7 @@ class CartContainer extends Component {
                         value={this.state.productName}
                         onChangeText={this.handleProductNameChange}
                         resetValue={this.resetFieldProductName}
-                        imageIcon="email"
+                        imageIcon="name"
                         editable={false}
                         width="95%"
                         marginLeft={8}
@@ -1674,7 +1675,7 @@ class CartContainer extends Component {
                         value={this.state.quantity}
                         onChangeText={q => this.handleQuantityChange(q)}
                         resetValue={() => this.resetFieldQuantity()}
-                        imageIcon="email"
+                        imageIcon="quantity"
                         keyboardType="numeric"
                         width="95%"
                         marginLeft={8}
@@ -1789,10 +1790,12 @@ class CartContainer extends Component {
                     </View>
                   </ScrollView>
                 </View>
-              </TouchableWithoutFeedback>
-              {/* </View> */}
+
+              </KeyboardAvoidingView>
             </Modal>
           )}
+
+
           {/* PLACE ORDER */}
           {this.state.isPlaceOrderModalVisible && (
             <Modal
@@ -1816,10 +1819,7 @@ class CartContainer extends Component {
               <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => null}>
                 <KeyboardAvoidingView
                   behavior={Platform.OS === 'ios' ? 'padding' : null}
-                  keyboardVerticalOffset={Platform.select({
-                    ios: -125,
-                    android: 500,
-                  })}>
+                  keyboardVerticalOffset={Platform.select({ ios: -125, android: 500, })}>
                   <View
                     style={[
                       styles.bottomContainer,
@@ -1872,7 +1872,7 @@ class CartContainer extends Component {
                           value={this.state.email}
                           onChangeText={this.handleEmailChange}
                           resetValue={this.resetFieldEmail1}
-                          imageIcon="pan"
+                          imageIcon="email"
                           editable={false}
                           selectTextOnFocus={false}
                           width="95%"
@@ -2035,10 +2035,10 @@ class CartContainer extends Component {
                               : '#303030',
                           },
                         ]}>
-                        <Image
+                        {/* <Image
                           source={IconPack.RATE}
                           style={styles.alertIcon}
-                        />
+                        /> */}
                         <Text style={styles.alertText}>Alert !</Text>
                       </View>
 
@@ -2061,9 +2061,7 @@ class CartContainer extends Component {
                           </Text>
                           <Text style={styles.middleText}>
                             Gross Weight :{' '}
-                            {cartSummary && cartSummary.gross_wt
-                              ? parseInt(cartSummary.gross_wt).toFixed(2)
-                              : ''}
+                            {cartSummary && cartSummary.gross_wt ? cartSummary.gross_wt : ''}
                           </Text>
                           <Text style={styles.middleText}>
                             Quantity :{' '}
@@ -2072,10 +2070,9 @@ class CartContainer extends Component {
                               : ''}
                           </Text>
                         </View>
-                        <View style={{ marginHorizontal: 20 }}>
+                        <View style={{ marginHorizontal: 10 }}>
                           <Text style={styles.middleText}>
-                            Are you sure ? You want to check out, Click continue
-                            to proceed further
+                            {`Are you sure you want to check out ? \nClick continue to proceed further`}
                           </Text>
                         </View>
                         <View style={styles.btnView}>
@@ -2123,7 +2120,7 @@ class CartContainer extends Component {
                             : '#303030',
                         },
                       ]}>
-                      <Image source={IconPack.RATE} style={styles.alertIcon} />
+                      {/* <Image source={IconPack.RATE} style={styles.alertIcon} /> */}
                       <Text style={styles.alertText}>Alert !</Text>
                     </View>
                     <TouchableOpacity
@@ -2137,17 +2134,15 @@ class CartContainer extends Component {
                       />
                     </TouchableOpacity>
                     <View style={styles.bottomContainer}>
-                      <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+                      <View style={{ marginHorizontal: 10, marginTop: 20 }}>
                         <Text style={styles.middleText}>
-                          Are you sure ? You want to delete all item, Click
-                          continue to proceed further
+                          {`Are you sure you want to delete all items ? \nClick continue to proceed further`}
                         </Text>
                       </View>
                       <View style={styles.btnView}>
                         <ActionButtonRounded
                           title="CONTINUE"
                           onButonPress={() => this.deleteAllProduct()}
-                          // containerStyle={styles.buttonStyle}
                           color={headerTheme}
                         />
                       </View>
@@ -2221,11 +2216,10 @@ class CartContainer extends Component {
                         {item.cat_data.map(m => {
                           return (
                             <View>
-                              <Text style={{ marginBottom: 2 }}>
-                                - Design No: {m.product_id} (Gross Wt:
-                                {parseInt(m.gross_wt).toFixed(2)}, Net Wt:
-                                {parseInt(m.net_wt).toFixed(2)}, Quantity:
-                                {m.quantity} )
+                              <Text style={{ marginBottom: 5 }}>
+                                - Design No: {m.product_id} ( Gross Wt: {m.gross_wt},
+                                Net Wt: {m.net_wt},
+                                Quantity: {m.quantity} )
                               </Text>
                             </View>
                           );
@@ -2262,7 +2256,7 @@ class CartContainer extends Component {
                     }}>
                     <View>
                       <Text style={{ fontWeight: '200', fontSize: 16 }}>
-                        Total WT: {totalWT && parseInt(totalWT).toFixed(2)}
+                        Total WT: {totalWT}
                       </Text>
                     </View>
                     <View style={{ marginLeft: 30 }}>
@@ -2330,7 +2324,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   alertContainer: {
-    height: 80,
+    height: 50,
     backgroundColor: color.green,
     alignItems: 'center',
     justifyContent: 'space-around',

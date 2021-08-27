@@ -170,7 +170,6 @@ class CategoryContainer extends Component {
 
     let baseUrl = urls.imageUrl + 'public/backend/collection/'
 
-    console.log("categories", categories);
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: color.white }}>
 

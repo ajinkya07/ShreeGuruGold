@@ -747,7 +747,7 @@ class HomePage extends Component {
                     fsPrimary
                     textColor={'#000000'}
                     style={{ ...Theme.ffLatoRegular12 }}>
-                    {parseInt(item.gross_wt).toFixed(2)}
+                    {item.gross_wt}
                   </_Text>
                 </View>
               </View>

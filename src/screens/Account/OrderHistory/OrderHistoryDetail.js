@@ -61,12 +61,12 @@ class OrderHistoryDetail extends Component {
     userId = global.userId;
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { orderItemdata } = this.state;
 
     const data = new FormData();
     data.append('order_id', orderItemdata.order_id);
-    await this.props.getOrderHistoryDetails(data);
+    this.props.getOrderHistoryDetails(data);
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -278,7 +278,7 @@ class OrderHistoryDetail extends Component {
                     fsSmall
                     textColor={'#808080'}
                     style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}>
-                    {key.replace('_', ' ')}
+                    {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
                   </_Text>
                 );
               })}
@@ -390,8 +390,7 @@ class OrderHistoryDetail extends Component {
             />
           )}
 
-          {orderHistoryDetailsData &&
-            this.OrderDetailBottomTab(orderHistoryDetailsData.order_details)}
+          {summaryData && this.OrderDetailBottomTab(orderHistoryDetailsData.order_details)}
 
           {this.state.isImageModalVisibel && (
             <View>

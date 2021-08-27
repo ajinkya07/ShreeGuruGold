@@ -460,20 +460,15 @@ class SearchProductGrid extends Component {
 
     let url = urls.imageUrl + 'public/backend/product_images/thumb_image/';
 
-    const { gridData } = this.state;
-
     return (
       <TouchableOpacity
-        onPress={() =>
-          this.props.navigation.navigate('ProductDetails', {
-            productItemDetails: item,
-          })
-        }>
+        onPress={() => this.props.navigation.navigate('ProductDetails', { productItemDetails: item, })}>
         <View
           style={{
             backgroundColor: color.white,
             width: wp(46),
             marginHorizontal: hp(1),
+            // marginBottom: 15,
             borderRadius: 15,
             shadowColor: '#000',
             shadowOffset: {
@@ -486,12 +481,10 @@ class SearchProductGrid extends Component {
           }}
           activeOpacity={1}>
           <View style={gridItemDesign}>
+
             <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate('ProductDetails', {
-                  productItemDetails: item,
-                })
-              }
+              style={{ width: '100%' }}
+              onPress={() => this.props.navigation.navigate('ProductDetails', { productItemDetails: item, })}
               onLongPress={() => this.showProductImageModal(item)}>
               {item.image_name != '' &&
                 <Image
@@ -547,9 +540,10 @@ class SearchProductGrid extends Component {
                   );
                 })}
               </View>
+
             </View>
 
-            <View style={border}></View>
+            <View style={border} />
 
             {item.quantity == 0 && (
               <View style={iconView}>
@@ -844,7 +838,7 @@ class SearchProductGrid extends Component {
             showsHorizontalScrollIndicator={true}
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
-              <View key={'g' + index} style={{ marginHorizontal: hp(1), }}>
+              <View key={'g' + index} style={{ marginVertical: hp(1), }}>
                 {this.gridView(item)}
               </View>
             )}

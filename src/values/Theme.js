@@ -84,6 +84,10 @@ export default {
     fontSize: 16,
     fontFamily: 'Lato-Medium',
   },
+  ffLatoMedium17: {
+    fontSize: 17,
+    fontFamily: 'Lato-Medium',
+  },
   ffLatoMedium18: {
     fontSize: 18,
     fontFamily: 'Lato-Medium',

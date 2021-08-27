@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState, Component } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-} from 'react-native';
+} from "react-native";
 import {
   Body,
   Container,
@@ -22,15 +22,15 @@ import {
   Left,
   Right,
   Toast,
-} from 'native-base';
-import IconPack from '@login/IconPack';
-import { color } from '@values/colors';
-import { OTPregisterRequest } from '@register/RegisterAction';
-import { connect } from 'react-redux';
+} from "native-base";
+import IconPack from "@login/IconPack";
+import { color } from "@values/colors";
+import { OTPregisterRequest } from "@register/RegisterAction";
+import { connect } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+} from "react-native-responsive-screen";
 
 import {
   validateEmail,
@@ -38,27 +38,26 @@ import {
   validateName,
   validatePassword,
   validateUserName,
-} from '@values/validate';
-import { strings } from '@values/strings'
+} from "@values/validate";
+import { strings } from "@values/strings";
 
-
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: '',
+      fullName: "",
       isFullName: false,
-      emailId: '',
+      emailId: "",
       isEmail: false,
-      organisation: '',
+      organisation: "",
       isOrganisation: false,
-      password: '',
+      password: "",
       isPassword: false,
-      mobileNo: '',
+      mobileNo: "",
       isMobile: false,
-      gst_name: '',
+      gst_name: "",
       isGst_Name: false,
       successRegisterVersion: 0,
       errorRegisterVersion: 0,
@@ -94,51 +93,51 @@ class Register extends React.Component {
     const { OTPregisterData } = this.props;
 
     if (this.state.successRegisterVersion > prevState.successRegisterVersion) {
-      if (OTPregisterData.otp != '') {
-        this.showToast('OTP sent successfully', 'success');
-        this.props.navigation.navigate('VerifyOtpForRegister', {
+      if (OTPregisterData.otp != "") {
+        this.showToast("OTP sent successfully", "success");
+        this.props.navigation.navigate("VerifyOtpForRegister", {
           mobile: OTPregisterData.mobile_number,
           otp: OTPregisterData.otp,
           password: this.state.password,
           emailId: this.state.emailId,
           organisation: this.state.organisation,
           fullName: this.state.fullName,
-          gst_name: this.state.gst_name
+          gst_name: this.state.gst_name,
         });
       } else {
-        this.showToast('Please contact admin', 'danger');
+        this.showToast("Please contact admin", "danger");
       }
     }
     if (this.state.errorRegisterVersion > prevState.errorRegisterVersion) {
-      this.showToast(this.props.errorMsg, 'danger');
+      this.showToast(this.props.errorMsg, "danger");
     }
   }
 
   onInputChanged = ({ inputKey, isValid, value }) => {
-    let validationKey = '';
+    let validationKey = "";
     switch (inputKey) {
-      case 'fullName':
-        validationKey = 'isFullName';
+      case "fullName":
+        validationKey = "isFullName";
         break;
 
-      case 'mobileNo':
-        validationKey = 'isMobile';
+      case "mobileNo":
+        validationKey = "isMobile";
         break;
 
-      case 'emailId':
-        validationKey = 'isEmail';
+      case "emailId":
+        validationKey = "isEmail";
         break;
 
-      case 'organisation':
-        validationKey = 'isOrganisation';
+      case "organisation":
+        validationKey = "isOrganisation";
         break;
 
-      case 'gst_name':
-        validationKey = 'isGst_Name';
+      case "gst_name":
+        validationKey = "isGst_Name";
         break;
 
-      case 'password':
-        validationKey = 'isPassword';
+      case "password":
+        validationKey = "isPassword";
         break;
 
       default:
@@ -164,54 +163,54 @@ class Register extends React.Component {
       emailId,
       isEmail,
       gst_name,
-      isGst_Name
+      isGst_Name,
     } = this.state;
 
-    let error = '';
+    let error = "";
     try {
-      if (fullName === '') {
-        error = 'Please enter full name';
+      if (fullName === "") {
+        error = "Please enter full name";
         throw new Error();
       }
-      if (mobileNo === '') {
-        error = 'Please enter mobile number';
+      if (mobileNo === "") {
+        error = "Please enter mobile number";
         throw new Error();
       }
       if (!isMobile) {
-        error = 'Please enter valid mobile number';
+        error = "Please enter valid mobile number";
         throw new Error();
       }
-      if (emailId === '') {
-        error = 'Please enter email address';
+      if (emailId === "") {
+        error = "Please enter email address";
         throw new Error();
       }
       if (!isEmail) {
-        error = 'Please enter valid email address';
+        error = "Please enter valid email address";
         throw new Error();
       }
-      if (organisation === '') {
-        error = 'Please enter organisation name';
+      if (organisation === "") {
+        error = "Please enter organisation name";
         throw new Error();
       }
-      if (gst_name === '') {
-        error = 'Please enter GST number';
+      if (gst_name === "") {
+        error = "Please enter GST number";
         throw new Error();
       }
-      if (password == '') {
-        error = 'Please enter password';
+      if (password == "") {
+        error = "Please enter password";
         throw new Error();
       }
       if (!isPassword) {
-        error = 'Password must be atleast 4 character long';
+        error = "Password must be atleast 4 character long";
         throw new Error();
       } else {
         const data = new FormData();
-        data.append('mobile_number', mobileNo);
+        data.append("mobile_number", mobileNo);
 
         this.props.OTPregisterRequest(data);
       }
     } catch (err) {
-      this.showToast(error, 'danger');
+      this.showToast(error, "danger");
     }
   };
 
@@ -225,33 +224,42 @@ class Register extends React.Component {
 
   showToast = (msg, type, duration) => {
     Toast.show({
-      text: msg ? msg : 'Server error, Please try again',
-      type: type ? type : 'danger',
+      text: msg ? msg : "Server error, Please try again",
+      type: type ? type : "danger",
       duration: duration ? duration : 2500,
     });
   };
 
   render() {
-    const { fullName, emailId, organisation, gst_name, mobileNo, password } = this.state;
+    const {
+      fullName,
+      emailId,
+      organisation,
+      gst_name,
+      mobileNo,
+      password,
+    } = this.state;
 
     return (
       <Container>
         <ImageBackground source={IconPack.LOGIN_BG} style={styles.bgImage}>
           <SafeAreaView style={styles.flex}>
             <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : null}
+              behavior={Platform.OS === "ios" ? "padding" : null}
               keyboardVerticalOffset={Platform.select({
                 ios: -100,
                 android: 500,
               })}
-              style={{ flex: 1 }}>
+              style={{ flex: 1 }}
+            >
               <Header style={styles.headerStyle}>
                 <Left>
                   <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack()}>
+                    onPress={() => this.props.navigation.goBack()}
+                  >
                     <Image
                       style={styles.backImage}
-                      source={require('../../../assets/image/back.png')}
+                      source={require("../../../assets/image/back.png")}
                     />
                   </TouchableOpacity>
                 </Left>
@@ -260,36 +268,45 @@ class Register extends React.Component {
               </Header>
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps={'always'}>
+                keyboardShouldPersistTaps={"always"}
+              >
                 <View style={styles.viewContainer}>
                   <View
                     style={{
-                      alignItems: 'center',
+                      alignItems: "center",
                       marginTop: hp(4),
                       height: hp(10),
-                    }}>
+                    }}
+                  >
                     <Text
                       style={{
-                        fontFamily: 'Lato-Bold',
-                        textAlign: 'center',
+                        fontFamily: "Lato-Bold",
+                        textAlign: "center",
                         letterSpacing: 2,
                         fontSize: 22,
-                        color: '#fff',
-                      }}>
+                        color: "#fff",
+                        textTransform: "uppercase",
+                      }}
+                    >
                       {strings.appName}
                     </Text>
                   </View>
 
-
-                  <View style={{ alignSelf: 'flex-start', marginHorizontal: 22 }}>
-                    <Text style={{
-                      fontFamily: 'Lato-Regular', textAlign: 'center',
-                      letterSpacing: 1, fontSize: 14, color: '#fff',
-                    }}>
+                  <View
+                    style={{ alignSelf: "flex-start", marginHorizontal: 22 }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Lato-Regular",
+                        textAlign: "center",
+                        letterSpacing: 1,
+                        fontSize: 14,
+                        color: "#fff",
+                      }}
+                    >
                       All fields are mandatory
-                  </Text>
+                    </Text>
                   </View>
-
 
                   <LoginFields
                     value={fullName ? fullName : null}
@@ -312,7 +329,7 @@ class Register extends React.Component {
                     minLength={10}
                     onChangeText={this.onInputChanged}
                     placeholder="Mobile"
-                    returnKeyType="next"
+                    returnKeyType="done"
                     placeholderTextColor="#ffffff"
                     Icon={IconPack.MOBILE_LOGO}
                     keyboardType="phone-pad"
@@ -395,12 +412,12 @@ class Register extends React.Component {
 const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   bgImage: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   flex: { flex: 1 },
   buttonStyle: {
@@ -408,11 +425,11 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   loaderView: {
-    position: 'absolute',
+    position: "absolute",
     height: hp(100),
     width: wp(100),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   backImage: {
     width: 14,
@@ -420,7 +437,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   headerStyle: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     elevation: 0,
     borderBottomWidth: 0,
   },
@@ -437,10 +454,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { OTPregisterRequest },
-)(Register);
+export default connect(mapStateToProps, { OTPregisterRequest })(Register);
 
 class LoginFields extends Component {
   constructor(props) {
@@ -453,7 +467,7 @@ class LoginFields extends Component {
     };
   }
 
-  onChangeText = text => {
+  onChangeText = (text) => {
     const {
       type,
       inputKey,
@@ -466,23 +480,23 @@ class LoginFields extends Component {
 
     if (text && text.length > 0) {
       switch (type) {
-        case 'mobileNo':
+        case "mobileNo":
           isValid = validateMobNum(text);
           break;
 
-        case 'emailId':
+        case "emailId":
           isValid = validateEmail(text);
           break;
 
-        case 'password':
+        case "password":
           isValid = validatePassword(text);
           break;
 
-        case 'firstName':
+        case "firstName":
           isValid = validateName(text);
           break;
 
-        case 'lastName':
+        case "lastName":
           isValid = validateName(text);
           break;
 
@@ -494,7 +508,7 @@ class LoginFields extends Component {
     onChangeText && onChangeText({ inputKey, isValid, value: text, inputId });
   };
 
-  setSecureInput = secureInput => {
+  setSecureInput = (secureInput) => {
     if (this.props.isSecure) {
       this.setState({
         secureInput: !this.state.secureInput,
@@ -521,21 +535,22 @@ class LoginFields extends Component {
 
     return (
       <View
-        style={[loginFieldsStyles.mainContainerStyle, containerStyle || null]}>
+        style={[loginFieldsStyles.mainContainerStyle, containerStyle || null]}
+      >
         <TextInput
           maxLength={maxLength}
           minLength={minLength}
           style={loginFieldsStyles.textInput}
-          placeholderTextColor={'#FFFFFF'}
+          placeholderTextColor={"#FFFFFF"}
           underlineColorAndroid="transparent"
           autoCorrect={false}
-          selectionColor={'#FFFFFF'}
+          selectionColor={"#FFFFFF"}
           autoCapitalize="none"
           placeholder={placeholder}
           placeholderTextColor={placeholderTextColor}
           onChangeText={this.onChangeText}
           secureTextEntry={isSecure && !secureInput}
-          keyboardType={keyboardType ? keyboardType : 'default'}
+          keyboardType={keyboardType ? keyboardType : "default"}
           ref={textInputRef}
           returnKeyType={returnKeyType}
           onSubmitEditing={onSubmitEditing}
@@ -560,17 +575,17 @@ const loginFieldsStyles = StyleSheet.create({
   textInput: {
     height: 50,
     fontSize: 18,
-    color: '#FFFFFF',
-    textAlign: 'left',
+    color: "#FFFFFF",
+    textAlign: "left",
     marginTop: 20,
-    backgroundColor: '#FFFFFF25',
+    backgroundColor: "#FFFFFF25",
     borderRadius: 40,
     paddingLeft: 42,
-    fontFamily: 'Lato-Regular',
+    fontFamily: "Lato-Regular",
     letterSpacing: 0.9,
   },
   whiteColor: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
   mainContainerStyle: {
     height: 70,
@@ -578,39 +593,39 @@ const loginFieldsStyles = StyleSheet.create({
     //width: Appstore.wWidth -30,
   },
   userTextInputButtonRight: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     width: 30,
     height: 30,
   },
   userTextInputButtonLeft: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     width: 25,
     height: 25,
   },
   buttonStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 12,
     top: 20,
     bottom: 0,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   loginIconStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 20,
     bottom: 0,
     left: 12,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   imageloginIconStyle: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 34,
     bottom: 0,
     left: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    resizeMode: 'contain',
+    justifyContent: "center",
+    alignItems: "center",
+    resizeMode: "contain",
     width: 22,
     height: 22,
   },
@@ -622,12 +637,14 @@ const ActionButtonRounded = ({ title, onButonPress, containerStyle }) => {
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={[
           actionButtonRoundedStyle.mainContainerStyle,
           containerStyle || null,
-        ]}>
+        ]}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle}>{title}</Text>
         </View>
@@ -641,25 +658,25 @@ const actionButtonRoundedStyle = StyleSheet.create({
     //backgroundColor: '#11255a',
     height: 50,
     width: width - 36,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
-    borderColor: '#ffffff',
+    borderColor: "#ffffff",
     borderWidth: 2,
   },
   innerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: hp(2),
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 'bold',
-    fontFamily: 'Lato-Regular',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    fontFamily: "Lato-Regular",
     letterSpacing: 1.3,
   },
 });

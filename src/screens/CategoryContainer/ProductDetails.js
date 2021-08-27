@@ -573,6 +573,7 @@ class ProductDetails extends React.Component {
         productDetailsStateData.zoom_image);
 
     let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : ''
+
     return (
       <SafeAreaView style={styles.flex}>
         {productDetailsStateData ? (
@@ -582,19 +583,19 @@ class ProductDetails extends React.Component {
               iosBarStyle="default"
               androidStatusBarColor="default">
               <View style={styles.textViewStyle}>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.goBack()}>
+                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                   <Image
-                    source={require('../../assets/image/Account/back_button.png')}
+                    // source={require('../../assets/image/Account/back_button.png')}
+                    source={require('../../assets/arrow-icon.png')}
                     style={{
-                      marginLeft: 10,
-                      height: hp(2.2),
-                      width: hp(2.2),
+                      height: hp(2.5),
+                      width: hp(2),
                     }}
+                    resizeMode='contain'
                   />
                 </TouchableOpacity>
                 <Animated.Text
-                  style={[styles.headerTextStyle, { color: '#303030', opacity: headerOpacity }]}>
+                  style={[styles.headerTextStyle, { color: headerTheme ? '#' + headerTheme : '#303030', opacity: headerOpacity }]}>
                   {productDetailsStateData.product_name}
                 </Animated.Text>
               </View>
@@ -919,13 +920,8 @@ const styles = StyleSheet.create({
   },
 
   headerTextStyle: {
-    //color: color.brandColor,
-    //fontSize: 21,
-    color: '#303030',
-    fontSize: hp(2.6),
+    fontSize: 16,
     fontFamily: 'Lato-Bold',
-    letterSpacing: 1,
-    //top: 3,
     marginLeft: 12,
   },
   mainContainerStyle: {

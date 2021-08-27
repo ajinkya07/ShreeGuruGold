@@ -679,7 +679,7 @@ class EditProfile extends Component {
                     value={this.state.email}
                     onChangeText={this.handleEmailChange}
                     resetValue={this.resetFieldEmail}
-                    imageIcon="pan"
+                    imageIcon="email"
                     keyboardType="numeric"
                     editable={false}
                     width="95%"

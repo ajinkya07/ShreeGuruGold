@@ -48,7 +48,9 @@ export default {
   MOBILE: require('../../../assets/mobile.png'),
   SEARCH: require('../../../assets/search.png'),
 
-
+  SOCIAL_MEDIA: require('../../../assets/media.png'),
+  BANK: require('../../../assets/bank.png'),
+  WEBSITE: require('../../../assets/www.png'),
 
 
   SEARCH_WHITE: require('../../../assets/image/search_5.png'),
