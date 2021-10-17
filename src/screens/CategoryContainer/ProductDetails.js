@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -12,44 +12,41 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-} from 'react-native';
-import { Container, Header, Toast, Picker, Icon } from 'native-base';
-import IconPack from '@login/IconPack';
-import EStyleSheet from 'react-native-extended-stylesheet';
-import { connect } from 'react-redux';
+} from "react-native";
+import { Container, Header, Toast, Picker, Icon } from "native-base";
+import IconPack from "@login/IconPack";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { connect } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import _Text from '@text/_Text';
-import { color } from '@values/colors';
+} from "react-native-responsive-screen";
+import _Text from "@text/_Text";
+import { color } from "@values/colors";
 import {
   getProductDetails,
   addToCartFromDetails,
-} from '@category/ProductDetailsAction';
-import { urls } from '@api/urls';
-import { strings } from '@values/strings';
-import Swiper from 'react-native-swiper';
-import Modal from 'react-native-modal';
-import FastImage from 'react-native-fast-image';
-import _CustomHeader from '@customHeader/_CustomHeader';
-import { parseInt } from 'lodash';
-import { getTotalCartCount } from '@homepage/HomePageAction';
-import Theme from '../../values/Theme';
-import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
+} from "@category/ProductDetailsAction";
+import { urls } from "@api/urls";
+import { strings } from "@values/strings";
+import Swiper from "react-native-swiper";
+import Modal from "react-native-modal";
+import FastImage from "react-native-fast-image";
+import _CustomHeader from "@customHeader/_CustomHeader";
+import { parseInt } from "lodash";
+import { getTotalCartCount } from "@homepage/HomePageAction";
+import Theme from "../../values/Theme";
+import FloatingLabelTextInput from "@floatingInputBox/FloatingLabelTextInput";
 
+const qs = require("query-string");
 
-
-const qs = require('query-string');
-
-var userId = '';
+var userId = "";
 
 const AnimatedContent = Animated.createAnimatedComponent(ScrollView);
 
-
 class ProductDetails extends React.Component {
-  fullHeight = EStyleSheet.value('375rem');
-  fixHeader = EStyleSheet.value('0rem');
+  fullHeight = EStyleSheet.value("375rem");
+  fixHeader = EStyleSheet.value("0rem");
   topContentHeight = 550;
 
   constructor(props) {
@@ -60,15 +57,14 @@ class ProductDetails extends React.Component {
 
     const fromHome = this.props.route.params.fromHome;
 
-
     this.state = {
       count: 1,
-      remark: '',
+      remark: "",
       isHideDetail: true,
-      length: '',
-      size: '',
+      length: "",
+      size: "",
       lengthArray: [],
-      weight: '',
+      weight: "",
       weightArray: [],
       productItem: productItem,
       fromHome: fromHome,
@@ -78,12 +74,11 @@ class ProductDetails extends React.Component {
 
       successAddCartDetailsVersion: 0,
       errorAddCartDetailsVersion: 0,
-      karatValue: '',
+      karatValue: "",
 
       successAllParameterVersion: 0,
       errorAllParamaterVersion: 0,
       karatData: [],
-
     };
     userId = global.userId;
   }
@@ -93,27 +88,24 @@ class ProductDetails extends React.Component {
 
     if (fromHome) {
       const data = new FormData();
-      data.append('table', 'product_master');
-      data.append('mode_type', 'home_products');
-      data.append('collection_id', 0);
-      data.append('user_id', userId);
-      data.append('product_id', productItem.product_id);
+      data.append("table", "product_master");
+      data.append("mode_type", "home_products");
+      data.append("collection_id", 0);
+      data.append("user_id", userId);
+      data.append("product_id", productItem.product_id);
 
       this.props.getProductDetails(data);
-    }
-
-    else if (!fromHome) {
+    } else if (!fromHome) {
       const data = new FormData();
-      data.append('table', 'product_master');
-      data.append('mode_type', 'normal');
-      data.append('collection_id', productItem.collection_id);
-      data.append('user_id', userId);
-      data.append('product_id', productItem.product_inventory_id);
+      data.append("table", "product_master");
+      data.append("mode_type", "normal");
+      data.append("collection_id", productItem.collection_id);
+      data.append("user_id", userId);
+      data.append("product_id", productItem.product_inventory_id);
 
       this.props.getProductDetails(data);
     }
   };
-
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
@@ -121,8 +113,8 @@ class ProductDetails extends React.Component {
       errorProductDetailsVersion,
       successAddCartDetailsVersion,
       errorAddCartDetailsVersion,
-      successAllParameterVersion, errorAllParamaterVersion
-
+      successAllParameterVersion,
+      errorAllParamaterVersion,
     } = nextProps;
     let newState = null;
 
@@ -172,66 +164,86 @@ class ProductDetails extends React.Component {
   async componentDidUpdate(prevProps, prevState) {
     const { productDetailsData, addCartDetailsData } = this.props;
 
-
-    if (this.state.successProductDetailsVersion > prevState.successProductDetailsVersion) {
-      if (productDetailsData.ack == '1') {
-        console.log('productDetailsData', productDetailsData);
+    if (
+      this.state.successProductDetailsVersion >
+      prevState.successProductDetailsVersion
+    ) {
+      if (productDetailsData.ack == "1") {
+        console.log("productDetailsData", productDetailsData);
         this.setState({
           karatValue: productDetailsData.data[0].default_melting_id,
 
           productDetailsStateData: productDetailsData.data[0],
 
-          length: productDetailsData !== undefined && productDetailsData.data[0].length ?
-            productDetailsData.data[0].length : '',
+          length:
+            productDetailsData !== undefined &&
+            productDetailsData.data[0].length
+              ? productDetailsData.data[0].length
+              : "",
 
-          lengthArray: productDetailsData !== undefined ? productDetailsData.data[0].mul_length &&
-            productDetailsData.data[0].mul_length.length !== 0
-            ? productDetailsData.data[0].mul_length
-            : ''
-            : '',
+          lengthArray:
+            productDetailsData !== undefined
+              ? productDetailsData.data[0].mul_length &&
+                productDetailsData.data[0].mul_length.length !== 0
+                ? productDetailsData.data[0].mul_length
+                : ""
+              : "",
 
-          weightArray: productDetailsData !== undefined ? productDetailsData.data[0].weight &&
-            productDetailsData.data[0].weight.length !== 0
-            ? productDetailsData.data[0].weight
-            : ''
-            : '',
+          weightArray:
+            productDetailsData !== undefined
+              ? productDetailsData.data[0].weight &&
+                productDetailsData.data[0].weight.length !== 0
+                ? productDetailsData.data[0].weight
+                : ""
+              : "",
 
-          weight: productDetailsData !== undefined ? productDetailsData.data[0].weight &&
-            productDetailsData.data[0].weight.length !== 0
-            ? productDetailsData.data[0].weight[0]
-            : ''
-            : '',
+          weight:
+            productDetailsData !== undefined
+              ? productDetailsData.data[0].weight &&
+                productDetailsData.data[0].weight.length !== 0
+                ? productDetailsData.data[0].weight[0]
+                : ""
+              : "",
         });
       } else {
-        this.showToast(strings.serverFailedMsg, 'danger');
+        this.showToast(strings.serverFailedMsg, "danger");
       }
     }
-    if (this.state.errorProductDetailsVersion > prevState.errorProductDetailsVersion) {
-      this.showToast(this.props.errorMsg, 'danger');
+    if (
+      this.state.errorProductDetailsVersion >
+      prevState.errorProductDetailsVersion
+    ) {
+      this.showToast(this.props.errorMsg, "danger");
       const countData = new FormData();
-      countData.append('user_id', userId);
-      countData.append('table', 'cart');
+      countData.append("user_id", userId);
+      countData.append("table", "cart");
 
       await this.props.getTotalCartCount(countData);
     }
 
-    if (this.state.successAddCartDetailsVersion > prevState.successAddCartDetailsVersion) {
-      if (addCartDetailsData.ack == '1') {
+    if (
+      this.state.successAddCartDetailsVersion >
+      prevState.successAddCartDetailsVersion
+    ) {
+      if (addCartDetailsData.ack == "1") {
         Toast.show({
           text: this.props.errorMsg,
           duration: 2500,
         });
       }
     }
-    if (this.state.errorAddCartDetailsVersion > prevState.errorAddCartDetailsVersion) {
-      this.showToast(this.props.errorMsg, 'danger');
+    if (
+      this.state.errorAddCartDetailsVersion >
+      prevState.errorAddCartDetailsVersion
+    ) {
+      this.showToast(this.props.errorMsg, "danger");
     }
   }
 
   showToast = (msg, type, duration) => {
     Toast.show({
       text: msg ? msg : strings.serverFailedMsg,
-      type: type ? type : 'danger',
+      type: type ? type : "danger",
       duration: duration ? duration : 2500,
     });
   };
@@ -255,7 +267,7 @@ class ProductDetails extends React.Component {
     });
   }
 
-  setCurrentPage = position => {
+  setCurrentPage = (position) => {
     this.setState({ currentPage: position });
   };
 
@@ -269,45 +281,38 @@ class ProductDetails extends React.Component {
     return (
       <TouchableOpacity
         onPress={() =>
-          this.props.navigation.navigate('BannerImage', {
+          this.props.navigation.navigate("BannerImage", {
             bannerDataImagePath: productDetailsStateData,
             baseUrl: url2,
           })
-        }>
+        }
+      >
         <View key={k}>
-          {/* <FastImage
-            style={{height: hp(30), width: wp(100)}}
-            source={{
-              uri: url2 + data,
-            }}
-            resizeMode={FastImage.resizeMode.cover}
-          /> */}
-
           <Image
             source={{ uri: url2 + data }}
-            resizeMode='stretch'
+            resizeMode="stretch"
             style={{ height: hp(33), width: wp(100) }}
             defaultSource={IconPack.APP_LOGO}
           />
-
         </View>
       </TouchableOpacity>
     );
   };
 
-  carausalView = item => {
+  carausalView = (item) => {
     return (
       <View
         style={{
           height: hp(33),
           width: wp(100),
-        }}>
+        }}
+      >
         {item ? (
           <Swiper
             removeClippedSubviews={false}
             style={{ flexGrow: 1 }}
             autoplayTimeout={10}
-            ref={swiper => {
+            ref={(swiper) => {
               this.swiper = swiper;
             }}
             index={this.state.currentPage}
@@ -318,37 +323,34 @@ class ProductDetails extends React.Component {
             dot={
               <View
                 style={{
-                  backgroundColor: 'gray',
-                  width: 8,
-                  height: 8,
-                  borderRadius: 4,
-                  marginLeft: 3,
-                  marginRight: 3,
-                  top: 10,
+                  backgroundColor: "gray",
+                  width: 6,
+                  height: 6,
+                  borderRadius: 3,
+                  marginHorizontal: 3,
                 }}
               />
             }
             activeDot={
               <View
                 style={{
-                  backgroundColor: '#19af81',
+                  backgroundColor: color.black,
                   width: 10,
                   height: 10,
                   borderRadius: 5,
-                  marginLeft: 3,
-                  marginRight: 3,
-                  top: 10,
+                  marginHorizontal: 3,
                 }}
               />
             }
-            onIndexChanged={page => this.setCurrentPage(page)}>
+            onIndexChanged={(page) => this.setCurrentPage(page)}
+          >
             {item.image_name.map((page, index) =>
-              this.renderScreen(page, index),
+              this.renderScreen(page, index)
             )}
           </Swiper>
         ) : (
-            this.renderLoader()
-          )}
+          this.renderLoader()
+        )}
       </View>
     );
   };
@@ -358,14 +360,15 @@ class ProductDetails extends React.Component {
       <View
         style={{
           height: hp(100),
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Image
-          source={require('../../assets/gif/noData.gif')}
+          source={require("../../assets/gif/noData.gif")}
           style={{ height: hp(20), width: hp(20) }}
         />
-        <Text style={{ fontSize: 18, fontWeight: '400' }}>
+        <Text style={{ fontSize: 18, fontWeight: "400" }}>
           {strings.serverFailedMsg}
         </Text>
       </View>
@@ -376,143 +379,167 @@ class ProductDetails extends React.Component {
     return (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           height: hp(100),
           width: wp(100),
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <ActivityIndicator size="large" color={color.brandColor} />
       </View>
     );
   };
 
-  setSelectedValue = w => {
+  setSelectedValue = (w) => {
     this.setState({
       weight: w,
     });
   };
 
-
-  setSelectedLength = l => {
+  setSelectedLength = (l) => {
     this.setState({
       length: l,
     });
   };
 
-
   PickerDropDown = () => {
     const { karatValue } = this.state;
-    const { allParameterData } = this.props
+    const { allParameterData } = this.props;
 
-    let list = allParameterData && allParameterData.melting
+    let list = allParameterData && allParameterData.melting;
 
     return (
       <View>
         <Picker
-          iosIcon={<Icon type='Feather' name='arrow-down' style={{ marginRight: hp(3), fontSize: 22 }} />}
+          iosIcon={
+            <Icon
+              type="Feather"
+              name="arrow-down"
+              style={{ marginRight: hp(3), fontSize: 22 }}
+            />
+          }
           mode="dropdown"
           style={{ height: 50, width: wp(55) }}
           selectedValue={karatValue}
-          onValueChange={(itemValue, itemIndex) => this.setSelectedValueKarat(itemValue)
-          }>
-          {list && list.length > 0 ? (
-            list.map((listItem, index) => (
-              <Picker.Item label={(listItem.melting_name).toString()} value={parseInt(`${listItem.id}`)} />
-            )))
-
-            : null
+          onValueChange={(itemValue, itemIndex) =>
+            this.setSelectedValueKarat(itemValue)
           }
+        >
+          {list && list.length > 0
+            ? list.map((listItem, index) => (
+                <Picker.Item
+                  label={listItem.melting_name.toString()}
+                  value={parseInt(`${listItem.id}`)}
+                />
+              ))
+            : null}
         </Picker>
       </View>
     );
   };
 
-
-  setSelectedValueKarat = karat => {
+  setSelectedValueKarat = (karat) => {
     this.setState({
       karatValue: karat,
     });
   };
 
-
-  PickerWeightDropDown = weightList => {
-
+  PickerWeightDropDown = (weightList) => {
     return (
       <View>
         <Picker
-          iosIcon={<Icon type='Feather' name="arrow-down" style={{ marginRight: hp(3), fontSize: 22 }} />}
+          iosIcon={
+            <Icon
+              type="Feather"
+              name="arrow-down"
+              style={{ marginRight: hp(3), fontSize: 22 }}
+            />
+          }
           mode="dropdown"
           style={{ height: 50, width: wp(55) }}
           selectedValue={this.state.weight}
-          onValueChange={(itemValue, itemIndex) => this.setSelectedValue(itemValue)}>
-          {/* <Picker.Item label={weight.toString()} value={parseInt(weight)} /> */}
-          {weightList && weightList.length > 0 ? (
-            weightList.map((wt) => (
-              <Picker.Item label={(wt).toString()} value={parseInt(`${wt}`)} />
-            )))
-            : null
+          onValueChange={(itemValue, itemIndex) =>
+            this.setSelectedValue(itemValue)
           }
-
+        >
+          {/* <Picker.Item label={weight.toString()} value={parseInt(weight)} /> */}
+          {weightList && weightList.length > 0
+            ? weightList.map((wt) => (
+                <Picker.Item label={wt.toString()} value={parseInt(`${wt}`)} />
+              ))
+            : null}
         </Picker>
       </View>
     );
   };
 
-
-  PickerLengthDropDown = lengthList => {
-
+  PickerLengthDropDown = (lengthList) => {
     return (
       <View>
         <Picker
-          iosIcon={<Icon type='Feather' name="arrow-down" style={{ marginRight: hp(3), fontSize: 22 }} />}
+          iosIcon={
+            <Icon
+              type="Feather"
+              name="arrow-down"
+              style={{ marginRight: hp(3), fontSize: 22 }}
+            />
+          }
           mode="dropdown"
           style={{ height: 50, width: wp(55) }}
           selectedValue={this.state.length}
-          onValueChange={(itemValue, itemIndex) => this.setSelectedLength(itemValue)}>
-          {lengthList && lengthList.length > 0 ? (
-            lengthList.map((lt) => (
-              <Picker.Item label={(lt).toString()} value={parseInt(`${lt}`)} />
-            )))
-            : null
+          onValueChange={(itemValue, itemIndex) =>
+            this.setSelectedLength(itemValue)
           }
-
+        >
+          {lengthList && lengthList.length > 0
+            ? lengthList.map((lt) => (
+                <Picker.Item label={lt.toString()} value={parseInt(`${lt}`)} />
+              ))
+            : null}
         </Picker>
       </View>
     );
   };
 
-
-  addtoCart = d => {
-    const { length, count, remark, weight, karatValue, size, approx_weight } = this.state;
+  addtoCart = (d) => {
+    const {
+      length,
+      count,
+      remark,
+      weight,
+      karatValue,
+      size,
+      approx_weight,
+    } = this.state;
 
     let addCartData = new FormData();
 
     let adData = JSON.stringify([
       {
         user_id: userId.toString(),
-        table: 'cart',
+        table: "cart",
         product_id: d.product_master_id,
-        product_inventory_table: 'product_master',
+        product_inventory_table: "product_master",
         gross_wt: d.key_value[0],
         net_wt: d.key_value[1],
         melting_id: karatValue,
         no_quantity: count,
-        device_type: Platform.OS === 'ios' ? 'ios' : 'android',
+        device_type: Platform.OS === "ios" ? "ios" : "android",
         remarks: remark,
         // size: d.key_value[2],
         size: size,
-        weight: weight ? weight : '',
-        length: length ? length : '',
-        approx_weight: weight
+        weight: weight ? weight : "",
+        length: length ? length : "",
+        approx_weight: weight,
       },
     ]);
 
-    addCartData.append('Add_To_Cart', adData);
+    addCartData.append("Add_To_Cart", adData);
     this.props.addToCartFromDetails(addCartData);
   };
 
-  addToWishList = d => {
+  addToWishList = (d) => {
     const { length, count, remark, weight, karatValue, size } = this.state;
 
     const addWishData = new FormData();
@@ -520,59 +547,64 @@ class ProductDetails extends React.Component {
     let wshData = JSON.stringify([
       {
         user_id: userId,
-        table: 'wishlist',
+        table: "wishlist",
         product_id: d.product_master_id,
-        product_inventory_table: 'product_master',
+        product_inventory_table: "product_master",
         gross_wt: d.key_value[0],
         net_wt: d.key_value[1],
         melting_id: karatValue,
         no_quantity: count,
-        device_type: Platform.OS === 'ios' ? 'ios' : 'android',
+        device_type: Platform.OS === "ios" ? "ios" : "android",
         remarks: remark,
         // size: d.key_value[2],
         weight: weight,
         length: length,
         size: size,
-        approx_weight: weight
+        approx_weight: weight,
       },
     ]);
-    addWishData.append('Add_To_Cart', wshData);
+    addWishData.append("Add_To_Cart", wshData);
     this.props.addToCartFromDetails(addWishData);
   };
 
-
-  handleWeightChange = newText =>
+  handleWeightChange = (newText) =>
     this.setState({
       weight: newText,
     });
 
-  handleLengthChange = newText =>
+  handleLengthChange = (newText) =>
     this.setState({
       length: newText,
     });
 
-  handleSizeChange = newText =>
+  handleSizeChange = (newText) =>
     this.setState({
       size: newText,
     });
-
 
   render() {
     const headerOpacity = this.scrollY.interpolate({
       inputRange: [0, 222, 223],
       outputRange: [0, 0, 1],
-      extrapolate: 'clamp',
+      extrapolate: "clamp",
     });
 
-    const { productDetailsStateData, weight, weightArray, lengthArray } = this.state;
-    const { allParameterData } = this.props
+    const {
+      productDetailsStateData,
+      weight,
+      weightArray,
+      lengthArray,
+    } = this.state;
+    const { allParameterData } = this.props;
 
     let url =
       urls.imageUrl +
       (productDetailsStateData !== undefined &&
         productDetailsStateData.zoom_image);
 
-    let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : ''
+    let headerTheme = allParameterData.theme_color
+      ? allParameterData.theme_color
+      : "";
 
     return (
       <SafeAreaView style={styles.flex}>
@@ -581,21 +613,31 @@ class ProductDetails extends React.Component {
             <Header
               style={styles.headerStyle}
               iosBarStyle="default"
-              androidStatusBarColor="default">
+              androidStatusBarColor="default"
+            >
               <View style={styles.textViewStyle}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.goBack()}
+                >
                   <Image
                     // source={require('../../assets/image/Account/back_button.png')}
-                    source={require('../../assets/arrow-icon.png')}
+                    source={require("../../assets/arrow-icon.png")}
                     style={{
                       height: hp(2.5),
                       width: hp(2),
                     }}
-                    resizeMode='contain'
+                    resizeMode="contain"
                   />
                 </TouchableOpacity>
                 <Animated.Text
-                  style={[styles.headerTextStyle, { color: headerTheme ? '#' + headerTheme : '#303030', opacity: headerOpacity }]}>
+                  style={[
+                    styles.headerTextStyle,
+                    {
+                      color: headerTheme ? "#" + headerTheme : "#303030",
+                      opacity: headerOpacity,
+                    },
+                  ]}
+                >
                   {productDetailsStateData.product_name}
                 </Animated.Text>
               </View>
@@ -606,49 +648,55 @@ class ProductDetails extends React.Component {
                 [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
                 {
                   useNativeDriver: true,
-                },
+                }
               )}
               scrollEventThrottle={16}
             >
               <SafeAreaView style={styles.safeAreaViewStyle}>
                 <View style={{ flex: 1 }}>
-                  {productDetailsStateData.image_name && productDetailsStateData.image_name.length > 0 &&
-                    <View>
-                      {this.carausalView(productDetailsStateData)}
-                    </View>}
+                  {productDetailsStateData.image_name &&
+                    productDetailsStateData.image_name.length > 0 && (
+                      <View>{this.carausalView(productDetailsStateData)}</View>
+                    )}
 
-                  <View style={{
-                    backgroundColor: headerTheme ? '#' + headerTheme : '#D7D7D7',
-                    borderTopLeftRadius: 30,
-                    borderTopRightRadius: 30,
-                  }}>
+                  <View
+                    style={{
+                      backgroundColor: headerTheme
+                        ? "#" + headerTheme
+                        : "#D7D7D7",
+                      borderTopLeftRadius: 30,
+                      borderTopRightRadius: 30,
+                    }}
+                  >
                     <View style={styles.topTitleContainer}>
                       <View style={{ width: wp(73) }}>
-                        <Text numberOfLines={1}
+                        <Text
+                          numberOfLines={1}
                           style={{
-                            color: 'white',
+                            color: "white",
                             ...Theme.ffLatoRegular18,
                             letterSpacing: 0.8,
                             marginLeft: 10,
-
-                          }}>
+                          }}
+                        >
                           {productDetailsStateData.product_name}
                         </Text>
                       </View>
                       <View
                         style={{
-                          justifyContent: 'flex-end',
-                          flexDirection: 'row',
-                        }}>
+                          justifyContent: "flex-end",
+                          flexDirection: "row",
+                        }}
+                      >
                         {productDetailsStateData.in_wishlist > 0 && (
                           <Image
-                            source={require('../../assets/like.png')}
+                            source={require("../../assets/like.png")}
                             style={[styles.ImageStyle, { marginLeft: 5 }]}
                           />
                         )}
                         {productDetailsStateData.in_cart > 0 && (
                           <Image
-                            source={require('../../assets/shopping-cart.png')}
+                            source={require("../../assets/shopping-cart.png")}
                             style={styles.ImageStyle}
                           />
                         )}
@@ -659,29 +707,32 @@ class ProductDetails extends React.Component {
                     <View style={styles.quantityContainer}>
                       <View>
                         <Text
-                          style={{ ...Theme.ffLatoRegular16, color: '#fff' }}>
+                          style={{ ...Theme.ffLatoRegular16, color: "#fff" }}
+                        >
                           Quantity
                         </Text>
                       </View>
                       <View style={styles.quantitySubcontainer}>
                         <TouchableOpacity
-                          onPress={() => this._decrementCount()}>
+                          onPress={() => this._decrementCount()}
+                        >
                           <Image
-                            source={require('../../assets/minus-2.png')}
+                            source={require("../../assets/minus-2.png")}
                             style={styles.decrementCount}
                           />
                         </TouchableOpacity>
                         <TextInput
                           editable={false}
                           style={styles.countTextInput}
-                          keyboardType={'numeric'}
-                          onChangeText={count => this.setState({ count })}
+                          keyboardType={"numeric"}
+                          onChangeText={(count) => this.setState({ count })}
                           value={String(this.state.count)}
                         />
                         <TouchableOpacity
-                          onPress={() => this._incrementCount()}>
+                          onPress={() => this._incrementCount()}
+                        >
                           <Image
-                            source={require('../../assets/add.png')}
+                            source={require("../../assets/add.png")}
                             style={styles.incrementCountIcon}
                           />
                         </TouchableOpacity>
@@ -695,7 +746,7 @@ class ProductDetails extends React.Component {
                       /> */}
                       <TextInput
                         style={styles.remarksInput}
-                        onChangeText={remark => this.setState({ remark })}
+                        onChangeText={(remark) => this.setState({ remark })}
                         value={String(this.state.remark)}
                         placeholder="Remarks"
                         placeholderTextColor="#fff"
@@ -709,10 +760,11 @@ class ProductDetails extends React.Component {
                         <View style={styles.descriptionRowContainer}>
                           <Text
                             style={{
-                              color: '#000000',
+                              color: "#000000",
                               ...Theme.ffLatoBold15,
                               letterSpacing: 0.6,
-                            }}>
+                            }}
+                          >
                             Description
                           </Text>
                           {/* <Image
@@ -725,7 +777,7 @@ class ProductDetails extends React.Component {
                         <>
                           <View style={{ marginTop: 0 }}>
                             <View style={styles.descriptionSubContainer}>
-                              <View style={{ flexDirection: 'column' }}>
+                              <View style={{ flexDirection: "column" }}>
                                 {productDetailsStateData.key_label.map(
                                   (key, i) => {
                                     return (
@@ -733,16 +785,17 @@ class ProductDetails extends React.Component {
                                         style={{
                                           marginTop: 5,
                                           ...Theme.ffLatoRegular15,
-                                          color: '#000000',
-                                        }}>
-                                        {key.replace('_', ' ')}
+                                          color: "#000000",
+                                        }}
+                                      >
+                                        {key.replace("_", " ")}
                                       </Text>
                                     );
-                                  },
+                                  }
                                 )}
                               </View>
 
-                              <View style={{ flexDirection: 'column' }}>
+                              <View style={{ flexDirection: "column" }}>
                                 {productDetailsStateData.key_value.map(
                                   (value, j) => {
                                     return (
@@ -750,16 +803,16 @@ class ProductDetails extends React.Component {
                                         style={{
                                           marginTop: 5,
                                           ...Theme.ffLatoRegular15,
-                                          color: '#000000',
-                                          textAlign: 'right',
-                                        }}>
-                                        {value ? value : '-'}
+                                          color: "#000000",
+                                          textAlign: "right",
+                                        }}
+                                      >
+                                        {value ? value : "-"}
                                       </Text>
                                     );
-                                  },
+                                  }
                                 )}
                               </View>
-
                             </View>
                           </View>
                         </>
@@ -769,19 +822,29 @@ class ProductDetails extends React.Component {
 
                       <Text
                         style={{
-                          color: '#000000',
+                          color: "#000000",
                           ...Theme.ffLatoBold15,
                           letterSpacing: 0.6,
                           marginHorizontal: 10,
-                        }}>
+                        }}
+                      >
                         Customizable Detail
                       </Text>
 
-                      <View style={{ width: wp(90), marginVertical: 10, marginRight: 10, alignSelf: 'center' }}>
+                      <View
+                        style={{
+                          width: wp(90),
+                          marginVertical: 10,
+                          marginRight: 10,
+                          alignSelf: "center",
+                        }}
+                      >
                         <FloatingLabelTextInput
                           label="Approx. weight (gm)"
                           value={this.state.weight}
-                          onChangeText={(value) => this.handleWeightChange(value)}
+                          onChangeText={(value) =>
+                            this.handleWeightChange(value)
+                          }
                           width="100%"
                           keyboardType="numeric"
                           returnKeyType="done"
@@ -790,7 +853,9 @@ class ProductDetails extends React.Component {
                         <FloatingLabelTextInput
                           label="Length (Inches)"
                           value={this.state.length}
-                          onChangeText={(value) => this.handleLengthChange(value)}
+                          onChangeText={(value) =>
+                            this.handleLengthChange(value)
+                          }
                           width="100%"
                           keyboardType="numeric"
                           returnKeyType="done"
@@ -804,76 +869,88 @@ class ProductDetails extends React.Component {
                           keyboardType="numeric"
                           returnKeyType="done"
                         />
-
                       </View>
-
 
                       {/* Melting */}
                       <View
                         style={{
-                          flexDirection: 'row',
+                          flexDirection: "row",
                           marginLeft: hp(3),
-                          justifyContent: 'space-between',
-                        }}>
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <View style={styles.customizableContainer}>
                           <Text
                             style={{
                               ...Theme.ffLatoRegular14,
-                              color: '#000000',
-                            }}>
+                              color: "#000000",
+                            }}
+                          >
                             Melting
                           </Text>
                         </View>
                         {this.PickerDropDown()}
                       </View>
 
-
                       {/* Footer buttons */}
-                      <View style={{
-                        justifyContent: 'flex-end',
-                        alignSelf: 'flex-end'
-                      }}></View>
                       <View
                         style={{
-                          backgroundColor: headerTheme ? '#' + headerTheme : '#303030',
+                          justifyContent: "flex-end",
+                          alignSelf: "flex-end",
+                        }}
+                      ></View>
+                      <View
+                        style={{
+                          backgroundColor: headerTheme
+                            ? "#" + headerTheme
+                            : "#303030",
                           height: hp(6),
                           borderTopLeftRadius: 18,
                           borderTopRightRadius: 18,
-                          flexDirection: 'row',
+                          flexDirection: "row",
                           flex: 1,
-                        }}>
+                        }}
+                      >
                         <View
                           style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            alignItems: "center",
+                            justifyContent: "center",
                             flex: 1,
                             borderRightWidth: 2,
-                            borderRightColor: 'white',
+                            borderRightColor: "white",
                             margin: 3,
-                          }}>
+                          }}
+                        >
                           <Text
                             style={{
-                              textAlign: 'center',
-                              color: 'white',
-                              fontWeight: 'bold',
+                              textAlign: "center",
+                              color: "white",
+                              fontWeight: "bold",
                             }}
-                            onPress={() => this.addtoCart(productDetailsStateData)}>
+                            onPress={() =>
+                              this.addtoCart(productDetailsStateData)
+                            }
+                          >
                             ADD TO CART
                           </Text>
                         </View>
                         <View
                           style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            alignItems: "center",
+                            justifyContent: "center",
                             flex: 1,
-                          }}>
+                          }}
+                        >
                           <Text
                             style={{
-                              textAlign: 'center',
-                              color: 'white',
-                              fontWeight: 'bold',
+                              textAlign: "center",
+                              color: "white",
+                              fontWeight: "bold",
                             }}
-                            onPress={() => this.addToWishList(productDetailsStateData)}>
+                            onPress={() =>
+                              this.addToWishList(productDetailsStateData)
+                            }
+                          >
                             WISHLIST
                           </Text>
                         </View>
@@ -885,8 +962,8 @@ class ProductDetails extends React.Component {
             </AnimatedContent>
           </Container>
         ) : (
-            this.renderLoader()
-          )}
+          this.renderLoader()
+        )}
       </SafeAreaView>
     );
   }
@@ -897,99 +974,99 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   loaderView: {
-    position: 'absolute',
+    position: "absolute",
     height: hp(100),
     width: wp(100),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   flex: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   headerStyle: {
     backgroundColor: color.white,
     elevation: 0,
     borderBottomWidth: 0,
-    alignItems: 'center',
+    alignItems: "center",
   },
   textViewStyle: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   headerTextStyle: {
     fontSize: 16,
-    fontFamily: 'Lato-Bold',
+    fontFamily: "Lato-Bold",
     marginLeft: 12,
   },
   mainContainerStyle: {
-    backgroundColor: '#19af81',
+    backgroundColor: "#19af81",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
   topTitleContainer: {
     marginLeft: 10,
     marginTop: hp(1),
-    flexDirection: 'row',
+    flexDirection: "row",
     width: wp(90),
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: hp(1),
   },
   ImageStyle: {
     width: hp(3),
     height: hp(3),
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginRight: 20,
   },
   topBorderStyle: {
-    borderBottomColor: '#fff',
+    borderBottomColor: "#fff",
     borderBottomWidth: 0.6,
     marginHorizontal: 10,
   },
   quantityContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   quantitySubcontainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginLeft: hp(5),
     height: 50,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: hp(0.5),
   },
   decrementCount: {
     width: hp(3.5),
     height: hp(3.5),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   countTextInput: {
     borderBottomWidth: 0.5,
     height: 50,
     marginHorizontal: 10,
     width: wp(30),
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 24,
-    color: '#fff',
+    color: "#fff",
   },
   incrementCountIcon: {
     width: hp(3.5),
     height: hp(3.5),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   remarkContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginRight: 10,
-    alignItems: 'center',
+    alignItems: "center",
     height: hp(9),
   },
   remarkIcon: {
     marginTop: hp(1.2),
     width: hp(3.5),
     height: hp(3.5),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   remarksInput: {
     borderBottomWidth: 0.6,
@@ -997,8 +1074,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     width: wp(92),
     ...Theme.ffLatoRegular16,
-    color: '#fff',
-    borderBottomColor: '#fff',
+    color: "#fff",
+    borderBottomColor: "#fff",
   },
   descriptionContainer: {
     backgroundColor: color.white,
@@ -1007,8 +1084,8 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
   descriptionRowContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 10,
     marginVertical: 18,
   },
@@ -1016,31 +1093,31 @@ const styles = StyleSheet.create({
     width: hp(2),
     height: hp(2),
     top: 5,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginRight: 10,
   },
   descriptionSubContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 20,
     //marginVertical: hp(1),
   },
   border: {
-    borderBottomColor: '#D3D3D3',
+    borderBottomColor: "#D3D3D3",
     borderBottomWidth: 0.6,
     marginHorizontal: 20,
   },
   customerDetailTopborder: {
-    borderBottomColor: '#D3D3D3',
+    borderBottomColor: "#D3D3D3",
     marginVertical: hp(2.5),
     borderBottomWidth: 1.5,
   },
   customizableContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   lenghtContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 10,
     marginLeft: hp(3),
   },
@@ -1048,7 +1125,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     height: 40,
     marginHorizontal: 10,
-    width: '65%',
+    width: "65%",
     fontSize: 18,
   },
   bottomTextContainer: {
@@ -1063,26 +1140,27 @@ function mapStateToProps(state) {
     isFetching: state.productDetailsReducer.isFetching,
     error: state.productDetailsReducer.error,
     errorMsg: state.productDetailsReducer.errorMsg,
-    successProductDetailsVersion: state.productDetailsReducer.successProductDetailsVersion,
-    errorProductDetailsVersion: state.productDetailsReducer.errorProductDetailsVersion,
+    successProductDetailsVersion:
+      state.productDetailsReducer.successProductDetailsVersion,
+    errorProductDetailsVersion:
+      state.productDetailsReducer.errorProductDetailsVersion,
     productDetailsData: state.productDetailsReducer.productDetailsData,
 
-    successAddCartDetailsVersion: state.productDetailsReducer.successAddCartDetailsVersion,
-    errorAddCartDetailsVersion: state.productDetailsReducer.errorAddCartDetailsVersion,
+    successAddCartDetailsVersion:
+      state.productDetailsReducer.successAddCartDetailsVersion,
+    errorAddCartDetailsVersion:
+      state.productDetailsReducer.errorAddCartDetailsVersion,
     addCartDetailsData: state.productDetailsReducer.addCartDetailsData,
 
     allParameterData: state.homePageReducer.allParameterData,
-    successAllParameterVersion: state.homePageReducer.successAllParameterVersion,
+    successAllParameterVersion:
+      state.homePageReducer.successAllParameterVersion,
     errorAllParamaterVersion: state.homePageReducer.errorAllParamaterVersion,
-
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    getProductDetails,
-    addToCartFromDetails,
-    getTotalCartCount,
-  },
-)(ProductDetails);
+export default connect(mapStateToProps, {
+  getProductDetails,
+  addToCartFromDetails,
+  getTotalCartCount,
+})(ProductDetails);

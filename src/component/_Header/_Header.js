@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { color } from '@values/colors';
-import { View, Image, Platform, Text } from 'react-native';
+import React, { Component } from "react";
+import { color } from "@values/colors";
+import { View, Image, Platform, Text } from "react-native";
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { Header, Left, Body, Right, Button, Title } from 'native-base';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Theme } from '@values/Theme';
-import { strings } from '@values/strings'
-import IconPack from '../../screens/OnBoarding/Login/IconPack';
+} from "react-native-responsive-screen";
+import { Header, Left, Body, Right, Button, Title } from "native-base";
+import AsyncStorage from "@react-native-community/async-storage";
+import { Theme } from "@values/Theme";
+import { strings } from "@values/strings";
+import IconPack from "../../screens/OnBoarding/Login/IconPack";
 
 class _Header extends Component {
   constructor(props) {
@@ -36,44 +36,51 @@ class _Header extends Component {
         style={{
           width: wp(100),
           height: hp(7),
-          paddingVertical: Platform.OS === 'ios' ? hp(2) : 2,
-          backgroundColor: color.white
-        }}>
+          paddingVertical: Platform.OS === "ios" ? hp(2) : 2,
+          backgroundColor: color.white,
+        }}
+      >
         <Left>
           <Button transparent>
             {showBack ? (
               <Image
                 style={{ height: hp(2.5), width: hp(2.5) }}
-                source={require('../../assets/arrow-icon.png')}
+                source={require("../../assets/arrow-icon.png")}
               />
             ) : (
-                <View
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginVertical: 2,
+                  width: 160,
+                }}
+              >
+                <Image
+                  source={require("../../assets/Home-Icon.png")}
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginVertical: 2,
-                    width: 160,
-                  }}>
-                  <Image
-                    source={require('../../assets/Home-Icon.png')}
-                    style={{ height: 35, width: 35, marginLeft: Platform.OS == 'ios' ? 15 : 5, }}
-                    resizeMode={'contain'}
-                  />
+                    height: 35,
+                    width: 35,
+                    marginLeft: Platform.OS == "ios" ? 15 : 5,
+                  }}
+                  resizeMode={"contain"}
+                />
 
-                  <Text
-                    style={{
-                      fontFamily: 'Lato-Bold',
-                      textAlign: 'center',
-                      textTransform: 'uppercase',
-                      left: 5,
-                      fontSize: 16,
-                      color: headerColor ? '#' + headerColor : '#000',
-                    }}>
-                    {strings.appName}
-                  </Text>
-                </View>
-              )}
+                <Text
+                  style={{
+                    fontFamily: "Lato-Bold",
+                    textAlign: "center",
+                    textTransform: "uppercase",
+                    left: 5,
+                    fontSize: 16,
+                    color: headerColor ? "#" + headerColor : "#000",
+                  }}
+                >
+                  {strings.appName}
+                </Text>
+              </View>
+            )}
           </Button>
         </Left>
 
@@ -85,7 +92,7 @@ class _Header extends Component {
               <Image
                 style={{ height: hp(3), width: hp(3) }}
                 source={IconPack.SEARCH}
-                resizeMode='contain'
+                resizeMode="contain"
               />
             </Button>
           ) : null}
@@ -95,7 +102,7 @@ class _Header extends Component {
               <Image
                 style={{ height: hp(3.2), width: hp(3.2) }}
                 source={IconPack.MOBILE}
-                resizeMode='contain'
+                resizeMode="contain"
               />
             </Button>
           ) : null}
@@ -103,10 +110,10 @@ class _Header extends Component {
           {showNotification ? (
             <Button transparent onPress={onNotificationPress}>
               <Image
-                resizeMode={'cover'}
-                style={{ height: hp(3.2), width: hp(3.2), }}
+                resizeMode={"cover"}
+                style={{ height: hp(3.2), width: hp(3.2) }}
                 source={IconPack.BELL}
-                resizeMode='contain'
+                resizeMode="contain"
               />
             </Button>
           ) : null}

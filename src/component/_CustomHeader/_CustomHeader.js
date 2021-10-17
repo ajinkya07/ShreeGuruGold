@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
-import { Header, Left, Button, Body, Right, Title, Subtitle } from 'native-base';
+import React, { Component } from "react";
+import {
+  Header,
+  Left,
+  Button,
+  Body,
+  Right,
+  Title,
+  Subtitle,
+} from "native-base";
 
-import { View, Image, TouchableOpacity, Platform } from 'react-native';
-import _Text from '@text/_Text';
+import { View, Image, TouchableOpacity, Platform } from "react-native";
+import _Text from "@text/_Text";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { color } from '@values/colors';
+} from "react-native-responsive-screen";
+import { color } from "@values/colors";
 
 export default class _CustomHeader extends Component {
   constructor(props) {
@@ -16,8 +24,7 @@ export default class _CustomHeader extends Component {
   }
 
   render() {
-
-    let headerTheme = global.headerTheme
+    let headerTheme = global.headerTheme;
     return (
       <View>
         <Header
@@ -25,74 +32,83 @@ export default class _CustomHeader extends Component {
           style={{
             width: wp(100),
             height: hp(7),
-            paddingVertical: Platform.OS === 'ios' ? hp(2) : 2,
-            backgroundColor: color.white
-          }}>
-
+            paddingVertical: Platform.OS === "ios" ? hp(2) : 2,
+            backgroundColor: color.white,
+          }}
+        >
           <Left style={{ flex: 0.25 }}>
             <TouchableOpacity
               onPress={() => {
                 this.props.LeftBtnPress();
               }}
-              hitSlop={{ top: 15, left: 15, right: 120, bottom: 15 }}>
+              hitSlop={{ top: 15, left: 15, right: 120, bottom: 15 }}
+            >
               <Image
                 source={
-                  this.props.LeftBtnIcon ? this.props.LeftBtnIcon : require('../../assets/arrow-icon.png')}
+                  this.props.LeftBtnIcon
+                    ? this.props.LeftBtnIcon
+                    : require("../../assets/arrow-icon.png")
+                }
                 style={{
                   height: this.props.height ? this.props.height : hp(2.5),
                   width: this.props.width ? this.props.width : hp(2),
                 }}
-                resizeMode='contain'
+                resizeMode="contain"
               />
             </TouchableOpacity>
           </Left>
 
           {this.props.Title && (
             <Body style={{ flex: 2 }}>
-
               <Title
                 style={{
-                  color: headerTheme ? '#' + headerTheme : color.black,
+                  color: headerTheme ? "#" + headerTheme : color.black,
                   fontSize: 16,
-                  fontFamily: 'Lato-Bold',
-                  textTransform: 'uppercase'
-                }}>
-                {this.props.Title ? this.props.Title : ''}
+                  fontFamily: "Lato-Bold",
+                  textTransform: "uppercase",
+                }}
+              >
+                {this.props.Title ? this.props.Title : ""}
               </Title>
 
               {this.props.Subtitle && (
                 <Subtitle style={{ color: color.black, fontSize: hp(1.5) }}>
-                  {this.props.Subtitle ? this.props.Subtitle : ''}
+                  {this.props.Subtitle ? this.props.Subtitle : ""}
                 </Subtitle>
               )}
-
             </Body>
           )}
 
           <Right style={{ flex: 0.95 }}>
             {this.props.RightBtnIcon1 && (
-              <Button transparent
-                onPress={() => this.props.RightBtnPressOne()}>
+              <Button transparent onPress={() => this.props.RightBtnPressOne()}>
                 <Image
                   source={this.props.RightBtnIcon1}
                   style={{
-                    height: this.props.rightIconHeight1 ? this.props.rightIconHeight1 : hp(3),
-                    width: this.props.rightIconWidth1 ? this.props.rightIconWidth1 : hp(3),
+                    height: this.props.rightIconHeight1
+                      ? this.props.rightIconHeight1
+                      : hp(3),
+                    width: this.props.rightIconWidth1
+                      ? this.props.rightIconWidth1
+                      : hp(3),
                   }}
-                  resizeMode='contain'
+                  resizeMode="contain"
                 />
               </Button>
             )}
             {this.props.RightBtnIcon2 && (
-              <Button transparent
-                onPress={() => this.props.RightBtnPressTwo()}>
+              <Button transparent onPress={() => this.props.RightBtnPressTwo()}>
                 <Image
                   source={this.props.RightBtnIcon2}
                   style={{
-                    height: this.props.rightIconHeight2 ? this.props.rightIconHeight2 : hp(3),
-                    width: this.props.rightIconHeight2 ? this.props.rightIconHeight2 : hp(3),
+                    height: this.props.rightIconHeight2
+                      ? this.props.rightIconHeight2
+                      : hp(3),
+                    width: this.props.rightIconHeight2
+                      ? this.props.rightIconHeight2
+                      : hp(3),
                   }}
-                  resizeMode='contain'
+                  resizeMode="contain"
                 />
               </Button>
             )}
@@ -105,13 +121,12 @@ export default class _CustomHeader extends Component {
               </TouchableOpacity>
             )}
           </Right>
-
         </Header>
 
         <View
           style={{
             borderBottomWidth: hp(0.2),
-            borderBottomColor: '#DDDDDD',
+            borderBottomColor: "#DDDDDD",
           }}
         />
       </View>

@@ -4,7 +4,7 @@
             "outputFile": "/Users/ajinkya/Desktop/ShreeGuruGold/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-bs/values-bs.xml",
             "map": [
                 {
-                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/5a53f2369e4cfd7fb4e905799eec4bb3/jetified-play-services-basement-17.1.1/res/values-bs/values.xml",
+                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/724d96069f0c86f68a45bec70956748b/jetified-play-services-basement-17.1.1/res/values-bs/values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -18,23 +18,6 @@
                         "startOffsets": "3980",
                         "endColumns": "199",
                         "endOffsets": "4175"
-                    }
-                },
-                {
-                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/e0f1d91f5987c8cc4c6ddefb02775f3c/jetified-firebase-messaging-21.1.0/res/values-bs/values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "207",
-                        "endColumns": "99",
-                        "endOffsets": "306"
-                    },
-                    "to": {
-                        "startLines": "47",
-                        "startColumns": "4",
-                        "startOffsets": "5512",
-                        "endColumns": "103",
-                        "endOffsets": "5611"
                     }
                 },
                 {
@@ -69,6 +52,23 @@
                         "startOffsets": "5702",
                         "endColumns": "100",
                         "endOffsets": "5798"
+                    }
+                },
+                {
+                    "source": "/Users/ajinkya/.gradle/caches/transforms-2/files-2.1/9718083b9e9c8b53b5ced904aafb1834/jetified-firebase-messaging-21.1.0/res/values-bs/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "207",
+                        "endColumns": "99",
+                        "endOffsets": "306"
+                    },
+                    "to": {
+                        "startLines": "47",
+                        "startColumns": "4",
+                        "startOffsets": "5512",
+                        "endColumns": "103",
+                        "endOffsets": "5611"
                     }
                 },
                 {

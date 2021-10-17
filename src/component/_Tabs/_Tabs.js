@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component, createRef } from "react";
 import {
   Text,
   View,
@@ -14,26 +14,26 @@ import {
   FlatList,
   Dimensions,
   Platform,
-} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+} from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-import _Container from '@container/_Container';
+import _Container from "@container/_Container";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import _Text from '@text/_Text';
-import { color } from '@values/colors';
+} from "react-native-responsive-screen";
+import _Text from "@text/_Text";
+import { color } from "@values/colors";
 
-import HomePage from '@homepage/HomePage';
-import AccountContainer from '@accountContainer/AccountContainer';
-import CartContainer from '@cartContainer/CartContainer';
-import Customizable from '@customOrder/Customizable';
-import CategoryContainer from '@category/CategoryContainer';
+import HomePage from "@homepage/HomePage";
+import AccountContainer from "@accountContainer/AccountContainer";
+import CartContainer from "@cartContainer/CartContainer";
+import Customizable from "@customOrder/Customizable";
+import CategoryContainer from "@category/CategoryContainer";
 // import Customizable from '../../screens/Customize/Customizable'
-import BottomTabIcon from '@tabs/BottomTabIcon';
+import BottomTabIcon from "@tabs/BottomTabIcon";
 
 var totalDuration = 0.0;
 var backPressed = 0;
@@ -41,26 +41,23 @@ var backPressed = 0;
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.unsubscribeFocus = this.props.navigation.addListener('focus', e => {
-      BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.unsubscribeFocus = this.props.navigation.addListener("focus", (e) => {
+      BackHandler.addEventListener("hardwareBackPress", this.handleBackButton);
     });
-    this.unsubscribeBlur = this.props.navigation.addListener('blur', e => {
+    this.unsubscribeBlur = this.props.navigation.addListener("blur", (e) => {
       BackHandler.removeEventListener(
-        'hardwareBackPress',
-        this.handleBackButton,
+        "hardwareBackPress",
+        this.handleBackButton
       );
     });
-
-
   }
   handleBackButton = () => {
-
     if (backPressed > 0) {
       BackHandler.exitApp();
       backPressed = 0;
     } else {
       backPressed++;
-      ToastAndroid.show('Press again to close app', ToastAndroid.SHORT);
+      ToastAndroid.show("Press again to close app", ToastAndroid.SHORT);
       setTimeout(() => {
         backPressed = 0;
       }, 2000);
@@ -73,12 +70,12 @@ class Container extends React.Component {
   componentWillUnmount() {
     this.unsubscribeFocus();
     this.unsubscribeBlur();
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
   }
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <HomePage navigation={this.props.navigation} />
       </View>
     );
@@ -88,7 +85,7 @@ class Container extends React.Component {
 class CategoryScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <CategoryContainer navigation={this.props.navigation} />
       </View>
     );
@@ -98,7 +95,7 @@ class CategoryScreen extends React.Component {
 class CustomOrderScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Customizable navigation={this.props.navigation} />
       </View>
     );
@@ -108,7 +105,7 @@ class CustomOrderScreen extends React.Component {
 class CartScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <CartContainer navigation={this.props.navigation} />
       </View>
     );
@@ -118,7 +115,7 @@ class CartScreen extends React.Component {
 class AccountScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <AccountContainer navigation={this.props.navigation} />
       </View>
     );
@@ -136,27 +133,28 @@ export default function _Tabs() {
       initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: color.brandColor,
-        inactiveTintColor: 'gray',
+        inactiveTintColor: "gray",
       }}
-      barStyle={{ height: 50, backgroundColor: color.white }}>
+      barStyle={{ height: 50, backgroundColor: color.white }}
+    >
       <Tab.Screen
         name="Home"
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: "Home",
           activeTintColor: color.brandColor,
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
               return (
                 <Image
                   style={{ height: hp(3), width: hp(3), bottom: 2 }}
-                  source={require('../../assets/image/Tabs/home_grey.png')}
+                  source={require("../../assets/image/Tabs/home_grey.png")}
                 />
               );
             } else {
               return (
                 <Image
                   style={{ height: hp(3), width: hp(3), bottom: 2 }}
-                  source={require('../../assets/image/Tabs/home_lightgrey.png')}
+                  source={require("../../assets/image/Tabs/home_lightgrey.png")}
                 />
               );
             }
@@ -168,7 +166,7 @@ export default function _Tabs() {
       <Tab.Screen
         name="Category"
         options={{
-          tabBarLabel: 'Category',
+          tabBarLabel: "Category",
           activeTintColor: color.brandColor,
 
           tabBarIcon: ({ color, size, focused }) => {
@@ -176,14 +174,14 @@ export default function _Tabs() {
               return (
                 <Image
                   style={{ height: hp(3), width: hp(3.2), bottom: 2 }}
-                  source={require('../../assets/image/Tabs/category_grey.png')}
+                  source={require("../../assets/image/Tabs/category_grey.png")}
                 />
               );
             } else {
               return (
                 <Image
                   style={{ height: hp(3), width: hp(3.2), marginTop: 3 }}
-                  source={require('../../assets/image/Tabs/category_lightgrey.png')}
+                  source={require("../../assets/image/Tabs/category_lightgrey.png")}
                 />
               );
             }
@@ -195,14 +193,14 @@ export default function _Tabs() {
       <Tab.Screen
         name="Cart"
         options={{
-          tabBarLabel: 'Cart',
+          tabBarLabel: "Cart",
           activeTintColor: color.brandColor,
-          tabBarIcon: props => <BottomTabIcon {...props} />,
+          tabBarIcon: (props) => <BottomTabIcon {...props} />,
         }}
         component={CartScreen}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Customize"
         options={{
           tabBarLabel: 'Customize',
@@ -226,26 +224,26 @@ export default function _Tabs() {
           },
         }}
         component={CustomOrderScreen}
-      />
+      /> */}
 
       <Tab.Screen
         name="Account"
         options={{
-          tabBarLabel: 'Account',
+          tabBarLabel: "Account",
           activeTintColor: color.brandColor,
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
               return (
                 <Image
                   style={{ height: hp(3), width: hp(3), bottom: 2 }}
-                  source={require('../../assets/image/Tabs/profie_grey.png')}
+                  source={require("../../assets/image/Tabs/profie_grey.png")}
                 />
               );
             } else {
               return (
                 <Image
                   style={{ height: hp(2.8), width: hp(2.8), marginTop: 3 }}
-                  source={require('../../assets/image/Tabs/profile_lightgrey.png')}
+                  source={require("../../assets/image/Tabs/profile_lightgrey.png")}
                 />
               );
             }

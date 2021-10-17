@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
   SafeAreaView,
   Platform,
   Alert,
-} from 'react-native';
+} from "react-native";
 import {
   Container,
   Tab,
@@ -24,15 +24,15 @@ import {
   Toast,
   Fab,
   Picker,
-} from 'native-base';
-import IconPack from '@login/IconPack';
+} from "native-base";
+import IconPack from "@login/IconPack";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import _Text from '@text/_Text';
-import { color } from '@values/colors';
-import _CustomHeader from '@customHeader/_CustomHeader';
+} from "react-native-responsive-screen";
+import _Text from "@text/_Text";
+import { color } from "@values/colors";
+import _CustomHeader from "@customHeader/_CustomHeader";
 
 import {
   getCartData,
@@ -46,37 +46,44 @@ import {
   placeOrderFromCart,
   getCartSummary,
   getCartWeight,
-} from '@cartContainer/CartContainerAction';
-import { connect } from 'react-redux';
-import { urls } from '@api/urls';
-import { withNavigationFocus } from '@react-navigation/compat';
-import { strings } from '@values/strings';
-import FloatingLabelTextInput from '@floatingInputBox/FloatingLabelTextInput';
-import moment from 'moment';
-import AsyncStorage from '@react-native-community/async-storage';
-import Theme from '../../values/Theme';
-import CalendarPicker from 'react-native-calendar-picker';
-import Modal from 'react-native-modal';
+} from "@cartContainer/CartContainerAction";
+import { connect } from "react-redux";
+import { urls } from "@api/urls";
+import { withNavigationFocus } from "@react-navigation/compat";
+import { strings } from "@values/strings";
+import FloatingLabelTextInput from "@floatingInputBox/FloatingLabelTextInput";
+import moment from "moment";
+import AsyncStorage from "@react-native-community/async-storage";
+import Theme from "../../values/Theme";
+import CalendarPicker from "react-native-calendar-picker";
+import Modal from "react-native-modal";
 
-var userId = '';
+var userId = "";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
-const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => {
+const ActionButtonRounded = ({
+  title,
+  onButonPress,
+  containerStyle,
+  color,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={{
-          backgroundColor: color ? '#' + color : '#303030',
+          backgroundColor: color ? "#" + color : "#303030",
           height: 42,
           width: 140,
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 40,
           marginVertical: 5,
-        }}>
+        }}
+      >
         <View style={actionButtonRoundedStyle.innerContainer}>
           <Text style={actionButtonRoundedStyle.titleStyle}>{title}</Text>
         </View>
@@ -87,43 +94,50 @@ const ActionButtonRounded = ({ title, onButonPress, containerStyle, color }) => 
 
 const actionButtonRoundedStyle = StyleSheet.create({
   mainContainerStyle: {
-    backgroundColor: '#303030',
+    backgroundColor: "#303030",
     height: 42,
     width: width - 36,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
   },
   innerContainer: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '400',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "400",
   },
 });
 
-const ActionButtonRounded2 = ({ title, onButonPress, containerStyle, color }) => {
+const ActionButtonRounded2 = ({
+  title,
+  onButonPress,
+  containerStyle,
+  color,
+}) => {
   return (
     <TouchableOpacity
       onPress={() => {
         onButonPress();
-      }}>
+      }}
+    >
       <View
         style={{
-          backgroundColor: color ? '#' + color : '#303030',
+          backgroundColor: color ? "#" + color : "#303030",
           height: 42,
           width: 140,
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 40,
           marginVertical: 5,
-        }}>
+        }}
+      >
         <View style={actionButtonRoundedStyle2.innerContainer2}>
           <Text style={actionButtonRoundedStyle2.titleStyle2}>{title}</Text>
         </View>
@@ -134,25 +148,25 @@ const ActionButtonRounded2 = ({ title, onButonPress, containerStyle, color }) =>
 
 const actionButtonRoundedStyle2 = StyleSheet.create({
   mainContainerStyle2: {
-    backgroundColor: '#303030',
+    backgroundColor: "#303030",
     height: 44,
     width: width - 60,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
   },
   innerContainer2: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleStyle2: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
-    textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '400',
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "400",
   },
 });
 
@@ -171,8 +185,8 @@ class CartContainer extends Component {
       isToogleTwo: false,
       cartStateData: [],
       wishStateData: [],
-      openMoreDetailsIdwish: '',
-      openMoreDetailsIdCart: '',
+      openMoreDetailsIdwish: "",
+      openMoreDetailsIdCart: "",
 
       successCartVersion: 0,
       errorCartVersion: 0,
@@ -181,7 +195,7 @@ class CartContainer extends Component {
       errorWishlistVersion: 0,
 
       isCartImageModalVisibel: false,
-      imageToBeDisplayed: '',
+      imageToBeDisplayed: "",
 
       successDeleteProductVersion: 0,
       errorDeleteProductVersion: 0,
@@ -199,29 +213,29 @@ class CartContainer extends Component {
       errorClearAllWislistVersion: 0,
 
       shoPlaceOrderView: false,
-      comments: '',
-      productcode: '',
-      productName: '',
-      quantity: '',
-      length: '',
+      comments: "",
+      productcode: "",
+      productName: "",
+      quantity: "",
+      length: "",
       weightArr: [],
-      weight: '',
+      weight: "",
       isModalVisible: false,
-      date: '',
+      date: "",
       isPlaceOrderModalVisible: false,
       isContinueModalVisible: false,
       isDeleteCartVisible: false,
       isCartWeightSummeryVisible: false,
-      name: '',
-      mobileNo: '',
-      comments1: '',
-      value: '',
-      email: '',
+      name: "",
+      mobileNo: "",
+      comments1: "",
+      value: "",
+      email: "",
       isDateTimePickerVisible: false,
 
       successEditCartProductVersion: 0,
       errorEditCartProductVersion: 0,
-      editStateData: '',
+      editStateData: "",
 
       successPlaceOrderVersion: 0,
       errorPlaceOrderVersion: 0,
@@ -236,24 +250,24 @@ class CartContainer extends Component {
   }
 
   componentDidMount = async () => {
-    const type = Platform.OS === 'ios' ? 'ios' : 'android';
+    const type = Platform.OS === "ios" ? "ios" : "android";
 
     const data = new FormData();
-    data.append('user_id', userId);
-    data.append('table', 'cart');
+    data.append("user_id", userId);
+    data.append("table", "cart");
 
     await this.props.getCartData(data);
 
     const data2 = new FormData();
-    data2.append('user_id', userId);
-    data2.append('table', 'wishlist');
+    data2.append("user_id", userId);
+    data2.append("table", "wishlist");
 
     await this.props.getWishlistData(data2);
 
     await this.props.getCartSummary(data);
 
     const data3 = new FormData();
-    data3.append('user_id', userId);
+    data3.append("user_id", userId);
 
     await this.props.getCartWeight(data3);
   };
@@ -444,21 +458,21 @@ class CartContainer extends Component {
 
     if (prevProps.isFocused !== this.props.isFocused) {
       const data3 = new FormData();
-      data3.append('user_id', userId);
-      data3.append('table', 'cart');
+      data3.append("user_id", userId);
+      data3.append("table", "cart");
 
       await this.props.getCartData(data3);
 
       const data4 = new FormData();
-      data4.append('user_id', userId);
-      data4.append('table', 'wishlist');
+      data4.append("user_id", userId);
+      data4.append("table", "wishlist");
 
       await this.props.getWishlistData(data4);
 
       await this.props.getCartSummary(data3);
 
       const ss = new FormData();
-      ss.append('user_id', userId);
+      ss.append("user_id", userId);
 
       await this.props.getCartWeight(ss);
     }
@@ -479,32 +493,32 @@ class CartContainer extends Component {
       prevState.successDeleteProductVersion
     ) {
       Toast.show({
-        text: this.props.errorMsg ? this.props.errorMsg : '',
+        text: this.props.errorMsg ? this.props.errorMsg : "",
         duration: 2500,
       });
       const data5 = new FormData();
-      data5.append('user_id', userId);
-      data5.append('table', 'cart');
+      data5.append("user_id", userId);
+      data5.append("table", "cart");
 
       await this.props.getCartData(data5);
 
       const data6 = new FormData();
-      data6.append('user_id', userId);
-      data6.append('table', 'wishlist');
+      data6.append("user_id", userId);
+      data6.append("table", "wishlist");
 
       await this.props.getWishlistData(data6);
 
       if (this.state.currentPage == 0) {
         const data7 = new FormData();
-        data7.append('user_id', userId);
-        data7.append('table', 'cart');
+        data7.append("user_id", userId);
+        data7.append("table", "cart");
 
         await this.props.getTotalCartCount(data7);
 
         await this.props.getCartSummary(data7);
 
         const d3 = new FormData();
-        d3.append('user_id', userId);
+        d3.append("user_id", userId);
 
         await this.props.getCartWeight(d3);
       }
@@ -518,7 +532,7 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
     }
 
@@ -539,25 +553,25 @@ class CartContainer extends Component {
       this.state.successMoveProductVersion > prevState.successMoveProductVersion
     ) {
       Toast.show({
-        text: this.props.errorMsg ? this.props.errorMsg : '',
+        text: this.props.errorMsg ? this.props.errorMsg : "",
         duration: 2500,
       });
       const data9 = new FormData();
-      data9.append('user_id', userId);
-      data9.append('table', 'cart');
+      data9.append("user_id", userId);
+      data9.append("table", "cart");
 
       await this.props.getCartData(data9);
 
       const data8 = new FormData();
-      data8.append('user_id', userId);
-      data8.append('table', 'wishlist');
+      data8.append("user_id", userId);
+      data8.append("table", "wishlist");
 
       await this.props.getWishlistData(data8);
 
       await this.props.getCartSummary(data9);
 
       const d4 = new FormData();
-      d4.append('user_id', userId);
+      d4.append("user_id", userId);
 
       await this.props.getCartWeight(d4);
     }
@@ -570,17 +584,17 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
 
       const wt = new FormData();
-      wt.append('user_id', userId);
-      wt.append('table', 'cart');
+      wt.append("user_id", userId);
+      wt.append("table", "cart");
 
       await this.props.getCartSummary(wt);
 
       const d4 = new FormData();
-      d4.append('user_id', userId);
+      d4.append("user_id", userId);
 
       await this.props.getCartWeight(d4);
     }
@@ -597,13 +611,13 @@ class CartContainer extends Component {
       });
 
       const c = new FormData();
-      c.append('user_id', userId);
-      c.append('table', 'cart');
+      c.append("user_id", userId);
+      c.append("table", "cart");
 
       await this.props.getCartData(c);
       const dd = new FormData();
-      dd.append('user_id', userId);
-      dd.append('table', 'cart');
+      dd.append("user_id", userId);
+      dd.append("table", "cart");
 
       await this.props.getTotalCartCount(dd);
     }
@@ -615,7 +629,7 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
     }
 
@@ -631,8 +645,8 @@ class CartContainer extends Component {
       });
 
       const w = new FormData();
-      w.append('user_id', userId);
-      w.append('table', 'wishlist');
+      w.append("user_id", userId);
+      w.append("table", "wishlist");
 
       await this.props.getWishlistData(w);
     }
@@ -646,7 +660,7 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
     }
 
@@ -662,19 +676,19 @@ class CartContainer extends Component {
       });
 
       const a = new FormData();
-      a.append('user_id', userId);
-      a.append('table', 'cart');
+      a.append("user_id", userId);
+      a.append("table", "cart");
 
       await this.props.getCartData(a);
 
       await this.props.getCartSummary(a);
 
       const d5 = new FormData();
-      d5.append('user_id', userId);
+      d5.append("user_id", userId);
 
       await this.props.getCartWeight(d5);
 
-      this.setState({ editStateData: '', isModalVisible: false });
+      this.setState({ editStateData: "", isModalVisible: false });
     }
 
     if (
@@ -686,7 +700,7 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
     }
 
@@ -694,14 +708,14 @@ class CartContainer extends Component {
       this.state.successPlaceOrderVersion > prevState.successPlaceOrderVersion
     ) {
       const da = new FormData();
-      da.append('user_id', userId);
-      da.append('table', 'cart');
+      da.append("user_id", userId);
+      da.append("table", "cart");
 
       await this.props.getTotalCartCount(da);
 
       const c2 = new FormData();
-      c2.append('user_id', userId);
-      c2.append('table', 'cart');
+      c2.append("user_id", userId);
+      c2.append("table", "cart");
 
       await this.props.getCartData(c2);
 
@@ -716,7 +730,7 @@ class CartContainer extends Component {
           ? this.props.errorMsg
           : strings.serverFailedMsg,
         duration: 2500,
-        type: 'danger',
+        type: "danger",
       });
     }
   }
@@ -725,75 +739,76 @@ class CartContainer extends Component {
     return (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           height: hp(80),
           width: wp(100),
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <ActivityIndicator size="large" color={color.brandColor} />
       </View>
     );
   };
 
-  noDataFound = msg => {
+  noDataFound = (msg) => {
     return (
       <View
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           bottom: hp(30),
-        }}>
+        }}
+      >
         <Image
-          source={require('../../assets/gif/noData.gif')}
+          source={require("../../assets/gif/noData.gif")}
           style={{ height: hp(20), width: hp(20) }}
         />
-        <Text style={{ fontSize: 18, fontWeight: '400', textAlign: 'center' }}>
+        <Text style={{ fontSize: 18, fontWeight: "400", textAlign: "center" }}>
           {msg}
         </Text>
       </View>
     );
   };
 
-  setToggleView = data => {
+  setToggleView = (data) => {
     this.setState({
       isToggle: !this.state.isToggle,
       openMoreDetailsIdwish: data.cart_wish_id,
     });
   };
 
-  moveFromwishlist = async k => {
+  moveFromwishlist = async (k) => {
     const moveToData = new FormData();
-    moveToData.append('user_id', userId);
-    moveToData.append('to_table', 'cart');
-    moveToData.append('from_table', 'wishlist');
-    moveToData.append('id', k.cart_wish_id);
+    moveToData.append("user_id", userId);
+    moveToData.append("to_table", "cart");
+    moveToData.append("from_table", "wishlist");
+    moveToData.append("id", k.cart_wish_id);
 
     await this.props.moveProduct(moveToData);
 
     const d = new FormData();
-    d.append('user_id', userId);
-    d.append('table', 'cart');
+    d.append("user_id", userId);
+    d.append("table", "cart");
 
     await this.props.getTotalCartCount(d);
   };
 
-  moveFromCart = async m => {
+  moveFromCart = async (m) => {
     const moveToData1 = new FormData();
-    moveToData1.append('user_id', userId);
-    moveToData1.append('to_table', 'wishlist');
-    moveToData1.append('from_table', 'cart');
-    moveToData1.append('id', m.cart_wish_id);
+    moveToData1.append("user_id", userId);
+    moveToData1.append("to_table", "wishlist");
+    moveToData1.append("from_table", "cart");
+    moveToData1.append("id", m.cart_wish_id);
 
     await this.props.moveProduct(moveToData1);
 
     const d = new FormData();
-    d.append('user_id', userId);
-    d.append('table', 'cart');
+    d.append("user_id", userId);
+    d.append("table", "cart");
 
     await this.props.getTotalCartCount(d);
   };
-
 
   //wishlist view
   wishListView = (data, index) => {
@@ -807,17 +822,14 @@ class CartContainer extends Component {
         <View style={styles.tabCartTopContainer}>
           <View style={styles.imgView}>
             <TouchableOpacity onLongPress={() => this.showImageModal(data)}>
-              {data.images != '' ?
+              {data.images != "" ? (
                 <Image
                   style={styles.imgStyle}
                   source={{ uri: baseurl + data.images }}
                 />
-                :
-                <Image
-                  style={styles.imgStyle}
-                  source={IconPack.APP_LOGO}
-                />
-              }
+              ) : (
+                <Image style={styles.imgStyle} source={IconPack.APP_LOGO} />
+              )}
             </TouchableOpacity>
           </View>
           <View style={styles.codeCollectionView}>
@@ -835,7 +847,7 @@ class CartContainer extends Component {
           </View>
           <View>
             <Image
-              source={require('../../assets/image/DownArrow.png')}
+              source={require("../../assets/image/DownArrow.png")}
               style={{ height: hp(2), width: hp(2) }}
             />
           </View>
@@ -843,31 +855,34 @@ class CartContainer extends Component {
         {isToggle && openMoreDetailsIdwish === data.cart_wish_id ? (
           <>
             <View style={styles.tabCartMiddleContainer}>
-              <View style={{ flexDirection: 'column' }}>
+              <View style={{ flexDirection: "column" }}>
                 {wishlistData[index].keys.map((key, i) => {
                   return (
                     <Text
                       style={{
                         marginTop: 5,
                         ...Theme.ffLatoRegular15,
-                        color: '#000000',
-                      }}>
-                      {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
+                        color: "#000000",
+                      }}
+                    >
+                      {key.replace("_", " ").charAt(0).toUpperCase() +
+                        key.replace("_", " ").slice(1)}
                     </Text>
                   );
                 })}
               </View>
-              <View style={{ flexDirection: 'column' }}>
+              <View style={{ flexDirection: "column" }}>
                 {wishlistData[index].values.map((value, j) => {
                   return (
                     <Text
                       style={{
                         marginTop: 5,
                         ...Theme.ffLatoRegular15,
-                        color: '#000000',
-                        textAlign: 'right',
-                      }}>
-                      {value ? value : '-'}
+                        color: "#000000",
+                        textAlign: "right",
+                      }}
+                    >
+                      {value ? value : "-"}
                     </Text>
                   );
                 })}
@@ -901,25 +916,25 @@ class CartContainer extends Component {
     );
   };
 
-  deleteFromCart = async i => {
+  deleteFromCart = async (i) => {
     const deleteData = new FormData();
-    deleteData.append('user_id', userId);
-    deleteData.append('table', 'cart');
-    deleteData.append('id', i.cart_wish_id);
+    deleteData.append("user_id", userId);
+    deleteData.append("table", "cart");
+    deleteData.append("id", i.cart_wish_id);
 
     await this.props.deleteCartWishListProduct(deleteData);
   };
 
-  deleteFromWishlist = async j => {
+  deleteFromWishlist = async (j) => {
     const wishData = new FormData();
-    wishData.append('user_id', userId);
-    wishData.append('table', 'wishlist');
-    wishData.append('id', j.cart_wish_id);
+    wishData.append("user_id", userId);
+    wishData.append("table", "wishlist");
+    wishData.append("id", j.cart_wish_id);
 
     await this.props.deleteCartWishListProduct(wishData);
   };
 
-  favoriteDetail = k => {
+  favoriteDetail = (k) => {
     return (
       <FlatList
         data={k}
@@ -927,7 +942,7 @@ class CartContainer extends Component {
         onRefresh={() => this.scrollDownToRefreshWishList()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View style={{ marginVertical: hp(1), }}>
+          <View style={{ marginVertical: hp(1) }}>
             {this.wishListView(item, index)}
           </View>
         )}
@@ -939,26 +954,26 @@ class CartContainer extends Component {
 
   scrollDownToRefreshWishList = () => {
     const wishDataRefresh = new FormData();
-    wishDataRefresh.append('user_id', userId);
-    wishDataRefresh.append('table', 'wishlist');
+    wishDataRefresh.append("user_id", userId);
+    wishDataRefresh.append("table", "wishlist");
 
     this.props.getWishlistData(wishDataRefresh);
   };
 
-  setCartToggleView = data => {
+  setCartToggleView = (data) => {
     this.setState({
       isToogleTwo: !this.state.isToogleTwo,
       openMoreDetailsIdCart: data.cart_wish_id,
     });
   };
 
-  editCartProduct = editData => {
+  editCartProduct = (editData) => {
     this.setState({
       isModalVisible: true,
       productcode: editData.collection_sku_code,
       productName: editData.collection_name,
       quantity: editData.values[2],
-      comments: editData.values[3] !== null ? editData.values[3] : '',
+      comments: editData.values[3] !== null ? editData.values[3] : "",
       length: editData.values[4],
       weightArr: editData.weight,
       lengthArray: editData.mul_length ? editData.mul_length : [],
@@ -971,67 +986,67 @@ class CartContainer extends Component {
     this.setState({ isModalVisible: false });
   };
 
-  handleProductcodeChange = newText => {
+  handleProductcodeChange = (newText) => {
     this.setState({
       productcode: newText,
     });
   };
 
-  handleProductNameChange = newText => {
+  handleProductNameChange = (newText) => {
     this.setState({
       productName: newText,
     });
   };
-  handleQuantityChange = newText => {
+  handleQuantityChange = (newText) => {
     this.setState({
       quantity: newText,
     });
   };
-  handleLengthChange = newText => {
+  handleLengthChange = (newText) => {
     this.setState({
       length: newText,
     });
   };
-  handleCommentsChange = newText => {
+  handleCommentsChange = (newText) => {
     this.setState({
       comments: newText,
     });
   };
   resetFieldProductCode = () => {
     this.setState({
-      productcode: '',
+      productcode: "",
     });
   };
   resetFieldQuantity = () => {
     this.setState({
-      quantity: '',
+      quantity: "",
     });
   };
   resetFieldProductName = () => {
     this.setState({
-      productName: '',
+      productName: "",
     });
   };
   resetFieldComment = () => {
     // this.setState({
     //   comments: '',
     // });
-    this.handleCommentsChange('');
+    this.handleCommentsChange("");
   };
 
   resetFieldLength = () => {
     this.setState({
-      length: '',
+      length: "",
     });
   };
 
-  setSelectedValue = value => {
+  setSelectedValue = (value) => {
     this.setState({
       weight: value,
     });
   };
 
-  setSelectedLength = l => {
+  setSelectedLength = (l) => {
     this.setState({
       length: l,
     });
@@ -1049,16 +1064,14 @@ class CartContainer extends Component {
         <View style={styles.tabCartTopContainer}>
           <View style={styles.imgView}>
             <TouchableOpacity onLongPress={() => this.showImageModal(item)}>
-              {item.images != '' ?
+              {item.images != "" ? (
                 <Image
                   style={styles.imgStyle}
                   source={{ uri: baseurl2 + item.images }}
                 />
-                :
-                <Image
-                  style={styles.imgStyle}
-                  source={IconPack.APP_LOGO}
-                />}
+              ) : (
+                <Image style={styles.imgStyle} source={IconPack.APP_LOGO} />
+              )}
             </TouchableOpacity>
           </View>
           <View style={styles.codeCollectionView}>
@@ -1076,7 +1089,7 @@ class CartContainer extends Component {
           </View>
           <View>
             <Image
-              source={require('../../assets/image/DownArrow.png')}
+              source={require("../../assets/image/DownArrow.png")}
               style={{ height: hp(2), width: hp(2) }}
             />
           </View>
@@ -1084,35 +1097,37 @@ class CartContainer extends Component {
         {isToogleTwo && openMoreDetailsIdCart === item.cart_wish_id ? (
           <>
             <View style={styles.tabCartMiddleContainer}>
-              <View style={{ flexDirection: 'column' }}>
+              <View style={{ flexDirection: "column" }}>
                 {cartData[index].keys.map((key, i) => {
                   return (
                     <Text
                       style={{
                         marginTop: 5,
                         ...Theme.ffLatoRegular15,
-                        color: '#000000',
-                      }}>
-                      {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
+                        color: "#000000",
+                      }}
+                    >
+                      {key.replace("_", " ").charAt(0).toUpperCase() +
+                        key.replace("_", " ").slice(1)}
                     </Text>
                   );
                 })}
               </View>
-              <View style={{ flexDirection: 'column' }}>
+              <View style={{ flexDirection: "column" }}>
                 {cartData[index].values.map((value, j) => {
                   return (
                     <Text
                       style={{
                         marginTop: 5,
                         ...Theme.ffLatoRegular15,
-                        color: '#000000',
-                        textAlign: 'center',
-                      }}>
-                      {value ? value : '-'}
+                        color: "#000000",
+                        textAlign: "center",
+                      }}
+                    >
+                      {value ? value : "-"}
                     </Text>
                   );
-                })
-                }
+                })}
               </View>
             </View>
 
@@ -1168,56 +1183,57 @@ class CartContainer extends Component {
 
   handleDatePicked(date) {
     let d1 = moment(new Date(date).toISOString().slice(0, 10)).format(
-      'DD-MM-YYYY',
+      "DD-MM-YYYY"
     );
 
+    console.log("d1", d1);
     this.setState({
       date: d1,
       isDateTimePickerVisible: false,
     });
   }
 
-  handleNameChange = newText =>
+  handleNameChange = (newText) =>
     this.setState({
       name: newText,
     });
 
-  handleEmailChange = newText =>
+  handleEmailChange = (newText) =>
     this.setState({
       email: newText,
     });
-  handleMobileChange = newText =>
+  handleMobileChange = (newText) =>
     this.setState({
       mobileNo: newText,
     });
-  handleCommentsChange1 = newText =>
+  handleCommentsChange1 = (newText) =>
     this.setState({
       comments1: newText,
     });
 
   resetFieldEmail = () =>
     this.setState({
-      email: '',
+      email: "",
     });
 
   resetFieldEmail1 = () =>
     this.setState({
-      email: '',
+      email: "",
     });
   resetFieldName = () =>
     this.setState({
-      name: '',
+      name: "",
     });
   resetFieldMobileNo = () =>
     this.setState({
-      mobileNo: '',
+      mobileNo: "",
     });
   resetFieldComment1 = () =>
     this.setState({
-      comments: '',
+      comments: "",
     });
 
-  CartDetails = cartData => {
+  CartDetails = (cartData) => {
     return (
       <FlatList
         data={cartData}
@@ -1225,7 +1241,7 @@ class CartContainer extends Component {
         onRefresh={() => this.scrollDownToRefreshCart()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View style={{ marginVertical: hp(1), }}>
+          <View style={{ marginVertical: hp(1) }}>
             {this.cartView(item, index)}
           </View>
         )}
@@ -1237,13 +1253,13 @@ class CartContainer extends Component {
 
   scrollDownToRefreshCart = () => {
     const refreshData = new FormData();
-    refreshData.append('user_id', userId);
-    refreshData.append('table', 'cart');
+    refreshData.append("user_id", userId);
+    refreshData.append("table", "cart");
 
     this.props.getCartData(refreshData);
   };
 
-  showImageModal = item => {
+  showImageModal = (item) => {
     this.setState({
       imageToBeDisplayed: item,
       isCartImageModalVisibel: true,
@@ -1256,8 +1272,8 @@ class CartContainer extends Component {
     const { currentPage } = this.state;
 
     const deleteData = new FormData();
-    deleteData.append('user_id', userId);
-    deleteData.append('table', currentPage == 0 ? 'cart' : 'wishlist');
+    deleteData.append("user_id", userId);
+    deleteData.append("table", currentPage == 0 ? "cart" : "wishlist");
 
     if (currentPage == 0) {
       this.props.clearAllCart(deleteData);
@@ -1269,9 +1285,9 @@ class CartContainer extends Component {
   };
 
   placeOrderView = async () => {
-    let n = await AsyncStorage.getItem('fullName');
-    let e = await AsyncStorage.getItem('emailId');
-    let m = await AsyncStorage.getItem('mobileNumber');
+    let n = await AsyncStorage.getItem("fullName");
+    let e = await AsyncStorage.getItem("emailId");
+    let m = await AsyncStorage.getItem("mobileNumber");
 
     this.setState({
       isPlaceOrderModalVisible: true,
@@ -1305,13 +1321,13 @@ class CartContainer extends Component {
 
     const edit = new FormData();
 
-    edit.append('table', 'cart');
-    edit.append('user_id', userId);
-    edit.append('cart_wish_id', editStateData.cart_wish_id);
-    edit.append('weight', parseInt(weight));
-    edit.append('quantity', quantity);
-    edit.append('remarks', comments);
-    edit.append('length', length);
+    edit.append("table", "cart");
+    edit.append("user_id", userId);
+    edit.append("cart_wish_id", editStateData.cart_wish_id);
+    edit.append("weight", parseInt(weight));
+    edit.append("quantity", quantity);
+    edit.append("remarks", comments);
+    edit.append("length", length);
 
     await this.props.updateEditedCartProduct(edit);
   };
@@ -1320,30 +1336,34 @@ class CartContainer extends Component {
     const { comments1, date } = this.state;
 
     let todayDate = moment(new Date().toISOString().slice(0, 10)).format(
-      'DD-MM-YYYY',
+      "DD-MM-YYYY"
     );
 
-    const type = Platform.OS === 'ios' ? 'ios' : 'android';
+    const type = Platform.OS === "ios" ? "ios" : "android";
 
-    let name = await AsyncStorage.getItem('fullName');
-    let emailId = await AsyncStorage.getItem('emailId');
-    let mobileNumber = await AsyncStorage.getItem('mobileNumber');
+    console.log("date", date);
+    console.log("todayDate", todayDate);
+    let name = await AsyncStorage.getItem("fullName");
+    let emailId = await AsyncStorage.getItem("emailId");
+    let mobileNumber = await AsyncStorage.getItem("mobileNumber");
 
     const orderData = new FormData();
 
-    orderData.append('user_id', userId);
-    orderData.append('full_name', name);
-    orderData.append('email_id', emailId);
-    orderData.append('mobile_number', mobileNumber);
-    orderData.append('delivery_date', date == '' ? date : todayDate);
-    orderData.append('which_device', type);
-    orderData.append('remarks', comments1);
+    orderData.append("user_id", userId);
+    orderData.append("full_name", name);
+    orderData.append("email_id", emailId);
+    orderData.append("mobile_number", mobileNumber);
+    orderData.append("delivery_date", date != "" ? date : todayDate);
+    orderData.append("which_device", type);
+    orderData.append("remarks", comments1);
 
     var timeStamp = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
-    var timeStampDate = moment(new Date(timeStamp).toISOString().slice(0, 10)).format('DD-MM-YYYY');
+    var timeStampDate = moment(
+      new Date(timeStamp).toISOString().slice(0, 10)
+    ).format("DD-MM-YYYY");
 
-    var date1 = moment(timeStampDate, 'DD-MM-YYYY').valueOf();
-    var date2 = moment(date, 'DD-MM-YYYY').valueOf();
+    var date1 = moment(timeStampDate, "DD-MM-YYYY").valueOf();
+    var date2 = moment(date, "DD-MM-YYYY").valueOf();
 
     // if (!date) {
     //   Toast.show({
@@ -1359,7 +1379,6 @@ class CartContainer extends Component {
     // }
 
     this.props.placeOrderFromCart(orderData);
-
   };
 
   render() {
@@ -1398,23 +1417,24 @@ class CartContainer extends Component {
       cartWeightData.data.total_quantity;
     let headerTheme = allParameterData.theme_color
       ? allParameterData.theme_color
-      : '';
+      : "";
 
-    let url = urls.imageUrl + 'public/backend/product_images/zoom_image/';
+    let url = urls.imageUrl + "public/backend/product_images/zoom_image/";
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
         <Container style={{}}>
           {fromProductGrid && (
             <_CustomHeader
-              Title={this.state.currentPage === 0 ? 'Cart' : 'Wishlist'}
+              Title={this.state.currentPage === 0 ? "Cart" : "Wishlist"}
               LeftBtnPress={() => this.props.navigation.goBack()}
               backgroundColor="#19af81"
             />
           )}
           <Tabs
-            tabBarUnderlineStyle={{ backgroundColor: '#303030' }}
-            onChangeTab={({ i }) => this.setState({ currentPage: i })}>
+            tabBarUnderlineStyle={{ backgroundColor: "#303030" }}
+            onChangeTab={({ i }) => this.setState({ currentPage: i })}
+          >
             <Tab
               heading={
                 <TabHeading style={{ backgroundColor: color.white }}>
@@ -1423,12 +1443,13 @@ class CartContainer extends Component {
                     style={{ width: 22, height: 22 }}
                     source={
                       this.state.currentPage
-                        ? require('../../assets/image/GreyCart.png')
-                        : require('../../assets/Cart1.png')
+                        ? require("../../assets/image/GreyCart.png")
+                        : require("../../assets/Cart1.png")
                     }
                   />
                 </TabHeading>
-              }>
+              }
+            >
               {cartData.length > 0 && !isFetching && this.CartDetails(cartData)}
             </Tab>
 
@@ -1440,12 +1461,13 @@ class CartContainer extends Component {
                     style={{ width: 22, height: 22 }}
                     source={
                       this.state.currentPage
-                        ? require('../../assets/Hertfill.png')
-                        : require('../../assets/image/GreyHeart.png')
+                        ? require("../../assets/Hertfill.png")
+                        : require("../../assets/image/GreyHeart.png")
                     }
                   />
                 </TabHeading>
-              }>
+              }
+            >
               {wishlistData.length > 0 &&
                 !isFetching &&
                 this.favoriteDetail(wishlistData)}
@@ -1456,10 +1478,11 @@ class CartContainer extends Component {
             <View
               style={{
                 height: 52,
-                justifyContent: 'space-between',
-                flexDirection: 'row',
+                justifyContent: "space-between",
+                flexDirection: "row",
                 marginHorizontal: 20,
-              }}>
+              }}
+            >
               <ActionButtonRounded
                 title="CART WEIGHT"
                 onButonPress={() =>
@@ -1480,20 +1503,20 @@ class CartContainer extends Component {
           {this.props.isFetching ? this.renderLoader() : null}
 
           {!this.props.isFetching &&
-            this.props.cartData.length === 0 &&
-            this.state.currentPage === 0
+          this.props.cartData.length === 0 &&
+          this.state.currentPage === 0
             ? this.noDataFound(this.props.errorMsgCart)
             : null}
           {!this.props.isFetching &&
-            this.props.wishlistData.length === 0 &&
-            this.state.currentPage === 1
+          this.props.wishlistData.length === 0 &&
+          this.state.currentPage === 1
             ? this.noDataFound(this.props.errorMsgWishlist)
             : null}
 
           {this.state.isCartImageModalVisibel && (
             <View>
               <Modal
-                style={{ justifyContent: 'center' }}
+                style={{ justifyContent: "center" }}
                 isVisible={this.state.isCartImageModalVisibel}
                 onRequestClose={() =>
                   this.setState({ isCartImageModalVisibel: false })
@@ -1503,37 +1526,43 @@ class CartContainer extends Component {
                 }
                 onBackButtonPress={() =>
                   this.setState({ isCartImageModalVisibel: false })
-                }>
+                }
+              >
                 <SafeAreaView>
                   <View
                     style={{
                       height: hp(42),
-                      backgroundColor: 'white',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      backgroundColor: "white",
+                      alignItems: "center",
+                      justifyContent: "center",
                       borderRadius: 10,
-                    }}>
-                    <_Text fsMedium style={{ marginTop: hp(0.5), fontFamily: 'Lato-Bold' }}>
+                    }}
+                  >
+                    <_Text
+                      fsMedium
+                      style={{ marginTop: hp(0.5), fontFamily: "Lato-Bold" }}
+                    >
                       Code: {imageToBeDisplayed.design_number}
                     </_Text>
                     <View
                       style={{
                         marginTop: 5,
-                        borderBottomColor: 'gray',
+                        borderBottomColor: "gray",
                         borderBottomWidth: 1,
                         width: wp(90),
                       }}
                     />
-                    {imageToBeDisplayed.images != '' ? <Image
-                      source={{ uri: url + imageToBeDisplayed.images }}
-                      style={{
-                        height: hp(35),
-                        width: wp(90),
-                        marginTop: hp(1),
-                      }}
-                      resizeMode="cover"
-                    />
-                      :
+                    {imageToBeDisplayed.images != "" ? (
+                      <Image
+                        source={{ uri: url + imageToBeDisplayed.images }}
+                        style={{
+                          height: hp(35),
+                          width: wp(90),
+                          marginTop: hp(1),
+                        }}
+                        resizeMode="cover"
+                      />
+                    ) : (
                       <Image
                         source={IconPack.APP_LOGO}
                         style={{
@@ -1543,7 +1572,7 @@ class CartContainer extends Component {
                         }}
                         resizeMode="contain"
                       />
-                    }
+                    )}
                   </View>
                 </SafeAreaView>
               </Modal>
@@ -1553,16 +1582,17 @@ class CartContainer extends Component {
           {this.state.currentPage == 0 && cartData.length > 0 && (
             <TouchableOpacity
               hitSlop={{
-                position: 'absolute',
+                position: "absolute",
                 top: 5,
                 bottom: 5,
                 left: 5,
                 right: 5,
               }}
               style={styles.bottomView}
-              onPress={() => this.openDeleteAllCartModal()}>
+              onPress={() => this.openDeleteAllCartModal()}
+            >
               <Image
-                source={require('../../assets/image/Delete.png')}
+                source={require("../../assets/image/Delete.png")}
                 style={{ height: hp(3), width: hp(3) }}
                 resizeMode="contain"
               />
@@ -1572,16 +1602,17 @@ class CartContainer extends Component {
           {this.state.currentPage == 1 && wishlistData.length > 0 && (
             <TouchableOpacity
               hitSlop={{
-                position: 'absolute',
+                position: "absolute",
                 top: 5,
                 bottom: 5,
                 left: 5,
                 right: 5,
               }}
               style={styles.bottomView}
-              onPress={() => this.openDeleteAllCartModal()}>
+              onPress={() => this.openDeleteAllCartModal()}
+            >
               <Image
-                source={require('../../assets/image/Delete.png')}
+                source={require("../../assets/image/Delete.png")}
                 style={{ height: hp(3), width: hp(3) }}
                 resizeMode="contain"
               />
@@ -1592,41 +1623,50 @@ class CartContainer extends Component {
           {this.state.isModalVisible && (
             <Modal
               style={{
-                justifyContent: 'flex-end',
-                marginBottom: 0, marginLeft: 0, marginRight: 0,
+                justifyContent: "flex-end",
+                marginBottom: 0,
+                marginLeft: 0,
+                marginRight: 0,
               }}
               isVisible={this.state.isModalVisible}
               transparent={true}
               onRequestClose={() => this.setState({ isModalVisible: false })}
               onBackdropPress={() => this.setState({ isModalVisible: false })}
-              onBackButtonPress={() => this.setState({ isModalVisible: false })}>
+              onBackButtonPress={() => this.setState({ isModalVisible: false })}
+            >
               <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.select({ ios: -60, android: -140 })}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.select({
+                  ios: -60,
+                  android: -140,
+                })}
               >
                 <View
                   style={[
                     styles.bottomContainer,
                     { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 },
-                  ]}>
+                  ]}
+                >
                   <ScrollView>
                     <View
                       style={{
                         height: 45,
                         flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
                         backgroundColor: headerTheme
-                          ? '#' + headerTheme
-                          : '#303030',
-                      }}>
+                          ? "#" + headerTheme
+                          : "#303030",
+                      }}
+                    >
                       <Text
                         style={{
                           fontSize: 18,
-                          color: '#FFFFFF',
+                          color: "#FFFFFF",
                           marginLeft: 15,
-                        }}>
+                        }}
+                      >
                         Edit Product
                       </Text>
                       <TouchableOpacity onPress={() => this.closeEditModal()}>
@@ -1635,7 +1675,7 @@ class CartContainer extends Component {
                           style={{
                             width: 18,
                             height: 18,
-                            resizeMode: 'cover',
+                            resizeMode: "cover",
                             marginRight: 15,
                           }}
                         />
@@ -1644,9 +1684,10 @@ class CartContainer extends Component {
 
                     <View
                       style={{
-                        borderBottomColor: '#a3a3a3',
+                        borderBottomColor: "#a3a3a3",
                         borderBottomWidth: 0.5,
-                      }}></View>
+                      }}
+                    ></View>
 
                     <View style={{ marginHorizontal: 20, marginTop: 5 }}>
                       <FloatingLabelTextInput
@@ -1673,7 +1714,7 @@ class CartContainer extends Component {
                       <FloatingLabelTextInput
                         label="Quantity"
                         value={this.state.quantity}
-                        onChangeText={q => this.handleQuantityChange(q)}
+                        onChangeText={(q) => this.handleQuantityChange(q)}
                         resetValue={() => this.resetFieldQuantity()}
                         imageIcon="quantity"
                         keyboardType="numeric"
@@ -1687,8 +1728,9 @@ class CartContainer extends Component {
                         style={{
                           marginLeft: 58,
                           fontSize: 16,
-                          color: '#a3a3a3',
-                        }}>
+                          color: "#a3a3a3",
+                        }}
+                      >
                         Select Weight
                       </Text>
                       <Picker
@@ -1700,11 +1742,12 @@ class CartContainer extends Component {
                           />
                         }
                         mode="dropdown"
-                        style={{ height: 45, marginLeft: 60, width: '70%' }}
+                        style={{ height: 45, marginLeft: 60, width: "70%" }}
                         selectedValue={this.state.weight}
-                        onValueChange={value => this.setSelectedValue(value)}>
+                        onValueChange={(value) => this.setSelectedValue(value)}
+                      >
                         {this.state.weightArr != null &&
-                          this.state.weightArr.map(w => (
+                          this.state.weightArr.map((w) => (
                             <Picker.Item
                               label={w.toString()}
                               value={parseInt(w)}
@@ -1714,14 +1757,15 @@ class CartContainer extends Component {
                     </View>
 
                     {/* LENGTH DROPDOWN */}
-                    {this.state.length != '' && (
+                    {this.state.length != "" && (
                       <View>
                         <Text
                           style={{
                             marginLeft: 58,
                             fontSize: 16,
-                            color: '#a3a3a3',
-                          }}>
+                            color: "#a3a3a3",
+                          }}
+                        >
                           Select Length (Inches)
                         </Text>
                         <Picker
@@ -1733,13 +1777,14 @@ class CartContainer extends Component {
                             />
                           }
                           mode="dropdown"
-                          style={{ height: 45, marginLeft: 60, width: '70%' }}
+                          style={{ height: 45, marginLeft: 60, width: "70%" }}
                           selectedValue={this.state.length}
-                          onValueChange={length =>
+                          onValueChange={(length) =>
                             this.setSelectedLength(length)
-                          }>
+                          }
+                        >
                           {this.state.lengthArray != null &&
-                            this.state.lengthArray.map(lt => (
+                            this.state.lengthArray.map((lt) => (
                               <Picker.Item
                                 label={lt.toString()}
                                 value={parseInt(lt)}
@@ -1765,7 +1810,7 @@ class CartContainer extends Component {
                       <FloatingLabelTextInput
                         label="Comments"
                         value={this.state.comments}
-                        onChangeText={c => this.handleCommentsChange(c)}
+                        onChangeText={(c) => this.handleCommentsChange(c)}
                         resetValue={this.resetFieldComment}
                         imageIcon="comments"
                         width="95%"
@@ -1782,25 +1827,23 @@ class CartContainer extends Component {
                           color={headerTheme}
                         />
                       ) : (
-                          <ActivityIndicator
-                            size="small"
-                            color={color.brandColor}
-                          />
-                        )}
+                        <ActivityIndicator
+                          size="small"
+                          color={color.brandColor}
+                        />
+                      )}
                     </View>
                   </ScrollView>
                 </View>
-
               </KeyboardAvoidingView>
             </Modal>
           )}
-
 
           {/* PLACE ORDER */}
           {this.state.isPlaceOrderModalVisible && (
             <Modal
               style={{
-                justifyContent: 'flex-end',
+                justifyContent: "flex-end",
                 marginBottom: 0,
                 marginLeft: 0,
                 marginRight: 0,
@@ -1815,42 +1858,53 @@ class CartContainer extends Component {
               }
               onBackButtonPress={() =>
                 this.setState({ isPlaceOrderModalVisible: false })
-              }>
-              <TouchableWithoutFeedback style={{ flex: 1 }} onPress={() => null}>
+              }
+            >
+              <TouchableWithoutFeedback
+                style={{ flex: 1 }}
+                onPress={() => null}
+              >
                 <KeyboardAvoidingView
-                  behavior={Platform.OS === 'ios' ? 'padding' : null}
-                  keyboardVerticalOffset={Platform.select({ ios: -125, android: 500, })}>
+                  behavior={Platform.OS === "ios" ? "padding" : null}
+                  keyboardVerticalOffset={Platform.select({
+                    ios: -125,
+                    android: 500,
+                  })}
+                >
                   <View
                     style={[
                       styles.bottomContainer,
                       { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 },
-                    ]}>
+                    ]}
+                  >
                     <View
                       style={{
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         marginLeft: wp(44),
-                        borderColor: 'red',
+                        borderColor: "red",
                         borderWidth: 2,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                         height: hp(7),
                         width: hp(7),
                         borderRadius: hp(3.5),
                         bottom: hp(3.2),
-                      }}>
+                      }}
+                    >
                       <TouchableOpacity
                         onPress={() =>
                           this.setState({ isPlaceOrderModalVisible: false })
                         }
                         hitSlop={{
-                          position: 'absolute',
+                          position: "absolute",
                           top: 5,
                           bottom: 5,
                           left: 5,
                           right: 5,
-                        }}>
+                        }}
+                      >
                         <Image
-                          source={require('../../assets/image/remove.png')}
+                          source={require("../../assets/image/remove.png")}
                           style={{ height: hp(5), width: hp(5) }}
                         />
                       </TouchableOpacity>
@@ -1895,36 +1949,41 @@ class CartContainer extends Component {
                           imageIcon="comments"
                           width="95%"
                           marginLeft={8}
-                          returnKeyType={'done'}
+                          returnKeyType={"done"}
                         />
                         <View
                           style={{
                             marginTop: 32,
-                            flexDirection: 'row',
-                          }}>
+                            flexDirection: "row",
+                          }}
+                        >
                           <View style={{ marginRight: 10 }}>
                             <Image
                               source={IconPack.DATEEDIT}
                               style={{
                                 width: 25,
                                 height: 25,
-                                resizeMode: 'cover',
+                                resizeMode: "cover",
                               }}
                             />
                           </View>
                           <View
                             style={{
                               borderBottomWidth: 0.5,
-                              borderColor: '#a3a3a3',
-                              width: '88%',
+                              borderColor: "#a3a3a3",
+                              width: "88%",
                               marginLeft: 6,
-                            }}>
+                            }}
+                          >
                             <TouchableOpacity
                               onPress={() => {
                                 this.showDateTimePicker();
-                              }}>
+                              }}
+                            >
                               <Text style={styles.textDatePickerStyle}>
-                                {!this.state.date ? 'Delivery date' : this.state.date}
+                                {!this.state.date
+                                  ? "Delivery date"
+                                  : this.state.date}
                               </Text>
                             </TouchableOpacity>
                           </View>
@@ -1941,66 +2000,79 @@ class CartContainer extends Component {
 
                       <View style={[styles.btnView, { marginVertical: 15 }]}>
                         {this.state.isPlaceOrderModalVisible &&
-                          !this.props.isFetching ? (
-                            <ActionButtonRounded
-                              title="PLACE ORDER"
-                              onButonPress={() => this.placeOrderFromCart()}
-                              // containerStyle={styles.buttonStyle}
-                              color={headerTheme}
-                            />
-                          ) : (
-                            <ActivityIndicator
-                              size="small"
-                              color={color.brandColor}
-                            />
-                          )}
+                        !this.props.isFetching ? (
+                          <ActionButtonRounded
+                            title="PLACE ORDER"
+                            onButonPress={() => this.placeOrderFromCart()}
+                            // containerStyle={styles.buttonStyle}
+                            color={headerTheme}
+                          />
+                        ) : (
+                          <ActivityIndicator
+                            size="small"
+                            color={color.brandColor}
+                          />
+                        )}
                       </View>
                     </ScrollView>
                   </View>
                 </KeyboardAvoidingView>
               </TouchableWithoutFeedback>
 
-
               {/* modal for date picker */}
               <Modal
                 isVisible={this.state.isDateTimePickerVisible}
-                onRequestClose={() => this.setState({ isDateTimePickerVisible: false })}
-                onBackdropPress={() => this.setState({ isDateTimePickerVisible: false })}
-                onBackButtonPress={() => this.setState({ isDateTimePickerVisible: false })}
+                onRequestClose={() =>
+                  this.setState({ isDateTimePickerVisible: false })
+                }
+                onBackdropPress={() =>
+                  this.setState({ isDateTimePickerVisible: false })
+                }
+                onBackButtonPress={() =>
+                  this.setState({ isDateTimePickerVisible: false })
+                }
                 style={{ margin: 0 }}
               >
-                <View style={{ backgroundColor: '#fff', }}>
-                  <TouchableWithoutFeedback onPress={() => this.setState({ isDateTimePickerVisible: false })}>
+                <View style={{ backgroundColor: "#fff" }}>
+                  <TouchableWithoutFeedback
+                    onPress={() =>
+                      this.setState({ isDateTimePickerVisible: false })
+                    }
+                  >
                     <>
                       <View>
                         <CalendarPicker
                           onDateChange={(d) => this.handleDatePicked(d)}
-                          selectedDayColor={headerTheme ? '#' + headerTheme : 'gray'}
+                          selectedDayColor={
+                            headerTheme ? "#" + headerTheme : "gray"
+                          }
                           scrollable={true}
-                          headerWrapperStyle={{ marginVertical: 30, }}
+                          headerWrapperStyle={{ marginVertical: 30 }}
                         />
                       </View>
 
-                      <TouchableOpacity onPress={() => this.setState({ isDateTimePickerVisible: false })}>
-                        <View style={{
-                          alignItems: 'flex-end',
-                          height: hp(8),
-                          justifyContent: 'center',
-                          marginRight: 20
-                        }}>
-                          <Text style={{ fontSize: 16, color: '#000000' }}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.setState({ isDateTimePickerVisible: false })
+                        }
+                      >
+                        <View
+                          style={{
+                            alignItems: "flex-end",
+                            height: hp(8),
+                            justifyContent: "center",
+                            marginRight: 20,
+                          }}
+                        >
+                          <Text style={{ fontSize: 16, color: "#000000" }}>
                             Close
-                      </Text>
+                          </Text>
                         </View>
                       </TouchableOpacity>
-
                     </>
                   </TouchableWithoutFeedback>
                 </View>
-
               </Modal>
-
-
             </Modal>
           )}
 
@@ -2017,24 +2089,28 @@ class CartContainer extends Component {
               }
               onBackButtonPress={() =>
                 this.setState({ isContinueModalVisible: false })
-              }>
+              }
+            >
               <TouchableWithoutFeedback
                 style={{ flex: 1 }}
-                onPress={() => this.setState({ isContinueModalVisible: false })}>
+                onPress={() => this.setState({ isContinueModalVisible: false })}
+              >
                 <View style={styles.mainContainer}>
                   <TouchableWithoutFeedback
                     style={{ flex: 1 }}
-                    onPress={() => null}>
+                    onPress={() => null}
+                  >
                     <View>
                       <View
                         style={[
                           styles.alertContainer,
                           {
                             backgroundColor: headerTheme
-                              ? '#' + headerTheme
-                              : '#303030',
+                              ? "#" + headerTheme
+                              : "#303030",
                           },
-                        ]}>
+                        ]}
+                      >
                         {/* <Image
                           source={IconPack.RATE}
                           style={styles.alertIcon}
@@ -2046,7 +2122,8 @@ class CartContainer extends Component {
                         onPress={() =>
                           this.setState({ isContinueModalVisible: false })
                         }
-                        style={styles.closeIconContainer}>
+                        style={styles.closeIconContainer}
+                      >
                         <Image
                           source={IconPack.WHITE_CLOSE}
                           style={styles.closeIcon}
@@ -2060,14 +2137,16 @@ class CartContainer extends Component {
                             Product Master :
                           </Text>
                           <Text style={styles.middleText}>
-                            Gross Weight :{' '}
-                            {cartSummary && cartSummary.gross_wt ? cartSummary.gross_wt : ''}
+                            Gross Weight :{" "}
+                            {cartSummary && cartSummary.gross_wt
+                              ? cartSummary.gross_wt
+                              : ""}
                           </Text>
                           <Text style={styles.middleText}>
-                            Quantity :{' '}
+                            Quantity :{" "}
                             {cartSummary && cartSummary.quantity
                               ? cartSummary.quantity
-                              : ''}
+                              : ""}
                           </Text>
                         </View>
                         <View style={{ marginHorizontal: 10 }}>
@@ -2094,32 +2173,38 @@ class CartContainer extends Component {
           <Modal
             isVisible={this.state.isDeleteCartVisible}
             transparent={true}
-            onBackdropPress={() => this.setState({ isDeleteCartVisible: false })}
+            onBackdropPress={() =>
+              this.setState({ isDeleteCartVisible: false })
+            }
             onBackButtonPress={() =>
               this.setState({ isDeleteCartVisible: false })
             }
-            onRequestClose={() => this.setState({ isDeleteCartVisible: false })}>
+            onRequestClose={() => this.setState({ isDeleteCartVisible: false })}
+          >
             <TouchableWithoutFeedback
               style={{ flex: 1 }}
               onPress={() =>
                 this.setState({
                   isDeleteCartVisible: false,
                 })
-              }>
+              }
+            >
               <View style={styles.mainContainer}>
                 <TouchableWithoutFeedback
                   style={{ flex: 1 }}
-                  onPress={() => null}>
+                  onPress={() => null}
+                >
                   <View>
                     <View
                       style={[
                         styles.alertContainer,
                         {
                           backgroundColor: headerTheme
-                            ? '#' + headerTheme
-                            : '#303030',
+                            ? "#" + headerTheme
+                            : "#303030",
                         },
-                      ]}>
+                      ]}
+                    >
                       {/* <Image source={IconPack.RATE} style={styles.alertIcon} /> */}
                       <Text style={styles.alertText}>Alert !</Text>
                     </View>
@@ -2127,7 +2212,8 @@ class CartContainer extends Component {
                       onPress={() =>
                         this.setState({ isDeleteCartVisible: false })
                       }
-                      style={styles.closeIconContainer}>
+                      style={styles.closeIconContainer}
+                    >
                       <Image
                         source={IconPack.WHITE_CLOSE}
                         style={styles.closeIcon}
@@ -2171,7 +2257,8 @@ class CartContainer extends Component {
               marginRight: 20,
               paddingTop: hp(11),
               paddingBottom: hp(11),
-            }}>
+            }}
+          >
             <>
               <View style={styles.flex}>
                 <View
@@ -2179,10 +2266,11 @@ class CartContainer extends Component {
                     styles.cartSummaryContainer,
                     {
                       backgroundColor: headerTheme
-                        ? '#' + headerTheme
-                        : '#303030',
+                        ? "#" + headerTheme
+                        : "#303030",
                     },
-                  ]}>
+                  ]}
+                >
                   <Text style={[styles.alertText, { marginLeft: 20 }]}>
                     Cart Summary
                   </Text>
@@ -2198,7 +2286,7 @@ class CartContainer extends Component {
                 </View>
 
                 <FlatList
-                  style={{ backgroundColor: '#ffffff' }}
+                  style={{ backgroundColor: "#ffffff" }}
                   showsVerticalScrollIndicator={false}
                   data={cartWeight && cartWeight}
                   renderItem={({ item }) => (
@@ -2206,20 +2294,21 @@ class CartContainer extends Component {
                       <View style={{ marginBottom: 15 }}>
                         <Text
                           style={{
-                            fontWeight: '200',
+                            fontWeight: "200",
                             fontSize: 16,
-                          }}>{`Category: ${item.key}`}</Text>
+                          }}
+                        >{`Category: ${item.key}`}</Text>
                       </View>
 
                       <View style={{ marginBottom: 20 }}>
-                        <Text>{'Description:'}</Text>
-                        {item.cat_data.map(m => {
+                        <Text>{"Description:"}</Text>
+                        {item.cat_data.map((m) => {
                           return (
                             <View>
                               <Text style={{ marginBottom: 5 }}>
-                                - Design No: {m.product_id} ( Gross Wt: {m.gross_wt},
-                                Net Wt: {m.net_wt},
-                                Quantity: {m.quantity} )
+                                - Design No: {m.product_id} ( Gross Wt:{" "}
+                                {m.gross_wt}, Net Wt: {m.net_wt}, Quantity:{" "}
+                                {m.quantity} )
                               </Text>
                             </View>
                           );
@@ -2228,10 +2317,11 @@ class CartContainer extends Component {
 
                       <View
                         style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
+                          flexDirection: "row",
+                          justifyContent: "space-between",
                           marginBottom: 10,
-                        }}>
+                        }}
+                      >
                         <Text>{`Total Quantity: ${item.total_quantity}`}</Text>
                         <Text>{`Total WT: ${item.total_weight}`}</Text>
                       </View>
@@ -2239,7 +2329,7 @@ class CartContainer extends Component {
                       <View
                         style={{
                           borderBottomWidth: 1,
-                          borderColor: '#ddd',
+                          borderColor: "#ddd",
                           borderBottomWidth: 0.8,
                         }}
                       />
@@ -2249,18 +2339,19 @@ class CartContainer extends Component {
                 <View style={styles.buttonContainer}>
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      flexDirection: "row",
+                      justifyContent: "space-between",
                       marginTop: 25,
                       marginBottom: 5,
-                    }}>
+                    }}
+                  >
                     <View>
-                      <Text style={{ fontWeight: '200', fontSize: 16 }}>
+                      <Text style={{ fontWeight: "200", fontSize: 16 }}>
                         Total WT: {totalWT}
                       </Text>
                     </View>
                     <View style={{ marginLeft: 30 }}>
-                      <Text style={{ fontSize: 16, fontWeight: '200' }}>
+                      <Text style={{ fontSize: 16, fontWeight: "200" }}>
                         Total Quantity: {totalQuantity}
                       </Text>
                     </View>
@@ -2290,34 +2381,34 @@ const styles = StyleSheet.create({
     backgroundColor: color.green,
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   closeIconView: {
-    position: 'absolute',
+    position: "absolute",
     top: 14,
     right: 15,
     bottom: 0,
   },
   buttonContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     height: 91,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderBottomLeftRadius: 14,
     borderBottomRightRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   cartSummaryText: {
     fontSize: 21,
-    fontFamily: 'Helvetica',
-    color: 'gray',
-    textAlign: 'center',
+    fontFamily: "Helvetica",
+    color: "gray",
+    textAlign: "center",
     marginTop: 5,
   },
   mainContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   buttonStyle: {
     marginTop: 20,
@@ -2326,34 +2417,34 @@ const styles = StyleSheet.create({
   alertContainer: {
     height: 50,
     backgroundColor: color.green,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    alignItems: "center",
+    justifyContent: "space-around",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
   alertText: {
     fontSize: 21,
-    color: '#FFFFFF',
-    textAlign: 'center',
+    color: "#FFFFFF",
+    textAlign: "center",
   },
   alertIcon: {
     width: 28,
     height: 28,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   closeIcon: {
     width: 18,
     height: 18,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   closeIconContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 15,
     right: 15,
     bottom: 0,
   },
   bottomContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     // // borderRadius: 16,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
@@ -2363,13 +2454,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   middleText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    color: '#A9A9A9',
+    color: "#A9A9A9",
   },
   btnView: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginVertical: hp(1),
   },
   textDatePickerStyle: {
@@ -2379,29 +2470,29 @@ const styles = StyleSheet.create({
     width: hp(5.8),
     height: hp(5.8),
     borderRadius: hp(5.8) / 2,
-    backgroundColor: '#EE5407',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    position: 'absolute', //Here is the trick
+    backgroundColor: "#EE5407",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    position: "absolute", //Here is the trick
     bottom: hp(8), //Here is the trick
     right: hp(2),
   },
   textStyle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
   },
   tabCartTopContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 18,
     marginBottom: 10,
   },
   imgView: {
     height: hp(7),
     width: hp(9),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 0.3,
     borderColor: color.gray,
     borderRadius: 5,
@@ -2411,54 +2502,54 @@ const styles = StyleSheet.create({
     height: hp(6),
   },
   codeCollectionView: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   codeText: {
-    textAlign: 'left',
+    textAlign: "left",
     ...Theme.ffLatoRegular13,
-    color: '#757575',
+    color: "#757575",
   },
   chainTitleView: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   chainTitleText: {
-    textAlign: 'right',
+    textAlign: "right",
     ...Theme.ffLatoRegular13,
-    color: '#757575',
+    color: "#757575",
   },
   moreDetailView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 18,
   },
   moreDetailText: {
     ...Theme.ffLatoBold13,
-    color: '#000',
+    color: "#000",
   },
   tabCartMiddleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 20,
     marginVertical: 10,
   },
   cartDetail: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     // marginRight:10
     marginHorizontal: 20,
   },
   text: {
     marginBottom: 10,
-    color: '#808080',
+    color: "#808080",
   },
   tabCartBottomContainer: {
     marginHorizontal: 18,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   tabCartBottomImgView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   tabCartBottomImg: {
     width: 24,
@@ -2472,19 +2563,19 @@ const styles = StyleSheet.create({
   border: {
     marginHorizontal: 18,
     borderBottomWidth: 1,
-    borderBottomColor: '#C0C0C0',
+    borderBottomColor: "#C0C0C0",
     marginTop: 10,
     marginBottom: 10,
   },
   textColor: {
     ...Theme.ffLatoRegular13,
-    color: '#757575',
+    color: "#757575",
   },
   buttonStyle: {
     backgroundColor: color.green,
     height: 42,
     width: 140,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 40,
     marginVertical: 5,
   },
@@ -2557,19 +2648,16 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    getCartData,
-    getWishlistData,
-    deleteCartWishListProduct,
-    getTotalCartCount,
-    moveProduct,
-    clearAllCart,
-    clearAllWishList,
-    updateEditedCartProduct,
-    placeOrderFromCart,
-    getCartSummary,
-    getCartWeight,
-  },
-)(withNavigationFocus(CartContainer));
+export default connect(mapStateToProps, {
+  getCartData,
+  getWishlistData,
+  deleteCartWishListProduct,
+  getTotalCartCount,
+  moveProduct,
+  clearAllCart,
+  clearAllWishList,
+  updateEditedCartProduct,
+  placeOrderFromCart,
+  getCartSummary,
+  getCartWeight,
+})(withNavigationFocus(CartContainer));

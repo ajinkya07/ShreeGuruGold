@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Text,
   View,
@@ -11,29 +11,29 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-} from 'react-native';
+} from "react-native";
 
-import _CustomHeader from '@customHeader/_CustomHeader';
+import _CustomHeader from "@customHeader/_CustomHeader";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { connect } from 'react-redux';
-import { urls } from '@api/urls';
+} from "react-native-responsive-screen";
+import { connect } from "react-redux";
+import { urls } from "@api/urls";
 import {
   getOrderHistoryDetails,
   reOrderProduct,
-} from '@orderHistory/OrderHistoryAction';
-import { Toast } from 'native-base';
-import Modal from 'react-native-modal';
-import _Text from '@text/_Text';
-import { color } from '@values/colors';
-import CartContainer from '@cartContainer/CartContainer';
-import { getTotalCartCount } from '@homepage/HomePageAction';
-import IconPack from '@login/IconPack';
-import Theme from '../../../values/Theme';
+} from "@orderHistory/OrderHistoryAction";
+import { Toast } from "native-base";
+import Modal from "react-native-modal";
+import _Text from "@text/_Text";
+import { color } from "@values/colors";
+import CartContainer from "@cartContainer/CartContainer";
+import { getTotalCartCount } from "@homepage/HomePageAction";
+import IconPack from "@login/IconPack";
+import Theme from "../../../values/Theme";
 
-var userId = '';
+var userId = "";
 
 class OrderHistoryDetail extends Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class OrderHistoryDetail extends Component {
       orderHistoryDetailsState: [],
 
       isImageModalVisibel: false,
-      imageToBeDisplayed: '',
+      imageToBeDisplayed: "",
 
       successReOrderVersion: 0,
       errorReOrderVersion: 0,
@@ -65,7 +65,7 @@ class OrderHistoryDetail extends Component {
     const { orderItemdata } = this.state;
 
     const data = new FormData();
-    data.append('order_id', orderItemdata.order_id);
+    data.append("order_id", orderItemdata.order_id);
     this.props.getOrderHistoryDetails(data);
   };
 
@@ -167,14 +167,14 @@ class OrderHistoryDetail extends Component {
       });
 
       const data2 = new FormData();
-      data2.append('user_id', userId);
-      data2.append('table', 'cart');
+      data2.append("user_id", userId);
+      data2.append("table", "cart");
 
       await this.props.getTotalCartCount(data2);
 
-      this.props.navigation.navigate('CartContainer', {
+      this.props.navigation.navigate("CartContainer", {
         navigation: this.props.navigation,
-        fromProductGrid: true
+        fromProductGrid: true,
       });
 
       // return (
@@ -203,19 +203,20 @@ class OrderHistoryDetail extends Component {
     }
   }
 
-  noDataFound = msg => {
+  noDataFound = (msg) => {
     return (
       <View
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           height: hp(80),
-        }}>
+        }}
+      >
         <Image
-          source={require('../../../assets/gif/noData.gif')}
+          source={require("../../../assets/gif/noData.gif")}
           style={{ height: hp(20), width: hp(20) }}
         />
-        <Text style={{ fontSize: 18, fontWeight: '400', textAlign: 'center' }}>
+        <Text style={{ fontSize: 18, fontWeight: "400", textAlign: "center" }}>
           {msg}
         </Text>
       </View>
@@ -226,25 +227,26 @@ class OrderHistoryDetail extends Component {
     return (
       <View
         style={{
-          position: 'absolute',
+          position: "absolute",
           height: hp(100),
           width: wp(100),
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <ActivityIndicator size="large" color={color.brandColor} />
       </View>
     );
   };
 
-  showImageModal = item => {
+  showImageModal = (item) => {
     this.setState({
       imageToBeDisplayed: item,
       isImageModalVisibel: true,
     });
   };
 
-  OrderHistoryDetailComponent = data => {
+  OrderHistoryDetailComponent = (data) => {
     return (
       <View style={styles.container}>
         <Text style={styles.productIdText}>Product Id: {data.product_id}</Text>
@@ -261,24 +263,29 @@ class OrderHistoryDetail extends Component {
 
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              width: '100%',
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
               flex: 2,
-            }}>
+              marginLeft: -10,
+            }}
+          >
             <View
               style={{
                 flex: 1,
-                alignItems: 'flex-start',
-              }}>
+                alignItems: "flex-start",
+              }}
+            >
               {data.key.map((key, i) => {
                 return (
                   <_Text
                     numberOfLines={1}
                     fsSmall
-                    textColor={'#808080'}
-                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}>
-                    {key.replace('_', ' ').charAt(0).toUpperCase() + key.replace('_', ' ').slice(1)}
+                    textColor={"#808080"}
+                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}
+                  >
+                    {key.replace("_", " ").charAt(0).toUpperCase() +
+                      key.replace("_", " ").slice(1)}
                   </_Text>
                 );
               })}
@@ -287,24 +294,24 @@ class OrderHistoryDetail extends Component {
             <View
               style={{
                 flex: 1,
-                alignItems: 'flex-start',
-                marginLeft: 55,
-              }}>
+                alignItems: "flex-start",
+                marginLeft: 50,
+              }}
+            >
               {data.value.map((value, j) => {
                 return (
                   <_Text
                     numberOfLines={1}
                     fsPrimary
-                    textColor={'#808080'}
-                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}>
-                    {value ? value : '-'}
+                    textColor={"#808080"}
+                    style={{ ...Theme.ffLatoRegular15, marginBottom: 5 }}
+                  >
+                    {value ? value : "-"}
                   </_Text>
                 );
               })}
             </View>
           </View>
-
-
         </View>
       </View>
     );
@@ -314,11 +321,10 @@ class OrderHistoryDetail extends Component {
     const { orderItemdata } = this.state;
 
     const data = new FormData();
-    data.append('order_id', orderItemdata.order_id);
-    data.append('user_id', userId);
+    data.append("order_id", orderItemdata.order_id);
+    data.append("user_id", userId);
 
     await this.props.reOrderProduct(data);
-
   };
 
   openDetailModal = () => {
@@ -327,19 +333,27 @@ class OrderHistoryDetail extends Component {
     });
   };
 
-  OrderDetailBottomTab = d => {
+  OrderDetailBottomTab = (d) => {
     const { allParameterData } = this.props;
 
-    let headerTheme = allParameterData.theme_color ? allParameterData.theme_color : ''
+    let headerTheme = allParameterData.theme_color
+      ? allParameterData.theme_color
+      : "";
 
     return (
-      <View style={[styles.cardContainer, { backgroundColor: headerTheme ? '#' + headerTheme : '#303030', }]}>
+      <View
+        style={[
+          styles.cardContainer,
+          { backgroundColor: headerTheme ? "#" + headerTheme : "#303030" },
+        ]}
+      >
         <View
           style={{
             flex: 1.8,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <TouchableOpacity onPress={() => this.openDetailModal()}>
             <Text style={styles.detailText}>DETAIL</Text>
           </TouchableOpacity>
@@ -347,11 +361,13 @@ class OrderHistoryDetail extends Component {
         <View
           style={{
             borderLeftWidth: 1,
-            borderLeftColor: '#fbcb84',
+            borderLeftColor: "#fbcb84",
             marginVertical: 5,
           }}
         />
-        <View style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
+        <View
+          style={{ flex: 2, alignItems: "center", justifyContent: "center" }}
+        >
           <TouchableOpacity onPress={() => this.reOrderProduct()}>
             <Text style={styles.detailText}>RE-ORDER</Text>
           </TouchableOpacity>
@@ -364,16 +380,18 @@ class OrderHistoryDetail extends Component {
     const { orderHistoryDetailsData, isFetching } = this.props;
     const { imageToBeDisplayed } = this.state;
 
-
-    const summaryData = orderHistoryDetailsData && orderHistoryDetailsData.order_summary
+    const summaryData =
+      orderHistoryDetailsData && orderHistoryDetailsData.order_summary;
     return (
       <>
         <SafeAreaView style={{ flex: 1, backgroundColor: color.white }}>
           <_CustomHeader
             Title="Order History Details"
-            RightBtnIcon2={require('../../../assets/bell.png')}
+            RightBtnIcon2={require("../../../assets/bell.png")}
             LeftBtnPress={() => this.props.navigation.goBack()}
-            RightBtnPressTwo={() => this.props.navigation.navigate('Notification')}
+            RightBtnPressTwo={() =>
+              this.props.navigation.navigate("Notification")
+            }
             rightIconHeight2={hp(3)}
           />
 
@@ -384,18 +402,21 @@ class OrderHistoryDetail extends Component {
               // onRefresh={() => this.scrollDownToRefreshWishList()}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, index }) => (
-                <View key={'d' + index}>{this.OrderHistoryDetailComponent(item)}</View>
+                <View key={"d" + index}>
+                  {this.OrderHistoryDetailComponent(item)}
+                </View>
               )}
               keyExtractor={(item, index) => index.toString()}
             />
           )}
 
-          {summaryData && this.OrderDetailBottomTab(orderHistoryDetailsData.order_details)}
+          {summaryData &&
+            this.OrderDetailBottomTab(orderHistoryDetailsData.order_details)}
 
           {this.state.isImageModalVisibel && (
             <View>
               <Modal
-                style={{ justifyContent: 'center' }}
+                style={{ justifyContent: "center" }}
                 isVisible={this.state.isImageModalVisibel}
                 onRequestClose={() =>
                   this.setState({ isImageModalVisibel: false })
@@ -405,28 +426,33 @@ class OrderHistoryDetail extends Component {
                 }
                 onBackButtonPress={() =>
                   this.setState({ isImageModalVisibel: false })
-                }>
+                }
+              >
                 <SafeAreaView>
                   <View
                     style={{
                       height: hp(42),
-                      backgroundColor: 'white',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      backgroundColor: "white",
+                      alignItems: "center",
+                      justifyContent: "center",
                       borderRadius: 10,
-                    }}>
-                    <_Text fsMedium style={{ marginTop: hp(0.5), fontFamily: 'Lato-Bold' }}>
+                    }}
+                  >
+                    <_Text
+                      fsMedium
+                      style={{ marginTop: hp(0.5), fontFamily: "Lato-Bold" }}
+                    >
                       Code: {imageToBeDisplayed.product_id}
                     </_Text>
                     <View
                       style={{
                         marginTop: 5,
-                        borderBottomColor: 'gray',
+                        borderBottomColor: "gray",
                         borderBottomWidth: 1,
                         width: wp(90),
                       }}
                     />
-                    {imageToBeDisplayed.image_zoom != '' ?
+                    {imageToBeDisplayed.image_zoom != "" ? (
                       <Image
                         source={{ uri: imageToBeDisplayed.image_zoom }}
                         style={{
@@ -436,7 +462,7 @@ class OrderHistoryDetail extends Component {
                         }}
                         resizeMode="cover"
                       />
-                      :
+                    ) : (
                       <Image
                         source={IconPack.APP_LOGO}
                         style={{
@@ -446,7 +472,7 @@ class OrderHistoryDetail extends Component {
                         }}
                         resizeMode="contain"
                       />
-                    }
+                    )}
                   </View>
                 </SafeAreaView>
               </Modal>
@@ -461,51 +487,56 @@ class OrderHistoryDetail extends Component {
               onBackdropPress={() => this.setState({ detailModal: false })}
               onBackButtonPress={() => this.setState({ detailModal: false })}
               style={{
-                justifyContent: 'flex-end',
+                justifyContent: "flex-end",
                 marginBottom: hp(8),
                 marginLeft: 10,
                 marginRight: 10,
 
-                alignItems: 'center',
-              }}>
+                alignItems: "center",
+              }}
+            >
               <SafeAreaView>
                 <View
                   style={{
-                    backgroundColor: 'white',
-                    justifyContent: 'center',
+                    backgroundColor: "white",
+                    justifyContent: "center",
                     paddingHorizontal: hp(1),
                     borderColor: color.gray,
                     borderWidth: 0.5,
                     borderRadius: 10,
-                  }}>
+                  }}
+                >
                   <View
                     style={{
                       marginTop: 10,
                       marginHorizontal: 4,
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}>
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <Text
                       style={{
                         fontSize: 16,
-                        fontWeight: '400',
+                        fontWeight: "400",
                         color: color.brandColor,
-                      }}>
+                      }}
+                    >
                       Order History Summary
                     </Text>
 
                     <TouchableOpacity
                       hitSlop={{ top: 5, left: 5, bottom: 5, right: 5 }}
-                      onPress={() => this.setState({ detailModal: false })}>
+                      onPress={() => this.setState({ detailModal: false })}
+                    >
                       <Image
                         style={{
-                          alignSelf: 'flex-end',
+                          alignSelf: "flex-end",
                           height: hp(2),
                           width: hp(2),
                           marginTop: 3,
                         }}
-                        source={require('../../../assets/image/BlueIcons/Cross.png')}
+                        source={require("../../../assets/image/BlueIcons/Cross.png")}
                       />
                     </TouchableOpacity>
                   </View>
@@ -513,8 +544,8 @@ class OrderHistoryDetail extends Component {
                   <View
                     style={{
                       marginVertical: 8,
-                      borderBottomColor: 'gray',
-                      alignItems: 'center',
+                      borderBottomColor: "gray",
+                      alignItems: "center",
                       borderBottomWidth: 1,
                       width: wp(88),
                     }}
@@ -523,43 +554,62 @@ class OrderHistoryDetail extends Component {
                   <View
                     style={{
                       marginTop: 5,
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                    }}>
-                    <_Text fsPrimary fwSmall>Order No.</_Text>
-                    <_Text fsPrimary fwSmall>{summaryData.order_no}</_Text>
-
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <_Text fsPrimary fwSmall>
+                      Order No.
+                    </_Text>
+                    <_Text fsPrimary fwSmall>
+                      {summaryData.order_no}
+                    </_Text>
                   </View>
 
                   <View
                     style={{
                       marginTop: 5,
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                    }}>
-                    <_Text fsPrimary fwSmall>Total Items</_Text>
-                    <_Text fsPrimary fwSmall>{summaryData.total_items}</_Text>
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <_Text fsPrimary fwSmall>
+                      Total Items
+                    </_Text>
+                    <_Text fsPrimary fwSmall>
+                      {summaryData.total_items}
+                    </_Text>
                   </View>
 
                   <View
                     style={{
                       marginTop: 5,
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                    }}>
-                    <_Text fsPrimary fwSmall>Total weight</_Text>
-                    <_Text fsPrimary fwSmall>{summaryData.total_weight}</_Text>
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <_Text fsPrimary fwSmall>
+                      Total weight
+                    </_Text>
+                    <_Text fsPrimary fwSmall>
+                      {summaryData.total_weight}
+                    </_Text>
                   </View>
 
                   <View
                     style={{
                       marginTop: 5,
                       marginBottom: 10,
-                      justifyContent: 'space-between',
-                      flexDirection: 'row',
-                    }}>
-                    <_Text fsPrimary fwSmall>Order Date</_Text>
-                    <_Text fsPrimary fwSmall>{summaryData.order_date}</_Text>
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <_Text fsPrimary fwSmall>
+                      Order Date
+                    </_Text>
+                    <_Text fsPrimary fwSmall>
+                      {summaryData.order_date}
+                    </_Text>
                   </View>
                 </View>
               </SafeAreaView>
@@ -575,27 +625,27 @@ class OrderHistoryDetail extends Component {
 
 const styles = StyleSheet.create({
   textStyle: {
-    color: '#a3a3a3',
+    color: "#a3a3a3",
     fontSize: 13,
   },
   topContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 16,
     height: 36,
-    alignItems: 'center',
+    alignItems: "center",
   },
   titleText: {
     fontSize: 18,
-    color: '#11255a',
+    color: "#11255a",
   },
   closeIcon: {
     width: 20,
     height: 20,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   border: {
-    borderBottomColor: '#a3a3a3',
+    borderBottomColor: "#a3a3a3",
     borderBottomWidth: 0.3,
     marginHorizontal: 5,
   },
@@ -604,7 +654,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomLine: {
-    borderBottomColor: 'gray',
+    borderBottomColor: "gray",
     borderBottomWidth: 0.6,
     marginVertical: 5,
     marginTop: 5,
@@ -612,53 +662,54 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: hp(9),
     height: hp(17),
-    resizeMode: 'contain',
+    resizeMode: "contain",
     borderRadius: 5,
     marginLeft: -10,
   },
   cardContainer: {
-    width: '100%',
+    width: "100%",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     backgroundColor: color.green,
     height: 48,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   detailText: {
-    color: 'white',
+    color: "white",
   },
   container: {
     marginHorizontal: 16,
     marginTop: 6,
-    marginBottom: Platform.OS === 'ios' ? 10 : 15,
+    marginBottom: Platform.OS === "ios" ? 10 : 15,
     backgroundColor: color.white,
   },
   productIdText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
     ...Theme.ffLatoBold15,
-    color: '#000',
+    color: "#000",
+    marginLeft: -10,
   },
   subcontainerView: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   imgView: {
     flex: 1.1,
     height: 140,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   contentView: {
     flex: 3,
   },
   rowTextStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   contentText: {
-    color: '#808080',
+    color: "#808080",
   },
 });
 
@@ -684,13 +735,14 @@ function mapStateToProps(state) {
     totalCartCountData: state.homePageReducer.totalCartCountData,
 
     allParameterData: state.homePageReducer.allParameterData,
-    successAllParameterVersion: state.homePageReducer.successAllParameterVersion,
+    successAllParameterVersion:
+      state.homePageReducer.successAllParameterVersion,
     errorAllParamaterVersion: state.homePageReducer.errorAllParamaterVersion,
-
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { getOrderHistoryDetails, reOrderProduct, getTotalCartCount },
-)(OrderHistoryDetail);
+export default connect(mapStateToProps, {
+  getOrderHistoryDetails,
+  reOrderProduct,
+  getTotalCartCount,
+})(OrderHistoryDetail);

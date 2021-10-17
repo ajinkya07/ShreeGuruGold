@@ -152,7 +152,7 @@ class AccountContainer extends Component {
 
   showAppVersion = () => {
     Toast.show({
-      text: "App version:  " + "1.0.0",
+      text: "App version:  " + "1.0.2",
       duration: 2000,
     });
   };
